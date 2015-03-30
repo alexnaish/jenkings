@@ -12,7 +12,7 @@ gulp.task('start-app', function(cb) {
     if (app) {
         app.kill();
     }
-    app = spawn('iojs', ['api/index.js'], {stdio: 'inherit'})
+    app = spawn('node', ['api/index.js'], {stdio: 'inherit'})
     app.on('close', function (code) {
         if (code === 8) {
             console.log('Error detected, waiting for changes...');
