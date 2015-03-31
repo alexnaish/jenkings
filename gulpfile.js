@@ -8,7 +8,10 @@ gulp.task('test', function () {
         .pipe(mocha({reporter: 'nyan'}));
 });
 
-gulp.task('start-app', function(cb) {
+gulp.task('start-app', function() {
+    
+    console.log('actually restarting?');
+    
     if (app) {
         app.kill();
     }
@@ -20,13 +23,11 @@ gulp.task('start-app', function(cb) {
     });
 });
 
-gulp.task('default', function () {
-    gulp.start('start-app');
-    gulp.watch(['api/index.js', 'api/**/*.js'], function() {
-        gulp.start('start-app');
-    });
-    
+gulp.task('watch', function() {
+    gulp.watch('./api/**/*.js', ['start-app']);
 });
+
+gulp.task('default', ['start-app', 'watch']);
 
 process.on('exit', function() {
     if (app) app.kill()

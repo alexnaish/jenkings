@@ -1,6 +1,7 @@
 var express = require('express'),
     mongoose = require('mongoose'),
     router = require('./router'),
+    scheduler = require('./scheduler'),
     app = express(),
     port = 1337;
 
@@ -13,6 +14,8 @@ app.get('*', function(req, res, next) {
     res.end();
 });
 
-mongoose.connect('mongodb://iceberg:kernel@localhost/iceberg_development');
+mongoose.connect('mongodb://jenkings-user:kernel@localhost/jenkings');
+
+scheduler.run();
 
 app.listen(port);
