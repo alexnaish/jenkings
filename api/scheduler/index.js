@@ -17,7 +17,6 @@ module.exports = {
                     console.log('--------------------------');
                     console.log('my Job Name', result.name );
                     console.log('my Job Builds', result.builds );
-                    console.log('my Job Colour', result.color );
                     console.log('--------------------------');
                 } else {
                     console.log('There was an error!', response.statusCode);   
@@ -28,6 +27,6 @@ module.exports = {
         }).then(function() {
             console.log("we're done!");
         });
-        }
+    }
 
-    };
+};

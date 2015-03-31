@@ -9,9 +9,7 @@ gulp.task('test', function () {
 });
 
 gulp.task('start-app', function() {
-    
-    console.log('actually restarting?');
-    
+
     if (app) {
         app.kill();
     }
