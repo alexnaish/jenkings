@@ -14,7 +14,7 @@ app.get('*', function(req, res, next) {
     res.end();
 });
 
-//mongoose.connect('mongodb://jenkingsuser:jenkernel@jenkings-3492.mongo.dbs.appsdeck.eu:30310/jenkings-3492');
+mongoose.connect(process.env.MONGO_URL);
 
 //scheduler.run();
 
