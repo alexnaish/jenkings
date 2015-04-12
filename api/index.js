@@ -18,7 +18,7 @@ app.get('*', function(req, res, next) {
 
 //scheduler.run();
 
-app.listen(port, "localhost", function(error){
+app.listen(port, function(error){
     if(error){
         console.error('Unable to bind to port: ', port, error);
     } else {
