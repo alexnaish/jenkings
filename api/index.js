@@ -3,7 +3,7 @@ var express = require('express'),
     router = require('./router'),
     scheduler = require('./scheduler'),
     app = express(),
-    port = 1337;
+    port = process.env.PORT  || 1337;
 
 app.use(express.static(__dirname + '/public'));
 
@@ -18,4 +18,10 @@ mongoose.connect('mongodb://jenkingsuser:jenkernel@jenkings-3492.mongo.dbs.appsd
 
 //scheduler.run();
 
-app.listen(port);
+app.listen(port, "localhost", function(error){
+    if(error){
+        console.error('Unable to bind to port: ', port, error);
+    } else {
+        console.log('listening on port: ', port);
+    }
+});
