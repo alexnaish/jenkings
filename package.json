@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "NowTV Jenkins Branch Monitor",
   "main": "api/index.js",
+  "scripts": {
+   "start": "node api/index.js"
+  },
   "author": "Alex Naish",
   "dependencies": {
     "express": "^4.12.3",
