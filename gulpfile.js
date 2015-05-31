@@ -13,6 +13,8 @@ gulp.task('start-app', function() {
     if (app) {
         app.kill();
     }
+    
+    process.env.NODE_ENV = 'development';
     app = spawn('node', ['api/index.js'], {stdio: 'inherit'})
     app.on('close', function (code) {
         if (code === 8) {

@@ -1,7 +1,7 @@
 var express = require('express'),
     mongoose = require('mongoose'),
     router = require('./router'),
-    scheduler = require('./scheduler'),
+    config = require('config'),
     app = express(),
     port = process.env.PORT  || 1337;
 
@@ -14,9 +14,10 @@ app.get('*', function(req, res, next) {
     res.end();
 });
 
-mongoose.connect(process.env.MONGO_URL);
+//mongoose.connect(process.env.MONGO_URL);
 
-//scheduler.run();
+
+console.log('my env:', process.env.NODE_ENV);
 
 app.listen(port, function(error){
     if(error){
@@ -25,3 +26,5 @@ app.listen(port, function(error){
         console.log('listening on port: ', port);
     }
 });
+
+console.log('CWD: '+ process.cwd());

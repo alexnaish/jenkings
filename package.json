@@ -4,7 +4,7 @@
   "description": "NowTV Jenkins Branch Monitor",
   "main": "api/index.js",
   "scripts": {
-   "start": "node api/index.js"
+    "start": "node api/index.js"
   },
   "author": "Alex Naish",
   "dependencies": {
@@ -12,7 +12,8 @@
     "forEachAsync": "~2.2.0",
     "gulp": "^3.8.11",
     "mongoose": "^4.0.0",
-    "request": "^2.54.0"
+    "request": "^2.54.0",
+    "config": "~1.13.0"
   },
   "devDependencies": {
     "gulp-mocha": "^2.0.1"
