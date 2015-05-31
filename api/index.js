@@ -14,7 +14,7 @@ app.get('*', function(req, res, next) {
     res.end();
 });
 
-//mongoose.connect(process.env.MONGO_URL);
+mongoose.connect("mongodb://" +config.mongo.host);
 
 
 console.log('my env:', process.env.NODE_ENV);
