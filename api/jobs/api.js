@@ -1,30 +1,32 @@
-var JobRun = require('./model');
+var JobService = require('./service');
 
 module.exports = {
 
     listAllJobs: function (req, res, next) {
-        JobRun.find(function (err, results) {
-            if (err) console.log('listAllJobs err', err);
-            res.json(results);
+        JobService.find({}, {
+            dateCreated: -1
+        }, function (statusCode, results) {
+            res.status(statusCode).json(results);
         });
     },
 
     getJobInformation: function (req, res, next) {
-        JobRun.find({
+        JobService.find({
             jobName: req.params.name
-        }, function (err, results) {
-            if (err) {
-                console.log('getJobInformation err', err);
-                res.status(500).json(err);
-            } else {
-                res.status(200).json(results);
-            }
+        }, {
+            dateCreated: -1
+        }, function (statusCode, results) {
+            res.status(statusCode).json(results);
         });
     },
 
     getJobRunInformation: function (req, res, next) {
-        res.send(req.params);
-        res.end();
+        JobService.findSpecific({
+            jobName: req.params.name,
+            buildId: req.params.buildId
+        }, function (statusCode, results) {
+            res.status(statusCode).json(results);
+        });
     },
 
     createNewJobRun: function (req, res, next) {
