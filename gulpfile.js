@@ -4,23 +4,25 @@ var gulp = require('gulp'),
     app;
 
 gulp.task('mocha', function () {
+    process.env.NODE_ENV = 'development';
     return gulp.src('./api/**/*.spec.js')
         .pipe(mocha({
             ui: 'bdd',
-            reporter: 'nyan'
+            reporter: 'spec',
+            globals: {
+                app: require('./api/index.js')
+            }
         }))
-        .once('error', function () {
-            process.exit(1);
-        })
         .once('end', function () {
-            //process.exit();
-        })
+            process.exit();
+        });
 });
 
 gulp.task('nodemon', function () {
     process.env.NODE_ENV = 'development';
     nodemon({
-            script: "./api/index.js"
+            script: "./api/index.js",
+            ignore: ['./api/**/*.spec.js']
         })
         .on('restart', function () {
             console.log('restarted!');
@@ -32,4 +34,4 @@ gulp.task('watch', function () {
 });
 
 gulp.task('default', ['nodemon', 'watch']);
-gulp.task('test', ['nodemon', 'mocha']);
+gulp.task('test', ['mocha']);

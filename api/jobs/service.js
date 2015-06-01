@@ -14,8 +14,10 @@ module.exports = {
             }
         });
     },
-    findSpecific: function (query, callback) {
-        JobRun.find(query, function (err, results) {
+    findSpecific: function (query, sortObject, callback) {
+        JobRun.find(query, null, {
+            sort: sortObject
+        }, function (err, results) {
             if (err) {
                 console.log('JobRun findSpecific err', err, query);
                 callback(500, null);

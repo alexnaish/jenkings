@@ -8,6 +8,13 @@ var config = require('config'),
 
 module.exports = app = express();
 
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function (callback) {
+    console.log('database connection established');
+});
+mongoose.connect("mongodb://" + config.mongo.user + ":" + config.mongo.pass + "@" + config.mongo.host + "/" + config.mongo.db);
+
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({
     extended: true
@@ -27,13 +34,6 @@ app.get('*', function (req, res, next) {
     res.send('Jenkings Root');
     res.end();
 });
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function (callback) {
-    console.log('database connection established');
-});
-mongoose.connect("mongodb://" + config.mongo.user + ":" + config.mongo.pass + "@" + config.mongo.host + "/" + config.mongo.db);
 
 console.log('my env:', process.env.NODE_ENV);
 app.listen(port, function (error) {

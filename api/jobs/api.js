@@ -17,7 +17,7 @@ module.exports = {
     },
 
     getJobInformation: function (req, res, next) {
-        JobService.find({
+        JobService.findSpecific({
             jobName: req.params.name
         }, {
             dateCreated: -1
@@ -30,7 +30,7 @@ module.exports = {
         JobService.findSpecific({
             jobName: req.params.name,
             buildId: req.params.buildId
-        }, function (statusCode, results) {
+        }, {}, function (statusCode, results) {
             res.status(statusCode).json(results);
         });
     },
