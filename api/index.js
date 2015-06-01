@@ -28,7 +28,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
   console.log('database connection established');
 });
-mongoose.connect("mongodb://" +config.mongo.host);
+mongoose.connect("mongodb://"+config.mongo.user+ ":" +config.mongo.pass+ "@" +config.mongo.host+"/"+config.mongo.db);
 
 console.log('my env:', process.env.NODE_ENV);
 app.listen(port, function(error){

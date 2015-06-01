@@ -2,19 +2,24 @@ var mongoose = require('mongoose');
 
 var jobSchema = mongoose.Schema({
     jobName: {
-        type: String
+        type: String,
+        required: true
     },
     buildId: {
-        type: String
+        type: String,
+        required: true
     },
     dateCreated: {
-        type: Date, default: Date.now
+        type: Date,
+        default: Date.now
     },
     successful: {
-        type: Boolean
+        type: Boolean,
+        required: true
     },
     branch: {
-        type: String
+        type: String,
+        required: true
     },
     node: {
         type: String
