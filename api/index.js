@@ -9,13 +9,22 @@ app.use(express.static(__dirname + '/public'));
 
 router.apply(app);
 
+app.get('/config', function(req, res, next) {
+    res.json(config);
+});
+
 app.get('*', function(req, res, next) {
     res.send('Jenkings Root');
     res.end();
 });
 
-mongoose.connect("mongodb://" +config.mongo.host);
 
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function (callback) {
+  // yay!
+});
+mongoose.connect("mongodb://" +config.mongo.host);
 
 console.log('my env:', process.env.NODE_ENV);
 

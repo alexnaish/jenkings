@@ -1,3 +1,3 @@
-var prodConfig = require('production');
+var prodConfig = require('./production');
 
 module.exports = prodConfig;
