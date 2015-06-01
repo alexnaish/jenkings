@@ -22,7 +22,7 @@ app.get('*', function(req, res, next) {
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
-  // yay!
+  console.log('database connection established');
 });
 mongoose.connect("mongodb://" +config.mongo.host);
 
