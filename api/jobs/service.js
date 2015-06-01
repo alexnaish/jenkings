@@ -7,7 +7,7 @@ module.exports = {
             sort: sortObject
         }, function (err, results) {
             if (err) {
-                console.log('listAllJobs err', err);
+                console.log('JobRun find err', err, query);
                 callback(500, null);
             } else {
                 callback(200, results);
@@ -17,7 +17,7 @@ module.exports = {
     findSpecific: function (query, callback) {
         JobRun.find(query, function (err, results) {
             if (err) {
-                console.log('listAllJobs err', err);
+                console.log('JobRun findSpecific err', err, query);
                 callback(500, null);
             } else {
                 if (results && results.length === 0) {
@@ -27,7 +27,25 @@ module.exports = {
                 }
             }
         });
+    },
+    create: function (payload, callback) {
+        new JobRun(req.body).save(function (err, result) {
+            if (err) {
+                console.log('JobRun create err', err, payload);
+                callback(403, null);
+            } else {
+                callback(201, result);
+            }
+        });
+    },
+    delete: function (query, callback) {
+        JobRun.remove(query, function (err, count) {
+            if (err) {
+                console.log('JobRun delete err', err, query);
+                callback(500, null);
+            } else {
+                callback(204, result);
+            }
+        });
     }
-
-
 };

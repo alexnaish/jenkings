@@ -10,6 +10,12 @@ module.exports = {
         });
     },
 
+    createNewJobRun: function (req, res, next) {
+        JobService.create(req.body, function (statusCode, response) {
+            res.status(statusCode).json(response);
+        });
+    },
+
     getJobInformation: function (req, res, next) {
         JobService.find({
             jobName: req.params.name
@@ -29,20 +35,13 @@ module.exports = {
         });
     },
 
-    createNewJobRun: function (req, res, next) {
-        new JobRun(req.body).save(function (err, result) {
-            if (err) {
-                console.log('createNewJobRun err', err);
-                res.status(403).json(err);
-            } else {
-                res.status(201).json(result);
-            }
-        });
-    },
-
     deleteJobRun: function (req, res, next) {
-        res.send(req.params);
-        res.end();
+        JobService.delete({
+            jobName: req.params.name,
+            buildId: req.params.buildId
+        }, function (statusCode, response) {
+            res.status(statusCode).json(response);
+        });
     }
 
 
