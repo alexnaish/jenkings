@@ -1,14 +1,14 @@
 var mongoose = require('mongoose');
 
 var jobSchema = mongoose.Schema({
-    job: {
+    jobName: {
         type: String
     },
     buildId: {
         type: String
     },
     dateCreated: {
-        type: Date
+        type: Date, default: Date.now
     },
     successful: {
         type: Boolean
