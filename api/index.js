@@ -6,7 +6,9 @@ var config = require('config'),
     router = require('./router'),
     port = process.env.PORT || 1337;
 
-module.exports = app = express();
+var app = express();
+
+module.exports = app;
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -25,6 +27,7 @@ app.use(morgan('dev', {
         return req.url === '/favicon.ico'
     }
 }));
+app.disable('x-powered-by');
 
 router.apply(app);
 app.get('/config', function (req, res, next) {

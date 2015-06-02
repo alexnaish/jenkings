@@ -1,21 +1,34 @@
 var gulp = require('gulp'),
     mocha = require('gulp-mocha'),
+    istanbul = require('gulp-istanbul'),
     nodemon = require('gulp-nodemon'),
     app;
 
 gulp.task('mocha', function () {
     process.env.NODE_ENV = 'development';
-    return gulp.src('./api/**/*.spec.js')
-        .pipe(mocha({
-            ui: 'bdd',
-            reporter: 'spec',
-            globals: {
-                app: require('./api/index.js')
-            }
-        }))
-        .once('end', function () {
-            process.exit();
+    gulp.src(['./api/**/*.js', '!./api/**/*.spec.js', '!./api/index.js'])
+        .pipe(istanbul()) // Covering files
+        .pipe(istanbul.hookRequire()) // Force `require` to return covered files
+        .on('finish', function () {
+            gulp.src('./api/**/*.spec.js')
+                .pipe(mocha({
+                    ui: 'bdd',
+                    reporter: 'spec'
+                }))
+                .pipe(istanbul.writeReports({
+                    reporters: ['html', 'text', 'text-summary']
+                }))
+                .pipe(istanbul.enforceThresholds({
+                    thresholds: {
+                        global: 85
+                    }
+                }))
+                .once('end', function () {
+                    process.exit();
+                });
         });
+
+
 });
 
 gulp.task('nodemon', function () {
