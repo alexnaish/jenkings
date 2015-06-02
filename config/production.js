@@ -11,5 +11,10 @@ module.exports = {
         secret: "00527929f69bb53685fc",
         channel: "jenkins",
         event: "job-run"
+    },
+    git: {
+        domain: "https://gitlab.nowtv.bskyb.com",
+        token: "fHddn8qV87AWosfhGz5r",
+        project: "iceberg"
     }
 };

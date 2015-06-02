@@ -1,34 +1,37 @@
 var gulp = require('gulp'),
     mocha = require('gulp-mocha'),
-    spawn = require('child_process').spawn,
+    nodemon = require('gulp-nodemon'),
     app;
- 
-gulp.task('test', function () {
-    return gulp.src('api/*/*.spec.js', {read: false})
-        .pipe(mocha({reporter: 'nyan'}));
-});
 
-gulp.task('start-app', function() {
-
-    if (app) {
-        app.kill();
-    }
-    
+gulp.task('mocha', function () {
     process.env.NODE_ENV = 'development';
-    app = spawn('node', ['api/index.js'], {stdio: 'inherit'})
-    app.on('close', function (code) {
-        if (code === 8) {
-            console.log('Error detected, waiting for changes...');
-        }
-    });
+    return gulp.src('./api/**/*.spec.js')
+        .pipe(mocha({
+            ui: 'bdd',
+            reporter: 'spec',
+            globals: {
+                app: require('./api/index.js')
+            }
+        }))
+        .once('end', function () {
+            process.exit();
+        });
 });
 
-gulp.task('watch', function() {
-    gulp.watch('./api/**/*.js', ['start-app']);
+gulp.task('nodemon', function () {
+    process.env.NODE_ENV = 'development';
+    nodemon({
+            script: "./api/index.js",
+            ignore: ['./api/**/*.spec.js']
+        })
+        .on('restart', function () {
+            console.log('restarted!');
+        });
 });
 
-gulp.task('default', ['start-app', 'watch']);
+gulp.task('watch', function () {
+    gulp.watch('./api/**/*.js');
+});
 
-process.on('exit', function() {
-    if (app) app.kill()
-})
+gulp.task('default', ['nodemon', 'watch']);
+gulp.task('test', ['mocha']);
