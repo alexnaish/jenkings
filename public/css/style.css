@@ -1,286 +1,171 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700);
-* {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400; }
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block; }
 
 body {
-  color: #fff; }
+  line-height: 1; }
 
-a {
-  color: #fff;
-  text-decoration: none; }
+ol,
+ul {
+  list-style: none; }
 
-header ul {
+blockquote,
+q {
+  quotes: none; }
+
+blockquote:before, blockquote:after {
+  content: "";
+  content: none; }
+
+q:before, q:after {
+  content: "";
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+html {
+  font-family: 'Roboto';
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh; }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.grid {
   width: 100%;
-  padding: 20px;
-  list-style: none;
-  display: flex;
-  background: #272e38; }
-  header ul li {
-    font-weight: 300;
-    font-size: 14px;
-    padding: 0 10px;
-    position: relative; }
-    header ul li a {
-      color: #606770;
-      transition: all 0.25s ease; }
-      header ul li a:hover {
-        color: #fff; }
-    header ul li:after {
-      content: '/';
-      position: absolute;
-      right: -2px;
-      color: #fff; }
-    header ul li:last-of-type:after {
-      content: ' '; }
+  margin: 0 auto;
+  height: 100%; }
+  .grid:after {
+    /* Or @extend clearfix */
+    content: "";
+    display: table;
+    clear: both; }
 
-header .credits {
-  font-size: 14px;
-  background: transparent;
-  color: #606770;
-  text-align: right;
-  padding-right: 10px; }
+[class*='col-'],
+.row {
+  float: left; }
+  .grid [class*='col-']:last-of-type,
+  .grid .row:last-of-type {
+    padding-right: 0; }
 
-.content {
-  position: relative; }
-  .content .caption {
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
-    margin-top: 80px; }
-    .content .caption h1 {
-      line-height: 60px;
-      font-size: 60px;
-      text-decoration: underline;
-      text-transform: uppercase;
-      letter-spacing: .2em;
-      text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
-      margin-bottom: 5px; }
-      .content .caption h1:first-of-type {
-        letter-spacing: 0; }
-    .content .caption span {
-      font-weight: 100;
-      display: block;
-      letter-spacing: .4em;
-      font-size: 16px; }
-  .content nav.main-nav {
-    position: fixed;
-    bottom: 0;
-    width: 100%; }
-    .content nav.main-nav ul {
-      width: 100%;
-      display: flex;
-      list-style: none; }
-      .content nav.main-nav ul li {
-        background: #272e38;
-        flex-grow: 1;
-        text-align: center;
-        padding-bottom: 20px;
-        height: 180px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        margin-top: 0;
-        transition: all 0.25s ease;
-        position: relative;
-        border-right: 1px solid #606770;
-        box-shadow: 0 5px 0 0 #1a1f27; }
-        .content nav.main-nav ul li:last-of-type {
-          border-right: none; }
-        .content nav.main-nav ul li:hover {
-          margin-top: -5px;
-          cursor: pointer; }
-        .content nav.main-nav ul li.active {
-          margin-top: -50px;
-          position: relative;
-          box-shadow: -1px 0 0 0 #606770; }
-          .content nav.main-nav ul li.active:before {
-            content: ' ';
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 0 20px 20px 20px;
-            border-color: transparent transparent #272e38 transparent;
-            margin: auto;
-            top: -20px;
-            left: 0;
-            right: 0; }
-        .content nav.main-nav ul li .icon {
-          margin-bottom: 30px; }
-        .content nav.main-nav ul li .menuicon {
-          position: absolute;
-          top: 10px;
-          left: 10px;
-          font-size: 16px;
-          color: #606770;
-          transition: all 0.25s ease; }
-          .content nav.main-nav ul li .menuicon:hover {
-            color: #fff; }
-        .content nav.main-nav ul li .ul-menu {
-          position: absolute;
-          bottom: -150%;
-          left: 0;
-          width: 100%;
-          height: 180px;
-          background: #1a1f27;
-          display: block;
-          padding: 10px 0;
-          transition: all 0.25s ease; }
-          .content nav.main-nav ul li .ul-menu:hover {
-            cursor: default; }
-          .content nav.main-nav ul li .ul-menu .ul-menu-close {
-            width: 20px;
-            height: 20px;
-            color: #606770;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            transition: all 0.25s ease; }
-            .content nav.main-nav ul li .ul-menu .ul-menu-close:hover {
-              color: #fff;
-              cursor: pointer; }
-          .content nav.main-nav ul li .ul-menu p {
-            margin-bottom: 20px; }
-          .content nav.main-nav ul li .ul-menu ul {
-            list-style: none;
-            display: flex;
-            margin-bottom: 20px; }
-            .content nav.main-nav ul li .ul-menu ul li {
-              border-bottom: none;
-              background: transparent;
-              flex-grow: 1;
-              text-align: center;
-              padding-bottom: 0;
-              height: auto;
-              flex-direction: column;
-              justify-content: flex-start;
-              margin-top: 0;
-              transition: all 0.25s ease;
-              position: relative;
-              border-right: none;
-              box-shadow: none;
-              padding: 5px 0; }
-              .content nav.main-nav ul li .ul-menu ul li:nth-of-type(2) {
-                border-left: 1px solid #606770;
-                border-right: 1px solid #606770; }
-              .content nav.main-nav ul li .ul-menu ul li:hover {
-                background: #272e38; }
-          .content nav.main-nav ul li .ul-menu input[type="range"] {
-            -webkit-appearance: none !important;
-            width: 60%;
-            height: 5px;
-            background: #fff;
-            border: 1px solid #606770;
-            border-radius: 50%;
-            margin: auto;
-            transition: all 0.3s ease;
-            outline: none;
-            display: block;
-            margin-bottom: 5px; }
-          .content nav.main-nav ul li .ul-menu input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none !important;
-            width: 20px;
-            height: 20px;
-            background: #515f74;
-            border-radius: 30px;
-            transition: all 0.5s ease; }
-          .content nav.main-nav ul li .ul-menu output {
-            display: block;
-            marign-bottom: 10px; }
-          .content nav.main-nav ul li .ul-menu button {
-            height: 20px;
-            padding: 0 10px;
-            outline: none;
-            border: none;
-            background: #3e87ec;
-            color: #fff;
-            font-size: 14px; }
+.row {
+  width: 100%; }
 
-/********************************
-Background gradients & images
-********************************/
-.content nav.main-nav ul li.active.weather {
-  background: #00fe9e;
-  /* Old browsers */
-  background: url("http://www.tums-mc.de/img/points1.png"), -moz-linear-gradient(-45deg, #00fe9e 30%, #acff3d 70%);
-  /* FF3.6+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), -webkit-gradient(linear, left top, right bottom, color-stop(30%, #00fe9e), color-stop(70%, #acff3d));
-  /* Chrome,Safari4+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), -webkit-linear-gradient(-45deg, #00fe9e 30%, #acff3d 70%);
-  /* Chrome10+,Safari5.1+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), -o-linear-gradient(-45deg, #00fe9e 30%, #acff3d 70%);
-  /* Opera 11.10+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), -ms-linear-gradient(-45deg, #00fe9e 30%, #acff3d 70%);
-  /* IE10+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), linear-gradient(135deg, #00fe9e 30%, #acff3d 70%);
-  /* W3C */ }
+.col-2-3 {
+  width: 66%; }
 
-.content nav.main-nav ul li.active.gallery {
-  background: #bbc0f7;
-  /* Old browsers */
-  background-image: url("http://www.tums-mc.de/img/points1.png"), -moz-linear-gradient(-45deg, #bbc0f7 30%, #2afcef 70%);
-  /* FF3.6+ */
-  background-image: url("http://www.tums-mc.de/img/points1.png"), -webkit-gradient(linear, left top, right bottom, color-stop(30%, #bbc0f7), color-stop(70%, #2afcef));
-  /* Chrome,Safari4+ */
-  background-image: url("http://www.tums-mc.de/img/points1.png"), -webkit-linear-gradient(-45deg, #bbc0f7 30%, #2afcef 70%);
-  /* Chrome10+,Safari5.1+ */
-  background-image: url("http://www.tums-mc.de/img/points1.png"), -o-linear-gradient(-45deg, #bbc0f7 30%, #2afcef 70%);
-  /* Opera 11.10+ */
-  background-image: url("http://www.tums-mc.de/img/points1.png"), -ms-linear-gradient(-45deg, #bbc0f7 30%, #2afcef 70%);
-  /* IE10+ */
-  background-image: url("http://www.tums-mc.de/img/points1.png"), linear-gradient(135deg, #bbc0f7 30%, #2afcef 70%);
-  /* W3C */ }
+.col-1-3 {
+  width: 33%; }
 
-.content nav.main-nav ul li.active.history {
-  background: #e535e2;
-  /* Old browsers */
-  background: url("http://www.tums-mc.de/img/points1.png"), -moz-linear-gradient(-45deg, #e535e2 30%, #fe665b 70%);
-  /* FF3.6+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), -webkit-gradient(linear, left top, right bottom, color-stop(30%, #e535e2), color-stop(70%, #fe665b));
-  /* Chrome,Safari4+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), -webkit-linear-gradient(-45deg, #e535e2 30%, #fe665b 70%);
-  /* Chrome10+,Safari5.1+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), -o-linear-gradient(-45deg, #e535e2 30%, #fe665b 70%);
-  /* Opera 11.10+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), -ms-linear-gradient(-45deg, #e535e2 30%, #fe665b 70%);
-  /* IE10+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), linear-gradient(135deg, #e535e2 30%, #fe665b 70%);
-  /* W3C */ }
+.col-1-2 {
+  width: 50%; }
 
-.content nav.main-nav ul li.active.likes {
-  background: #1bc3ff;
-  /* Old browsers */
-  background: url("http://www.tums-mc.de/img/points1.png"), -moz-linear-gradient(-45deg, #1bc3ff 30%, #48ded2 70%);
-  /* FF3.6+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), -webkit-gradient(linear, left top, right bottom, color-stop(30%, #1bc3ff), color-stop(70%, #48ded2));
-  /* Chrome,Safari4+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), -webkit-linear-gradient(-45deg, #1bc3ff 30%, #48ded2 70%);
-  /* Chrome10+,Safari5.1+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), -o-linear-gradient(-45deg, #1bc3ff 30%, #48ded2 70%);
-  /* Opera 11.10+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), -ms-linear-gradient(-45deg, #1bc3ff 30%, #48ded2 70%);
-  /* IE10+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), linear-gradient(135deg, #1bc3ff 30%, #48ded2 70%);
-  /* W3C */ }
+.col-1-4 {
+  width: 25%; }
 
-.content nav.main-nav ul li.active.comments {
-  background: #fecd32;
-  /* Old browsers */
-  background: url("http://www.tums-mc.de/img/points1.png"), -moz-linear-gradient(-45deg, #fecd32 30%, #f75e73 70%);
-  /* FF3.6+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), -webkit-gradient(linear, left top, right bottom, color-stop(30%, #fecd32), color-stop(70%, #f75e73));
-  /* Chrome,Safari4+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), -webkit-linear-gradient(-45deg, #fecd32 30%, #f75e73 70%);
-  /* Chrome10+,Safari5.1+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), -o-linear-gradient(-45deg, #fecd32 30%, #f75e73 70%);
-  /* Opera 11.10+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), -ms-linear-gradient(-45deg, #fecd32 30%, #f75e73 70%);
-  /* IE10+ */
-  background: url("http://www.tums-mc.de/img/points1.png"), linear-gradient(135deg, #fecd32 30%, #f75e73 70%);
-  /* W3C */ }
+.col-1-8 {
+  width: 12.5%; }
