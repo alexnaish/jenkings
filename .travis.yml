@@ -2,7 +2,7 @@ language: node_js
 services:
   - mongodb
 before_script:
-  - sleep 19
+  - sleep 10
   - mongo jenkings --eval 'db.addUser("jenkings", "kernel");'
 node_js:
   - "0.12"
