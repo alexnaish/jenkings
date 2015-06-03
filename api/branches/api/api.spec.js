@@ -64,6 +64,10 @@ describe('Branch API ', function () {
                     if (err) done(err);
                     console.log('res.body', res.body);
                     expect(res.body).to.be.length(branchCount);
+                    expect(res.body).to.contain('master');
+                    expect(res.body).to.contain('test-branch');
+                    expect(res.body).to.contain('upgrade_pro');
+                    expect(res.body).to.contain('491_test');
                     done();
                 });
         });
