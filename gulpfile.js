@@ -27,8 +27,6 @@ gulp.task('mocha', function () {
                     process.exit();
                 });
         });
-
-
 });
 
 gulp.task('nodemon', function () {

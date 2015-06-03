@@ -1,6 +1,6 @@
 var sinon = require('sinon'),
-    JobService = require('./service'),
-    JobRun = require('./model'),
+    JobService = require('../service/'),
+    JobRun = require('../model'),
     expect = require('chai').expect;
 
 describe('Job Service', function () {

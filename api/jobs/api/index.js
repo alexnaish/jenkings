@@ -1,4 +1,4 @@
-var JobService = require('./service');
+var JobService = require('../service/');
 
 module.exports = {
 

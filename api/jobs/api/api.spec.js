@@ -1,8 +1,8 @@
-var utils = require('../../test/utils'),
-    helpers = require('../../test/functions'),
-    app = require('../index'),
-    JobModel = require('./model'),
-    JobService = require('./service'),
+var utils = require('../../../test/utils'),
+    helpers = require('../../../test/functions'),
+    app = require('../../index'),
+    JobModel = require('../model'),
+    JobService = require('../service/'),
     expect = require('chai').expect,
     request = require('supertest')(app);
 

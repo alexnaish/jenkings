@@ -1,4 +1,4 @@
-var JobRun = require('./model');
+var JobRun = require('../model');
 
 module.exports = {
 

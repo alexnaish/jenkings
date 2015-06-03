@@ -1,4 +1,4 @@
-var api = require('./api');
+var api = require('./api/');
 
 module.exports = {
 
