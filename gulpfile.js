@@ -2,6 +2,7 @@ var gulp = require('gulp'),
     mocha = require('gulp-mocha'),
     istanbul = require('gulp-istanbul'),
     nodemon = require('gulp-nodemon'),
+    sass = require('gulp-sass'),
     app;
 
 gulp.task('mocha', function () {
@@ -40,9 +41,20 @@ gulp.task('nodemon', function () {
         });
 });
 
+gulp.task('sass', function () {
+    gulp.src('./sass/style.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('./public/css/'));
+});
+
+gulp.task('sass:watch', function () {
+    gulp.watch('./sass/**/*.scss', ['sass']);
+});
+
+
 gulp.task('watch', function () {
     gulp.watch('./api/**/*.js');
 });
 
-gulp.task('default', ['nodemon', 'watch']);
+gulp.task('default', ['nodemon', 'watch', 'sass:watch']);
 gulp.task('test', ['mocha']);

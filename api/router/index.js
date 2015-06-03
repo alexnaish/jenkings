@@ -1,8 +1,10 @@
-var jobs = require('../jobs/routing');
+var jobs = require('../jobs/routing'),
+    branches = require('../branches/routing');
 
 module.exports = {
-    
-    apply: function(app) {
+
+    apply: function (app) {
         jobs.apply(app);
+        branches.apply(app);
     }
 };

@@ -17,7 +17,7 @@ db.once('open', function (callback) {
 });
 mongoose.connect("mongodb://" + config.mongo.user + ":" + config.mongo.pass + "@" + config.mongo.host + "/" + config.mongo.db);
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/../public'));
 app.use(bodyParser.urlencoded({
     extended: true
 }));

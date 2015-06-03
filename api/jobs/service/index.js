@@ -7,7 +7,6 @@ module.exports = {
             sort: sortObject
         }, function (err, results) {
             if (err) {
-                console.log('JobRun find err', err, query);
                 callback(500, err);
             } else {
                 callback(200, results);
@@ -19,7 +18,6 @@ module.exports = {
             sort: sortObject
         }, function (err, results) {
             if (err) {
-                console.log('JobRun findSpecific err', err, query);
                 callback(500, err);
             } else {
                 if (results && results.length === 0) {
@@ -33,7 +31,6 @@ module.exports = {
     create: function (payload, callback) {
         new JobRun(payload).save(function (err, result) {
             if (err) {
-                console.log('JobRun create err', err.name, err.message, payload);
                 callback(403, {
                     message: err.name + ": " + err.message,
                     errors: Object.keys(err.errors)
@@ -46,7 +43,6 @@ module.exports = {
     delete: function (query, callback) {
         JobRun.remove(query, function (err, count) {
             if (err) {
-                console.log('JobRun delete err', err, query);
                 callback(500, err);
             } else {
                 callback(204, {
