@@ -3,30 +3,134 @@
 <head>
     <title>Jenkings Dashboard</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular.min.js"></script>
 </head>
 
 <body>
-    <header>
-        <ul class="title">
-            <li>
-                <a href="#">Jenkings Dashboard</a>
-            </li>
-            <li>
-                <a href="#">Home</a>
-            </li>
-        </ul>
-        <div class="credits">
-            Built by <a href="http://alexnaish.co.uk">Alex Naish</a>
+    <header class="top-bar">
+        <div class="top-title">
+            <a href="/"><i class="fa fa-circle-o-notch fa-spin"></i> Jenkings</a>
         </div>
     </header>
-    <div class="grid">
-        <div class="row">
-            <div class="col-1-3" style="background-color: #86c0e3;">red</div>
-            <div class="col-1-3" style="background-color: #7ab885;">blue</div>
-            <div class="col-1-3" style="background-color: #e2a267;">green</div>
+    <div class="main">
+        <aside class="side-bar">
+            <header>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-green"> Switch Branch
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Project</a>
+                        </li>
+                        <li><a href="#">Another Project</a>
+                        </li>
+                        <li><a href="#">More Projects</a>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <nav>
+                <ul class="nav">
+                    <li>
+                        <a class="active"><i class="fa fa-dashboard icon"></i> Latest</a>
+                    </li>
+                    <li>
+                        <a><i class="fa fa-columns icon"></i> Something Else</a>
+                    </li>
+                    <li>
+                        <a><i class="fa fa-flask icon"></i> A Nav Link</a>
+                    </li>
+                    <li>
+                        <a> <i class="fa fa-file-text icon"></i> Another</a>
+                    </li>
+                    <li>
+                        <a> <i class="fa fa-envelope-o icon"></i> And Another</a>
+                    </li>
+                    <li>
+                        <a> <i class="fa fa-pencil icon"></i> Notes</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="main-content">
+            <div class="grid">
+                <div class="row cards">
+                    <div class="col-1-3 card red">
+                        <header>
+                            <ul>
+                                <li>Followers</li>
+                                <li class="big-num">
+                                    <h4>365</h4>
+                                </li>
+                            </ul>
+                        </header>
+                        <article>
+                            <ul class="sections">
+                                <li class="list">
+                                    <ul>
+                                        <li><i class="fa fa-fw fa-clock-o"></i> In last 14 days</li>
+                                        <li><i class="fa fa-fw fa-calendar-o"></i> 2015/10/20 to 2014/08/01</li>
+                                    </ul>
+                                </li>
+                                <li class="text-right">
+                                    <span class="inlinebar">1,3,5,3,5,1,4,3,2,1,3,1,2,6</span>
+                                </li>
+                            </ul>
+                        </article>
+                    </div>
+                    <div class="col-1-3 card green">
+                        <header>
+                            <ul>
+                                <li>Followers</li>
+                                <li class="big-num">
+                                    <h4>365</h4>
+                                </li>
+                            </ul>
+                        </header>
+                        <article>
+                            <ul class="sections">
+                                <li class="list">
+                                    <ul>
+                                        <li><i class="fa fa-fw fa-clock-o"></i> In last 14 days</li>
+                                        <li><i class="fa fa-fw fa-calendar-o"></i> 2015/10/20 to 2014/08/01</li>
+                                    </ul>
+                                </li>
+                                <li class="text-right">
+                                    <span class="inlinebar">1,3,5,3,5,1,4,3,2,1,3,1,2,6</span>
+                                </li>
+                            </ul>
+
+                        </article>
+                    </div>
+                    <div class="col-1-3 card amber">
+                        <header>
+                            <ul>
+                                <li>Followers</li>
+                                <li class="big-num">
+                                    <h4>365</h4>
+                                </li>
+                            </ul>
+                        </header>
+                        <article>
+                            <ul class="sections">
+                                <li class="list">
+                                    <ul>
+                                        <li><i class="fa fa-fw fa-clock-o"></i> In last 14 days</li>
+                                        <li><i class="fa fa-fw fa-calendar-o"></i> 2015/10/20 to 2014/08/01</li>
+                                    </ul>
+                                </li>
+                                <li class="text-right">
+                                    <span class="inlinebar">1,3,5,3,5,1,4,3,2,1,3,1,2,6</span>
+                                </li>
+                            </ul>
+
+                        </article>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
 </body>
 
 </html>

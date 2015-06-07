@@ -1,0 +1,36 @@
+.side-bar {
+    background-color: rgb(65, 88, 110);
+    box-sizing: border-box;
+    color: rgb(157, 177, 197);
+    display: table-cell;
+    float: none;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    vertical-align: top;
+    width: 200px;
+    header {
+        background-color: #89cc97;
+        padding: 10px 15px;
+        text-align: center;
+    }
+    .nav {
+        position: relative;
+        display: block;
+        li {
+            position: relative;
+            display: block;
+            line-height: 1.5;
+            a {
+                padding: 11px 15px;
+                position: relative;
+                font-weight: bold;
+                font-size: 14px;
+                border-top: 1px solid transparent;
+                border-color: rgba(255, 255, 255, 0.05);
+                transition: color .3s ease-in-out 0s;
+            }
+        }
+    }
+}

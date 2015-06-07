@@ -62,7 +62,6 @@ describe('Branch API ', function () {
                 .expect(200)
                 .end(function (err, res) {
                     if (err) done(err);
-                    console.log('res.body', res.body);
                     expect(res.body).to.be.length(branchCount);
                     expect(res.body).to.contain('master');
                     expect(res.body).to.contain('test-branch');

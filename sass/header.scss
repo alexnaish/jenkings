@@ -1,0 +1,35 @@
+@import 'variables';
+.top-bar {
+    color: #9db1c5;
+    background-color: #25313e;
+    width: 100%;
+    height: $nav-height;
+    position: fixed;
+    z-index: 100;
+    -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+    -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+    .top-title {
+        position: relative;
+        float: left;
+        width: 220px;
+        height: $nav-height;
+        float: none;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 50px;
+        display: inline-block;
+        padding: 0 15px;
+        a {
+            text-decoration: none;
+            line-height: $nav-height;
+            color: #9db1c5;
+            &:hover {
+                color: white;
+            }
+        }
+        i {
+            margin-right: 10px;
+        }
+    }
+}
