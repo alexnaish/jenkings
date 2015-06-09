@@ -6,6 +6,12 @@ module.exports = {
         BranchService.findDistinct(function (statusCode, results) {
             res.status(statusCode).json(results);
         });
+    },
+
+    getBranchJobRuns: function (req, res, next) {
+        BranchService.find(req.params.branch, function (statusCode, results) {
+            res.status(statusCode).json(results);
+        });
     }
 
 };

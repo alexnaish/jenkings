@@ -41,4 +41,56 @@ describe('Branch Service', function () {
 
     });
 
+    describe('find function', function () {
+
+        it('find will return a 200 and all jobs with a specific branch', function (done) {
+            var findStub = sinon.stub(JobRun, 'find');
+
+            findStub.withArgs({
+                branch: ''
+            }).yields(null, [{
+                branch: 'test'
+            }, {
+                branch: 'another'
+            }]);
+
+            findStub.withArgs({
+                branch: 'test'
+            }).yields(null, [{
+                branch: 'test'
+            }]);
+
+            findStub.withArgs({
+                branch: 'another'
+            }).yields(null, [{
+                branch: 'another'
+            }]);
+
+
+            BranchService.find('test', function (statusCode, result) {
+                expect(statusCode).to.be.equal(200);
+                expect(result).to.be.length(1);
+                expect(result[0].branch).to.equal('test');
+                JobRun.find.restore();
+                done();
+            });
+        });
+
+        it('find will return a 500 and an error object if an error occurs', function (done) {
+            sinon.stub(JobRun, 'find').yields({
+                name: 'MongooseError?',
+                message: 'some message'
+            }, null);
+
+            BranchService.find('test', function (statusCode, result) {
+                expect(statusCode).to.be.equal(500);
+
+                JobRun.find.restore();
+                done();
+            });
+        });
+
+    });
+
+
 });

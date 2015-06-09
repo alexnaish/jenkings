@@ -71,5 +71,18 @@ describe('Branch API ', function () {
                 });
         });
 
+        it('/branches/:branch/jobs: should return a 200 and list all jobs with specified branch', function (done) {
+            request.get('/branches/master/jobs')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) done(err);
+                    expect(res.body).to.be.length(2);
+                    expect(res.body[0].branch).to.contain('master');
+                    expect(res.body[1].branch).to.contain('master');
+                    done();
+                });
+        });
+
     });
 });
