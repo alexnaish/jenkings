@@ -7,6 +7,9 @@ module.exports = {
             .get(api.listAllBranches);
 
         app.route('/branches/:branch/jobs/')
+            .get(api.getBranchRuns);
+
+        app.route('/branches/:branch/jobs/:jobName')
             .get(api.getBranchJobRuns);
 
     }

@@ -66,8 +66,11 @@ describe('Branch Service', function () {
                 branch: 'another'
             }]);
 
+            findStub.yields(null, []);
 
-            BranchService.find('test', function (statusCode, result) {
+            BranchService.find({
+                branch: 'test'
+            }, function (statusCode, result) {
                 expect(statusCode).to.be.equal(200);
                 expect(result).to.be.length(1);
                 expect(result[0].branch).to.equal('test');

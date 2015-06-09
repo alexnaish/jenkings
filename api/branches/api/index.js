@@ -8,8 +8,19 @@ module.exports = {
         });
     },
 
+    getBranchRuns: function (req, res, next) {
+        BranchService.find({
+            branch: req.params.branch
+        }, function (statusCode, results) {
+            res.status(statusCode).json(results);
+        });
+    },
+
     getBranchJobRuns: function (req, res, next) {
-        BranchService.find(req.params.branch, function (statusCode, results) {
+        BranchService.find({
+            branch: req.params.branch,
+            jobName: req.params.jobName
+        }, function (statusCode, results) {
             res.status(statusCode).json(results);
         });
     }

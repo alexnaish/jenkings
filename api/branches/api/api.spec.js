@@ -15,7 +15,7 @@ describe('Branch API ', function () {
         branch: 'master',
         dateCreated: moment().subtract(1, 'days')
         }, {
-        jobName: 'test-run-1',
+        jobName: 'test-run-2',
         buildId: '124',
         successful: true,
         branch: 'master',
@@ -71,7 +71,7 @@ describe('Branch API ', function () {
                 });
         });
 
-        it('/branches/:branch/jobs: should return a 200 and list all jobs with specified branch', function (done) {
+        it('/branches/:branch/jobs should return a 200 and list all jobs with specified branch', function (done) {
             request.get('/branches/master/jobs')
                 .expect('Content-Type', /json/)
                 .expect(200)
@@ -80,6 +80,19 @@ describe('Branch API ', function () {
                     expect(res.body).to.be.length(2);
                     expect(res.body[0].branch).to.contain('master');
                     expect(res.body[1].branch).to.contain('master');
+                    done();
+                });
+        });
+
+        it('/branches/:branch/jobs/:jobName should return a 200 and list all jobs with specified branch', function (done) {
+            request.get('/branches/master/jobs/test-run-1')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) done(err);
+                    expect(res.body).to.be.length(1);
+                    expect(res.body[0].branch).to.contain('master');
+                    expect(res.body[0].jobName).to.contain('test-run-1');
                     done();
                 });
         });

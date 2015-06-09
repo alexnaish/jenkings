@@ -3,10 +3,8 @@ var JobRun = require('../../jobs/model'),
 
 module.exports = {
 
-    find: function (branchName, callback) {
-        JobRun.find({
-            branch: branchName
-        }, {}, {
+    find: function (queryObject, callback) {
+        JobRun.find(queryObject, {}, {
             sort: {
                 dateCreated: -1
             }
