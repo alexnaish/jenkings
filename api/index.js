@@ -34,7 +34,7 @@ app.get('/config', function (req, res, next) {
     res.json(config);
 });
 app.get('*', function (req, res, next) {
-    res.send('Jenkings Root');
+    res.status(404).send('Jenkings Fallback Root');
     res.end();
 });
 
