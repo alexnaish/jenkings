@@ -13,9 +13,9 @@ var jobSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    successful: {
-        type: Boolean,
-        required: true
+    result: {
+        type: String,
+        default: 'PENDING'
     },
     branch: {
         type: String,
@@ -25,6 +25,12 @@ var jobSchema = mongoose.Schema({
         type: String
     },
     gitCommit: {
+        type: String
+    },
+    culprits: {
+        type: mongoose.Schema.Types.ObjectId
+    },
+    duration: {
         type: String
     }
 });

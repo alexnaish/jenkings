@@ -5,27 +5,27 @@ var utils = require('../../../test/utils'),
     expect = require('chai').expect,
     request = require('supertest')(app);
 
-describe('JobRun', function () {
+describe('JobRun API', function () {
 
     var assets = [{
         jobName: 'test-run-1',
         buildId: '123',
-        successful: true,
+        result: 'SUCCESS',
         branch: 'master'
         }, {
         jobName: 'test-run-1',
         buildId: '124',
-        successful: false,
+        result: 'FAILURE',
         branch: 'test-branch'
         }, {
         jobName: 'test-run-2',
         buildId: '100',
-        successful: true,
+        result: 'PENDING',
         branch: 'master'
         }, {
         jobName: 'delete-me',
         buildId: '1',
-        successful: false,
+        result: 'SUCCESS',
         branch: 'master'
         }];
 
@@ -75,7 +75,7 @@ describe('JobRun', function () {
                     expect(res.body).to.be.length(1);
                     expect(res.body[0].jobName).to.be.equal('test-run-1');
                     expect(res.body[0].buildId).to.be.equal('123');
-                    expect(res.body[0].successful).to.be.equal(true);
+                    expect(res.body[0].result).to.be.equal('SUCCESS');
                     expect(res.body[0].branch).to.be.equal('master');
                     done();
                 });
@@ -94,10 +94,9 @@ describe('JobRun', function () {
                     expect(res.body).to.be.have.property('message');
                     expect(res.body.message).to.be.contain('ValidationError');
                     expect(res.body).to.be.have.property('errors');
-                    expect(res.body.errors).to.have.length(4);
+                    expect(res.body.errors).to.have.length(3);
                     expect(res.body.errors).to.contain('jobName');
                     expect(res.body.errors).to.contain('buildId');
-                    expect(res.body.errors).to.contain('successful');
                     expect(res.body.errors).to.contain('branch');
                     done();
                 });
@@ -108,7 +107,6 @@ describe('JobRun', function () {
             var payload = {
                 jobName: 'test',
                 buildId: 1,
-                successful: true,
                 branch: 'test'
             };
 
@@ -122,7 +120,8 @@ describe('JobRun', function () {
                     expect(res.body.jobName).to.be.equal('test');
                     expect(res.body).to.be.have.property('buildId');
                     expect(res.body.buildId).to.be.equal('1');
-                    expect(res.body).to.be.have.property('successful');
+                    expect(res.body).to.be.have.property('result');
+                    expect(res.body.result).to.be.equal('PENDING');
                     expect(res.body).to.be.have.property('branch');
                     done();
                 });
