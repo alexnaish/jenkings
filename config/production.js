@@ -16,5 +16,14 @@ module.exports = {
         domain: "https://gitlab.nowtv.bskyb.com",
         token: "fHddn8qV87AWosfhGz5r",
         project: "iceberg"
+    },
+    ci: {
+        domain: "http://build.nowtv.bskyb.com",
+        view: "6. Iceberg",
+        jobs: [
+            "iceberg-macslave-frontend-unit",
+            "iceberg-macslave-backend-unit",
+            "iceberg-macslave-backend-e2e",
+        ]
     }
 };
