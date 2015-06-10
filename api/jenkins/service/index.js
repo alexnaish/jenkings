@@ -28,7 +28,7 @@ module.exports = {
                         }
                     } else {
                         callback(404, {
-                            message: 'Not found in CI. Maybe its dropped off?'
+                            message: 'Not found on CI. Maybe its dropped off?'
                         });
                     }
                 });
