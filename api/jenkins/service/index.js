@@ -12,9 +12,9 @@ function updateJobRun(queryObject, originalData, retrievedData, callback) {
     var updatedModel = originalData;
 
     updatedModel.result = retrievedData.result;
+    updatedModel.culprits = retrievedData.culprits;
     updatedModel.node = updatedModel.node || retrievedData.builtOn;
     updatedModel.duration = updatedModel.duration || retrievedData.duration;
-    updatedModel.culprits = updatedModel.culprits || retrievedData.culprits;
 
     JobRun.update(queryObject, updatedModel, {
         upsert: false
