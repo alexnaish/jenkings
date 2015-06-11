@@ -5,35 +5,63 @@ var config = require('config'),
 
 function generateJenkinsJobApiUrl(jobName, buildId) {
     return config.ci.domain + '/view/' + config.ci.view + '/job/' + jobName + '/' + buildId + '/api/json';
-}
+};
+
+function updateJobRun(queryObject, originalData, retrievedData, callback) {
+
+    var updatedModel = originalData;
+
+    updatedModel.result = retrievedData.result;
+    updatedModel.node = updatedModel.node || retrievedData.builtOn;
+    updatedModel.duration = updatedModel.duration || retrievedData.duration;
+    updatedModel.culprits = updatedModel.culprits || retrievedData.culprits;
+
+    JobRun.update(queryObject, updatedModel, {
+        upsert: false
+    }, function (err, affected) {
+        callback(err, affected === 1);
+    });
+
+};
+
 
 module.exports = {
 
     fetchAndPopulateJobRun: function (job, build, callback) {
-        JobRun.findOne({
+        var queryObject = {
             jobName: job,
             buildId: build
-        }, function (err, result) {
+        };
+
+        JobRun.findOne(queryObject, function (err, result) {
             if (result) {
                 request(generateJenkinsJobApiUrl(job, build), function (error, response, body) {
                     if (!error && response.statusCode === 200) {
                         try {
                             var result = JSON.parse(body);
-                            callback(200, _.pick(result, ['result', 'builtOn', 'duration', 'culprits']));
+                            updateJobRun(queryObject, result, _.pick(result, ['result', 'builtOn', 'duration', 'culprits']), function (err, success) {
+                                callback(200, {
+                                    success: success,
+                                    message: 'updated'
+                                });
+                            });
                         } catch (exception) {
                             callback(500, {
-                                result: 'borked',
+                                successful: false,
+                                message: 'borked',
                                 error: exception
                             });
                         }
                     } else {
                         callback(404, {
+                            successful: false,
                             message: 'Not found on CI. Maybe its dropped off?'
                         });
                     }
                 });
             } else {
                 callback(404, {
+                    successful: false,
                     message: 'No jobrun found in Jenkings.'
                 });
             }
