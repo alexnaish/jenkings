@@ -20,8 +20,7 @@ function updateJobRun(queryObject, originalData, retrievedData, callback) {
         upsert: false
     }, function (err, affectedRows) {
 
-        console.log('originalData', originalData);
-        console.log('retrievedData', retrievedData);
+        console.log('err', err);
         console.log('updated', updatedModel);
 
         callback(err, updatedModel);
