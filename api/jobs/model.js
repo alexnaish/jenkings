@@ -28,7 +28,7 @@ var jobSchema = mongoose.Schema({
         type: String
     },
     culprits: {
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.Array
     },
     duration: {
         type: String
