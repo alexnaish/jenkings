@@ -19,9 +19,9 @@ function updateJobRun(queryObject, originalData, retrievedData, callback) {
     JobRun.update(queryObject, updatedModel, {
         upsert: false
     }, function (err, affected) {
-        console.log('just tried to update', err, affected);
+        console.log('just tried to update', err, affectedRows);
 
-        callback(err, affected === 1);
+        callback(err, updatedModel);
     });
 
 };
@@ -43,7 +43,7 @@ module.exports = {
                             var result = JSON.parse(body);
                             updateJobRun(queryObject, result, _.pick(result, ['result', 'builtOn', 'duration', 'culprits']), function (err, success) {
                                 callback(200, {
-                                    success: success,
+                                    successful: success,
                                     message: 'updated'
                                 });
                             });
