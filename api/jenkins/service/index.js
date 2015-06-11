@@ -18,7 +18,7 @@ function updateJobRun(queryObject, originalData, retrievedData, callback) {
 
     JobRun.update(queryObject, updatedModel, {
         upsert: false
-    }, function (err, affected) {
+    }, function (err, affectedRows) {
         console.log('just tried to update', err, affectedRows);
 
         callback(err, updatedModel);
