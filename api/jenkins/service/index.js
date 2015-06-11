@@ -44,8 +44,8 @@ module.exports = {
                 request(generateJenkinsJobApiUrl(job, build), function (error, response, body) {
                     if (!error && response.statusCode === 200) {
                         try {
-                            var result = JSON.parse(body);
-                            updateJobRun(queryObject, result, _.pick(result, ['result', 'builtOn', 'duration', 'culprits']), function (err, updatedModel) {
+                            var bodyJson = JSON.parse(body);
+                            updateJobRun(queryObject, result, _.pick(bodyJson, ['result', 'builtOn', 'duration', 'culprits']), function (err, updatedModel) {
                                 callback(200, {
                                     successful: true,
                                     message: 'updated',
