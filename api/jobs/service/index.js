@@ -40,6 +40,21 @@ module.exports = {
             }
         });
     },
+    update: function (query, payload, callback) {
+
+        payload = payload && payload.toObject && payload.toObject() || payload;
+        delete payload._id;
+
+        JobRun.update(query, payload, {
+            upsert: false
+        }, function (err, affectedRows) {
+            if (err) {
+                callback(500, err);
+            } else {
+                callback(200, affectedRows);
+            }
+        });
+    },
     delete: function (query, callback) {
         JobRun.remove(query, function (err, count) {
             if (err) {

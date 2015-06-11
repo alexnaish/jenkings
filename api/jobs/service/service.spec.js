@@ -107,6 +107,104 @@ describe('Job Service', function () {
 
     });
 
+    describe('update function', function () {
+
+        var updateStub,
+            payload = {
+                _id: 'testId',
+                node: 'test',
+                duration: 1111,
+            },
+            toObjectSpy = sinon.stub().returns(payload);
+
+        beforeEach(function (done) {
+            updateStub = sinon.stub(JobRun, 'update');
+            done();
+        });
+
+        afterEach(function (done) {
+            JobRun.update.restore();
+            done();
+        });
+
+        it('should update the result and return the status code and the raw mongo update response', function (done) {
+
+            updateStub.yields(null, {
+                ok: 1,
+                n: 1,
+                nModified: 1
+            });
+
+            JobService.update({
+                jobName: 'a',
+                buildId: 1
+            }, payload, function (statusCode, result) {
+
+                var updateArgs = updateStub.args[0];
+                //Query Argument
+                expect(updateArgs[0].jobName).to.equal('a');
+                expect(updateArgs[0].buildId).to.equal(1);
+
+                //Update Argument
+                expect(updateArgs[1]).to.not.have.property('_id');
+                expect(updateArgs[1].node).to.equal('test');
+                expect(updateArgs[1].duration).to.equal(1111);
+
+                //Mongo Options
+                expect(updateArgs[2].upsert).to.equal(false);
+
+                expect(statusCode).to.be.equal(200);
+                expect(result.n).to.be.equal(1);
+                done();
+            });
+
+        });
+
+        it('should call toObject if payload is a mongoose object', function (done) {
+
+            updateStub.yields(null, {
+                ok: 1,
+                n: 1,
+                nModified: 1
+            });
+
+            payload.toObject = toObjectSpy;
+
+            JobService.update({
+                jobName: 'a',
+                buildId: 1
+            }, payload, function (statusCode, result) {
+
+                expect(toObjectSpy.called).to.equal(true);
+                expect(statusCode).to.be.equal(200);
+                expect(result.n).to.be.equal(1);
+                done();
+            });
+
+        });
+
+        it('should return a 500 statusCode and the error object if there was an error', function (done) {
+
+            updateStub.yields({
+                name: 'MongooseError?',
+                message: 'some message'
+            }, null);
+
+            JobService.update({
+                jobName: 'a',
+                buildId: 1
+            }, payload, function (statusCode, result) {
+
+                expect(statusCode).to.be.equal(500);
+                expect(result).to.have.property('name');
+                expect(result).to.have.property('message');
+                done();
+            });
+
+        });
+
+    });
+
     describe('delete function', function () {
 
         var deleteStub;

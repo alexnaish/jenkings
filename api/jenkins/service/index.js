@@ -1,29 +1,24 @@
 var config = require('config'),
     request = require('request'),
     _ = require('lodash'),
-    JobRun = require('../../jobs/model');
+    JobRun = require('../../jobs/model'),
+    JobService = require('../../jobs/service');
 
 function generateJenkinsJobApiUrl(jobName, buildId) {
     return config.ci.domain + '/view/' + config.ci.view + '/job/' + jobName + '/' + buildId + '/api/json';
 };
 
-function updateJobRun(queryObject, originalData, retrievedData, callback) {
+function updateJobRun(queryObject, retrievedData, callback) {
 
-    var updatedModel = originalData;
+    var updateData = {};
 
-    updatedModel.result = retrievedData.result;
-    updatedModel.culprits = retrievedData.culprits;
-    updatedModel.node = updatedModel.node || retrievedData.builtOn;
-    updatedModel.duration = updatedModel.duration || retrievedData.duration;
+    updateData.result = retrievedData.result;
+    updateData.culprits = retrievedData.culprits;
+    updateData.node = retrievedData.builtOn;
+    updateData.duration = retrievedData.duration;
 
-    JobRun.update(queryObject, updatedModel, {
-        upsert: false
-    }, function (err, affectedRows) {
-
-        console.log('err', err);
-        console.log('updated', updatedModel);
-
-        callback(err, updatedModel);
+    JobService.update(queryObject, updateData, function (err, affectedRows) {
+        callback(err, updateData);
     });
 
 };
@@ -39,8 +34,6 @@ module.exports = {
 
         JobRun.findOne(queryObject, function (err, result) {
             if (result) {
-                result = result.toObject();
-                delete result._id;
                 request(generateJenkinsJobApiUrl(job, build), function (error, response, body) {
                     if (!error && response.statusCode === 200) {
                         try {
