@@ -38,7 +38,7 @@ module.exports = {
                     if (!error && response.statusCode === 200) {
                         try {
                             var bodyJson = JSON.parse(body);
-                            updateJobRun(queryObject, result, _.pick(bodyJson, ['result', 'builtOn', 'duration', 'culprits']), function (err, updatedModel) {
+                            updateJobRun(queryObject, _.pick(bodyJson, ['result', 'builtOn', 'duration', 'culprits']), function (err, updatedModel) {
                                 callback(200, {
                                     successful: true,
                                     message: 'updated',
