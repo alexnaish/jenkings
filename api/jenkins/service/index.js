@@ -21,6 +21,7 @@ function updateJobRun(queryObject, originalData, retrievedData, callback) {
     }, function (err, affectedRows) {
 
         console.log('originalData', originalData);
+        console.log('retrievedData', retrievedData);
         console.log('updated', updatedModel);
 
         callback(err, updatedModel);
@@ -38,6 +39,7 @@ module.exports = {
         };
 
         JobRun.findOne(queryObject, function (err, result) {
+            result = result.toObject();
             if (result) {
                 request(generateJenkinsJobApiUrl(job, build), function (error, response, body) {
                     if (!error && response.statusCode === 200) {
