@@ -38,8 +38,9 @@ module.exports = {
         };
 
         JobRun.findOne(queryObject, function (err, result) {
-            result = result.toObject();
             if (result) {
+                result = result.toObject();
+                delete result._id;
                 request(generateJenkinsJobApiUrl(job, build), function (error, response, body) {
                     if (!error && response.statusCode === 200) {
                         try {
