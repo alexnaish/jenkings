@@ -2,6 +2,7 @@ var sinon = require('sinon'),
     request = require('request'),
     JenkinsService = require('../service/'),
     JobRun = require('../../jobs/model'),
+    JobService = require('../../jobs/service'),
     expect = require('chai').expect;
 
 describe('Jenkins Service', function () {
@@ -14,7 +15,7 @@ describe('Jenkins Service', function () {
 
         beforeEach(function (done) {
             findStub = sinon.stub(JobRun, 'findOne');
-            updateStub = sinon.stub(JobRun, 'update');
+            updateStub = sinon.stub(JobService, 'update');
             requestStub = sinon.stub(request, 'get');
 
             findStub.withArgs({
@@ -38,19 +39,12 @@ describe('Jenkins Service', function () {
                 buildId: 3
             });
 
-            updateStub.withArgs({
-                jobName: 'test2',
-                buildId: 3
-            }).yields({
-                message: 'some error'
-            }, null);
-
             done();
         });
 
         afterEach(function (done) {
             JobRun.findOne.restore();
-            JobRun.update.restore();
+            JobService.update.restore();
             request.get.restore();
             done();
         });
@@ -97,16 +91,46 @@ describe('Jenkins Service', function () {
             });
         });
 
-        it('will return a 500 if JobRun update fails', function (done) {
+        it('will return a 500 if JobService update returns an error', function (done) {
 
             requestStub.yields(null, {
                 statusCode: 200
-            }, {});
+            }, JSON.stringify({
+                builtOn: 'test',
+                result: 'SUCCESSFUL'
+            }));
+
+            updateStub.yields(500, {
+                message: 'some error'
+            });
 
             JenkinsService.fetchAndPopulateJobRun('test2', 3, function (statusCode, result) {
                 expect(statusCode).to.be.equal(500);
                 expect(result).to.have.property('successful');
                 expect(result.successful).to.be.equal(false);
+                expect(result).to.have.property('message');
+                done();
+            });
+        });
+
+        it('will return a 200 if results are found and there are no errors', function (done) {
+
+            requestStub.yields(null, {
+                statusCode: 200
+            }, JSON.stringify({
+                builtOn: 'test',
+                result: 'SUCCESSFUL'
+            }));
+
+            updateStub.yields(200, {
+                ok: 1,
+                n: 1
+            });
+
+            JenkinsService.fetchAndPopulateJobRun('test1', 2, function (statusCode, result) {
+                expect(statusCode).to.be.equal(200);
+                expect(result).to.have.property('successful');
+                expect(result.successful).to.be.equal(true);
                 expect(result).to.have.property('message');
                 done();
             });

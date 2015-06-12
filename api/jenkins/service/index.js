@@ -29,11 +29,11 @@ module.exports = {
                     if (!error && response.statusCode === 200) {
                         try {
                             var bodyJson = JSON.parse(body);
-                            JobService.update(queryObject, _.pick(bodyJson, ['result', 'builtOn', 'duration', 'culprits']), function (err, affectedRows) {
-                                if (!err) {
+                            JobService.update(queryObject, _.pick(bodyJson, ['result', 'builtOn', 'duration', 'culprits']), function (status, response) {
+                                if (status === 200) {
                                     renderResponse(200, true, 'updated', callback);
                                 } else {
-                                    renderResponse(500, false, err, callback);
+                                    renderResponse(500, false, response.message, callback);
                                 }
                             });
                         } catch (exception) {
