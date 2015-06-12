@@ -26,7 +26,7 @@ module.exports = {
         JobRun.findOne(queryObject, function (err, result) {
             if (result) {
                 request.get(generateJenkinsJobApiUrl(job, build), function (error, response, body) {
-                    if (!error && response.statusCode === 200) {
+                    if (!error && response && response.statusCode === 200) {
                         try {
                             var bodyJson = JSON.parse(body);
                             JobService.update(queryObject, _.pick(bodyJson, ['result', 'builtOn', 'duration', 'culprits']), function (status, response) {
