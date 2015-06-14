@@ -35,4 +35,11 @@ var jobSchema = mongoose.Schema({
     }
 });
 
+jobSchema.index({
+    jobName: 1,
+    buildId: 1
+}, {
+    unique: true
+});
+
 module.exports = mongoose.model('JobRun', jobSchema);
