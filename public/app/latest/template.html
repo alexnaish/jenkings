@@ -7,7 +7,7 @@
                 <i class="fa fa-check" ng-class="{ 'fa-check': job.result === 'SUCCESS', 'fa-question': job.result === 'PENDING', 'fa-times': job.result === 'FAILURE'}"></i>
             </div>
             <div class="body">
-                <p>Name: {{job.jobName}} ({{job.buildId}}) on {{job.branch}} @ {{job.dateCreated}}</p>
+                <p>Name: {{job.jobName}} ({{job.buildId}}) on <strong>{{job.branch}}</strong> @ {{job.dateCreated}}</p>
             </div>
         </div>
     </li>

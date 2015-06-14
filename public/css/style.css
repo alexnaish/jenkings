@@ -242,12 +242,18 @@ a {
 
 html .green {
   background-color: #7AB885; }
+  html .green:hover {
+    background-color: #69af76; }
 
 html .amber {
   background-color: #E2A267; }
+  html .amber:hover {
+    background-color: #de9552; }
 
 html .red {
   background-color: #E38686; }
+  html .red:hover {
+    background-color: #de7171; }
 
 * {
   -webkit-box-sizing: border-box;
@@ -414,7 +420,11 @@ html .red {
   width: 100%;
   border: 1px solid lightgrey;
   background-color: #73BEFF;
-  color: #fff; }
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease; }
+  .notification strong {
+    font-weight: bold; }
   .notification .icon {
     display: table-cell;
     vertical-align: middle;

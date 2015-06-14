@@ -1,6 +1,12 @@
 $nav-height: 60px;
 //Colours
 $light-green: #7AB885;
+$dark-green: darken($light-green,
+5);
 $light-amber: #E2A267;
+$dark-amber: darken($light-amber,
+5);
 $light-red: #E38686;
+$dark-red: darken($light-red,
+5);
 $light-blue: #73BEFF;

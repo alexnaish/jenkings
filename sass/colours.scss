@@ -1,12 +1,21 @@
 @import 'variables';
 html .green {
     background-color: $light-green;
+    &:hover {
+        background-color: $dark-green;
+    }
 }
 
 html .amber {
     background-color: $light-amber;
+    &:hover {
+        background-color: $dark-amber;
+    }
 }
 
 html .red {
     background-color: $light-red;
+    &:hover {
+        background-color: $dark-red;
+    }
 }

@@ -7,6 +7,11 @@
     border: 1px solid lightgrey;
     background-color: $light-blue;
     color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    strong {
+        font-weight: bold;
+    }
     .icon {
         display: table-cell;
         vertical-align: middle;
