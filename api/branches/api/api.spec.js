@@ -57,7 +57,7 @@ describe('Branch API ', function () {
     describe('GET', function () {
 
         it('/branches should return a 200 and list branches', function (done) {
-            request.get('/branches')
+            request.get('/api/branches')
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .end(function (err, res) {
@@ -72,7 +72,7 @@ describe('Branch API ', function () {
         });
 
         it('/branches/:branch/jobs should return a 200 and list all jobs with specified branch', function (done) {
-            request.get('/branches/master/jobs')
+            request.get('/api/branches/master/jobs')
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .end(function (err, res) {
@@ -85,7 +85,7 @@ describe('Branch API ', function () {
         });
 
         it('/branches/:branch/jobs/:jobName should return a 200 and list all jobs with specified branch', function (done) {
-            request.get('/branches/master/jobs/test-run-1')
+            request.get('/api/branches/master/jobs/test-run-1')
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .end(function (err, res) {

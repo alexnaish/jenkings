@@ -1,0 +1,10 @@
+<div class="dropdown">
+    <button ng-click="toggleDropdown()" type="button" class="btn btn-green"> {{text}}
+        <i class="fa" ng-class="{'fa-caret-down': !isOpen, 'fa-caret-up': isOpen}"></i>
+    </button>
+    <ul class="dropdown-menu" ng-class="{ 'open': isOpen}">
+        <li ng-repeat="option in options track by $index">
+            <a href="{{option.url}}">{{option.label}}</a>
+        </li>
+    </ul>
+</div>

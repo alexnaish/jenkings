@@ -5,132 +5,65 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-animate.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
+    <base href="/">
 </head>
 
-<body ng-app>
+<body ng-app="Jenkings">
     <header class="top-bar">
         <div class="top-title">
             <a href="/"><i class="fa fa-circle-o-notch fa-spin"></i> Jenkings</a>
         </div>
     </header>
     <div class="main">
-        <aside class="side-bar">
+        <aside class="side-bar" ng-controller="SidebarController">
             <header>
-                <div class="dropdown">
-                    <button type="button" class="btn btn-green"> Switch Branch
-                        <i class="fa fa-caret-down"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Project</a>
-                        </li>
-                        <li><a href="#">Another Project</a>
-                        </li>
-                        <li><a href="#">More Projects</a>
-                        </li>
-                    </ul>
-                </div>
+                <dropdown-menu text="branchSwitcher.text" options="branchSwitcher.options"></dropdown-menu>
             </header>
             <nav>
                 <ul class="nav">
                     <li>
-                        <a class="active"><i class="fa fa-dashboard icon"></i> Latest</a>
+                        <a href="/#/latest" class="active"><i class="fa fa-dashboard icon"></i> Latest</a>
                     </li>
                     <li>
-                        <a><i class="fa fa-columns icon"></i> Something Else</a>
+                        <a href="/#/branch/master"><i class="fa fa-code-fork icon"></i> Branch Tracker</a>
                     </li>
                     <li>
-                        <a><i class="fa fa-flask icon"></i> A Nav Link</a>
+                        <a href="/#/branch/master"><i class="fa fa-flask icon"></i> Stats</a>
                     </li>
                     <li>
-                        <a> <i class="fa fa-file-text icon"></i> Another</a>
+                        <a href="/#/branch/master"> <i class="fa fa-file-text icon"></i> Another</a>
                     </li>
                     <li>
-                        <a> <i class="fa fa-envelope-o icon"></i> And Another</a>
+                        <a href="/#/branch/master"> <i class="fa fa-envelope-o icon"></i> And Another</a>
                     </li>
                     <li>
-                        <a> <i class="fa fa-pencil icon"></i> Notes</a>
+                        <a href="http://www.alexnaish.co.uk"> <i class="fa fa-pencil icon"></i> Credits</a>
                     </li>
                 </ul>
             </nav>
         </aside>
         <div class="main-content">
-            <div class="grid">
-                <div class="row cards">
-                    <div class="col-1-3 card red">
-                        <header>
-                            <ul>
-                                <li>Followers</li>
-                                <li class="big-num">
-                                    <h4>365</h4>
-                                </li>
-                            </ul>
-                        </header>
-                        <article>
-                            <ul class="sections">
-                                <li class="list">
-                                    <ul>
-                                        <li><i class="fa fa-fw fa-clock-o"></i> In last 14 days</li>
-                                        <li><i class="fa fa-fw fa-calendar-o"></i> 2015/10/20 to 2014/08/01</li>
-                                    </ul>
-                                </li>
-                                <li class="text-right">
-                                    <span class="inlinebar">1,3,5,3,5,1,4,3,2,1,3,1,2,6</span>
-                                </li>
-                            </ul>
-                        </article>
-                    </div>
-                    <div class="col-1-3 card green">
-                        <header>
-                            <ul>
-                                <li>Followers</li>
-                                <li class="big-num">
-                                    <h4>365</h4>
-                                </li>
-                            </ul>
-                        </header>
-                        <article>
-                            <ul class="sections">
-                                <li class="list">
-                                    <ul>
-                                        <li><i class="fa fa-fw fa-clock-o"></i> In last 14 days</li>
-                                        <li><i class="fa fa-fw fa-calendar-o"></i> 2015/10/20 to 2014/08/01</li>
-                                    </ul>
-                                </li>
-                                <li class="text-right">
-                                    <span class="inlinebar">1,3,5,3,5,1,4,3,2,1,3,1,2,6</span>
-                                </li>
-                            </ul>
-
-                        </article>
-                    </div>
-                    <div class="col-1-3 card amber">
-                        <header>
-                            <ul>
-                                <li>Followers</li>
-                                <li class="big-num">
-                                    <h4>365</h4>
-                                </li>
-                            </ul>
-                        </header>
-                        <article>
-                            <ul class="sections">
-                                <li class="list">
-                                    <ul>
-                                        <li><i class="fa fa-fw fa-clock-o"></i> In last 14 days</li>
-                                        <li><i class="fa fa-fw fa-calendar-o"></i> 2015/10/20 to 2014/08/01</li>
-                                    </ul>
-                                </li>
-                                <li class="text-right">
-                                    <span class="inlinebar">1,3,5,3,5,1,4,3,2,1,3,1,2,6</span>
-                                </li>
-                            </ul>
-
-                        </article>
-                    </div>
-                </div>
-            </div>
+            <ng-view></ng-view>
         </div>
     </div>
 </body>
+
+<script src="/app/app.js"></script>
+<script src="/app/sidebar/controller.js"></script>
+<script src="/app/dropdown-menu/directive.js"></script>
+<script src="/app/latest/index.js"></script>
+<script src="/app/latest/controller.js"></script>
+<script src="/app/latest/config.js"></script>
+<script src="/app/jobs/index.js"></script>
+<script src="/app/jobs/service.js"></script>
+<script src="/app/branch/index.js"></script>
+<script src="/app/branch/controller.js"></script>
+<script src="/app/branch/config.js"></script>
+<script>
+    var socket = io.connect('http://localhost:1337');
+</script>
 
 </html>

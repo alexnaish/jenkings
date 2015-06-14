@@ -1,15 +1,16 @@
-var api = require('./api/');
+var config = require('config'),
+    api = require('./api/');
 
 module.exports = {
 
     apply: function (app) {
-        app.route('/branches')
+        app.route(config.app.apiPath + '/branches')
             .get(api.listAllBranches);
 
-        app.route('/branches/:branch/jobs/')
+        app.route(config.app.apiPath + '/branches/:branch/jobs/')
             .get(api.getBranchRuns);
 
-        app.route('/branches/:branch/jobs/:jobName')
+        app.route(config.app.apiPath + '/branches/:branch/jobs/:jobName')
             .get(api.getBranchJobRuns);
 
     }

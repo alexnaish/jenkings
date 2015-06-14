@@ -1,0 +1,17 @@
+<h2 class="title">The Latest Job Runs</h2>
+
+<ul>
+    <li class="fade" ng-repeat="job in jobruns | orderBy: 'dateCreated':true track by $index ">
+        <div class="notification" ng-class="{ 'green': job.result === 'SUCCESS', 'amber': job.result === 'PENDING', 'red': job.result === 'FAILURE'}">
+            <div class="icon">
+                <i class="fa fa-check" ng-class="{ 'fa-check': job.result === 'SUCCESS', 'fa-question': job.result === 'PENDING', 'fa-times': job.result === 'FAILURE'}"></i>
+            </div>
+            <div class="body">
+                <p>Name: {{job.jobName}} ({{job.buildId}}) on {{job.branch}} @ {{job.dateCreated}}</p>
+            </div>
+        </div>
+    </li>
+    <li class="fade" ng-if="jobruns.length == 0">
+        <div>No results found...</div>
+    </li>
+</ul>

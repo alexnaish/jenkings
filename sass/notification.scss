@@ -1,0 +1,24 @@
+@import 'variables';
+.notification {
+    display: table;
+    position: relative;
+    margin: 20px auto 0;
+    width: 100%;
+    border: 1px solid lightgrey;
+    background-color: $light-blue;
+    color: #fff;
+    .icon {
+        display: table-cell;
+        vertical-align: middle;
+        font-size: 20px;
+        width: 80px;
+        padding: 30px;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+    .body {
+        display: table-cell;
+        vertical-align: middle;
+        padding: 30px 20px 30px 10px;
+    }
+}

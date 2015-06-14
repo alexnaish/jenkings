@@ -1,12 +1,13 @@
 var config = require('config'),
     express = require('express'),
+    app = express(),
+    server = require('http').createServer(app),
+    io = require('socket.io')(server),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     morgan = require('morgan'),
     router = require('./router'),
     port = process.env.PORT || 1337;
-
-var app = express();
 
 module.exports = app;
 
@@ -29,7 +30,7 @@ app.use(morgan('dev', {
 }));
 app.disable('x-powered-by');
 
-router.apply(app);
+router.apply(app, io);
 app.get('/config', function (req, res, next) {
     res.json(config);
 });
@@ -39,7 +40,7 @@ app.get('*', function (req, res, next) {
 });
 
 console.log('my env:', process.env.NODE_ENV);
-app.listen(port, function (error) {
+server.listen(port, function (error) {
     if (error) {
         console.error('Unable to bind to port: ', port, error);
     } else {

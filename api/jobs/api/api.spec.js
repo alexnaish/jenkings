@@ -45,7 +45,7 @@ describe('JobRun API', function () {
     describe('GET', function () {
 
         it('/jobs should return a 200 and list all job runs', function (done) {
-            request.get('/jobs')
+            request.get('/api/jobs')
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .end(function (err, res) {
@@ -56,7 +56,7 @@ describe('JobRun API', function () {
         });
 
         it('/jobs/:name should return a 200 and list all job runs where jobName equals name', function (done) {
-            request.get('/jobs/test-run-1')
+            request.get('/api/jobs/test-run-1')
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .end(function (err, res) {
@@ -67,7 +67,7 @@ describe('JobRun API', function () {
         });
 
         it('/jobs/:name/:buildId should return a 200 and list one specific run', function (done) {
-            request.get('/jobs/test-run-1/123')
+            request.get('/api/jobs/test-run-1/123')
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .end(function (err, res) {
@@ -86,18 +86,15 @@ describe('JobRun API', function () {
     describe('POST', function () {
 
         it('/jobs should 403 if payload doesnt pass validation', function (done) {
-            request.post('/jobs')
+            request.post('/api/jobs')
                 .send({})
                 .expect('Content-Type', /json/)
                 .expect(403)
                 .end(function (err, res) {
+                    expect(res.body).to.be.have.property('name');
+                    expect(res.body.name).to.be.contain('ValidationError');
                     expect(res.body).to.be.have.property('message');
-                    expect(res.body.message).to.be.contain('ValidationError');
-                    expect(res.body).to.be.have.property('errors');
-                    expect(res.body.errors).to.have.length(3);
-                    expect(res.body.errors).to.contain('jobName');
-                    expect(res.body.errors).to.contain('buildId');
-                    expect(res.body.errors).to.contain('branch');
+                    expect(res.body.message).to.be.contain('validation');
                     done();
                 });
         });
@@ -110,7 +107,7 @@ describe('JobRun API', function () {
                 branch: 'test'
             };
 
-            request.post('/jobs')
+            request.post('/api/jobs')
                 .send(payload)
                 .expect('Content-Type', /json/)
                 .expect(201)
@@ -131,13 +128,12 @@ describe('JobRun API', function () {
 
     describe('DELETE', function () {
 
-        it('/jobs/:name/:buildId should 204 successful', function (done) {
-            request.delete('/jobs/delete-me/1')
+        it('/api/jobs/:name/:buildId should 204 successful', function (done) {
+            request.delete('/api/jobs/delete-me/1')
                 .expect('Content-Type', /json/)
                 .expect(204)
                 .end(function (err, res) {
-                    //                    expect(res.body).to.have.property('affected');
-                    //                    expect(res.body.affected).to.be.equal(1);
+                    expect(Object.keys(res.body)).to.be.empty;
                     done();
                 });
         });

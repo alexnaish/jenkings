@@ -32,8 +32,8 @@ module.exports = {
         new JobRun(payload).save(function (err, result) {
             if (err) {
                 callback(403, {
-                    message: err.name + ": " + err.message,
-                    errors: Object.keys(err.errors)
+                    name: err.name,
+                    message: err.message
                 });
             } else {
                 callback(201, result);
@@ -56,13 +56,11 @@ module.exports = {
         });
     },
     delete: function (query, callback) {
-        JobRun.remove(query, function (err, count) {
+        JobRun.remove(query, function (err, response) {
             if (err) {
                 callback(500, err);
             } else {
-                callback(204, {
-                    affected: count
-                });
+                callback(204, {});
             }
         });
     }

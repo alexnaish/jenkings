@@ -12,6 +12,7 @@ module.exports = {
 
     createNewJobRun: function (req, res, next) {
         JobService.create(req.body, function (statusCode, response) {
+            if (statusCode === 201) req.io.emit('jenkings:new-job', response);
             res.status(statusCode).json(response);
         });
     },

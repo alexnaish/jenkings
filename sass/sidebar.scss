@@ -18,18 +18,36 @@
     .nav {
         position: relative;
         display: block;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         li {
             position: relative;
             display: block;
             line-height: 1.5;
             a {
-                padding: 11px 15px;
+                padding: 10px 15px;
                 position: relative;
+                display: block;
                 font-weight: bold;
                 font-size: 14px;
                 border-top: 1px solid transparent;
                 border-color: rgba(255, 255, 255, 0.05);
-                transition: color .3s ease-in-out 0s;
+                &:hover {
+                    background-color: rgba(0, 0, 0, 0.15)
+                }
+                &.active {
+                    background-color: rgba(0, 0, 0, 0.05);
+                    color: #fff;
+                }
+                i {
+                    margin: -12px -15px;
+                    line-height: 44px;
+                    width: 50px;
+                    margin-right: 10px;
+                    font-size: 14px;
+                    border-right: 1px solid rgba(255, 255, 255, 0.05);
+                    text-align: center;
+                    position: relative;
+                }
             }
         }
     }

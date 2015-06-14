@@ -56,7 +56,7 @@ describe('Jenkins API', function () {
 
     it('should fetch details from jenkins if job exists in database and on jenkins', function (done) {
 
-        request.get('/jenkins/fetch/found-on-jenkins/124')
+        request.get('/api/jenkins/fetch/found-on-jenkins/124')
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function (err, res) {
@@ -69,7 +69,7 @@ describe('Jenkins API', function () {
 
     it('should return a 404 and an error message if the job is not found in jenkins', function (done) {
 
-        request.get('/jenkins/fetch/missing-on-jenkins/123')
+        request.get('/api/jenkins/fetch/missing-on-jenkins/123')
             .expect('Content-Type', /json/)
             .expect(404)
             .end(function (err, res) {

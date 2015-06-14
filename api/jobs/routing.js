@@ -1,16 +1,20 @@
-var api = require('./api/');
+var config = require('config'),
+    api = require('./api/');
 
 module.exports = {
 
-    apply: function (app) {
-        app.route('/jobs')
+    apply: function (app, io) {
+        app.route(config.app.apiPath + '/jobs')
             .get(api.listAllJobs)
-            .post(api.createNewJobRun);
+            .post(function (req, res, next) {
+                req.io = io;
+                api.createNewJobRun(req, res, next);
+            });
 
-        app.route('/jobs/:name')
+        app.route(config.app.apiPath + '/jobs/:name')
             .get(api.getJobInformation);
 
-        app.route('/jobs/:name/:buildId')
+        app.route(config.app.apiPath + '/jobs/:name/:buildId')
             .get(api.getJobRunInformation)
             .delete(api.deleteJobRun);
     }

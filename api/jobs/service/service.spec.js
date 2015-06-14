@@ -237,7 +237,7 @@ describe('Job Service', function () {
                 buildId: 1
             }, function (statusCode, result) {
                 expect(statusCode).to.be.equal(204);
-                expect(result.affected).to.be.equal(1);
+                expect(Object.keys(result)).to.be.empty;
                 done();
             });
         });

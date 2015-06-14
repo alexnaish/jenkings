@@ -1,11 +1,12 @@
-.green {
-    background-color: #7ab885;
+@import 'variables';
+html .green {
+    background-color: $light-green;
 }
 
-.amber {
-    background-color: #e2a267;
+html .amber {
+    background-color: $light-amber;
 }
 
-.red {
-    background-color: #E38686;
+html .red {
+    background-color: $light-red;
 }
