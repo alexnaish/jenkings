@@ -1,4 +1,5 @@
-var JobService = require('../service/');
+var JobService = require('../service/'),
+    JenkinsService = require('../../jenkins/service');
 
 module.exports = {
 
@@ -12,7 +13,17 @@ module.exports = {
 
     createNewJobRun: function (req, res, next) {
         JobService.create(req.body, function (statusCode, response) {
-            if (statusCode === 201) req.io.emit('jenkings:new-job', response);
+            if (statusCode === 201) {
+                if (response.result === 'PENDING') {
+                    JenkinsService.fetchAndPopulateJobRun(response.jobName, response.buildId, function (fetchStatusCode, fetchResponse) {
+                        if (fetchStatusCode === 200) {
+                            req.io.emit('jenkings:new-job', fetchResponse.message);
+                        }
+                    });
+                } else {
+                    req.io.emit('jenkings:new-job', response);
+                }
+            }
             res.status(statusCode).json(response);
         });
     },
