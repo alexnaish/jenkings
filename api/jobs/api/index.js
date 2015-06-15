@@ -23,13 +23,15 @@ module.exports = {
         JobService.create(req.body, function (statusCode, response) {
             if (statusCode === 201) {
                 if (response.result === 'PENDING') {
-                    JenkinsService.fetchAndPopulateJobRun(response.jobName, response.buildId, function (fetchStatusCode, fetchResponse) {
-                        if (fetchStatusCode === 200) {
-                            emitSocketBroadcast(req.io, 'jenkings:new-job', fetchResponse.message);
-                            response = fetchResponse;
-                        }
-                        generateResponse(res, statusCode, response);
-                    });
+                    setTimeout(function () {
+                        JenkinsService.fetchAndPopulateJobRun(response.jobName, response.buildId, function (fetchStatusCode, fetchResponse) {
+                            if (fetchStatusCode === 200) {
+                                emitSocketBroadcast(req.io, 'jenkings:new-job', fetchResponse.message);
+                                response = fetchResponse;
+                            }
+                            generateResponse(res, statusCode, response);
+                        });
+                    }, 5000);
                 } else {
                     emitSocketBroadcast(req.io, 'jenkings:new-job', response);
                     generateResponse(res, statusCode, response);
