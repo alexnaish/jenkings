@@ -1,7 +1,10 @@
 var utils = require('../../../test/utils'),
     helpers = require('../../../test/functions'),
+    testData = require('../../../test/data'),
     app = require('../../index'),
     JobModel = require('../model'),
+    config = require('config'),
+    nock = require('nock'),
     expect = require('chai').expect,
     request = require('supertest')(app);
 
@@ -28,7 +31,6 @@ describe('JobRun API', function () {
         result: 'SUCCESS',
         branch: 'master'
         }];
-
 
     before(function (done) {
         helpers.insertAssets(JobModel, assets, function () {
@@ -104,8 +106,40 @@ describe('JobRun API', function () {
             var payload = {
                 jobName: 'test',
                 buildId: 1,
-                branch: 'test'
+                branch: 'test',
+                result: 'FAILURE'
             };
+
+            request.post('/api/jobs')
+                .send(payload)
+                .expect('Content-Type', /json/)
+                .expect(201)
+                .end(function (err, res) {
+
+                    expect(res.body).to.be.have.property('_id');
+                    expect(res.body).to.be.have.property('jobName');
+                    expect(res.body.jobName).to.be.equal('test');
+                    expect(res.body).to.be.have.property('buildId');
+                    expect(res.body.buildId).to.be.equal('1');
+                    expect(res.body).to.be.have.property('result');
+                    expect(res.body.result).to.be.equal('FAILURE');
+                    expect(res.body).to.be.have.property('branch');
+                    done();
+                });
+        });
+
+        it('/jobs should 201 and return updated document with jenkins info if current result is PENDING', function (done) {
+
+            var payload = {
+                jobName: 'test-job',
+                buildId: 2,
+                branch: 'master_branch',
+                result: 'PENDING'
+            };
+
+            nock(config.ci.domain)
+                .get(helpers.generateJenkinsJobApiUrl('test-job', 2))
+                .reply(200, testData.sampleJenkinsApiResponse);
 
             request.post('/api/jobs')
                 .send(payload)
@@ -114,15 +148,17 @@ describe('JobRun API', function () {
                 .end(function (err, res) {
                     expect(res.body).to.be.have.property('_id');
                     expect(res.body).to.be.have.property('jobName');
-                    expect(res.body.jobName).to.be.equal('test');
+                    expect(res.body.jobName).to.be.equal('test-job');
                     expect(res.body).to.be.have.property('buildId');
-                    expect(res.body.buildId).to.be.equal('1');
+                    expect(res.body.buildId).to.be.equal('2');
                     expect(res.body).to.be.have.property('result');
-                    expect(res.body.result).to.be.equal('PENDING');
+                    expect(res.body.result).to.be.equal('UNSTABLE');
                     expect(res.body).to.be.have.property('branch');
+                    expect(res.body.branch).to.be.equal('master_branch');
                     done();
                 });
         });
+
 
     });
 

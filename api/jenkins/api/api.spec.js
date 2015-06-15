@@ -1,5 +1,6 @@
 var utils = require('../../../test/utils'),
     helpers = require('../../../test/functions'),
+    testData = require('../../../test/data'),
     app = require('../../index'),
     JobModel = require('../../jobs/model'),
     expect = require('chai').expect,
@@ -8,10 +9,6 @@ var utils = require('../../../test/utils'),
     nock = require('nock');
 
 describe('Jenkins API', function () {
-
-    function generateJenkinsJobApiPath(jobName, buildId) {
-        return '/view/' + config.ci.view + '/job/' + jobName + '/' + buildId + '/api/json';
-    };
 
     var assets = [{
         jobName: 'missing-on-jenkins',
@@ -29,20 +26,12 @@ describe('Jenkins API', function () {
         helpers.insertAssets(JobModel, assets, function () {
 
             nock(config.ci.domain)
-                .get(generateJenkinsJobApiPath('missing-on-jenkins', 123))
+                .get(helpers.generateJenkinsJobApiUrl('missing-on-jenkins', 123))
                 .reply(404, 'Nothing here');
 
             nock(config.ci.domain)
-                .get(generateJenkinsJobApiPath('found-on-jenkins', 124))
-                .reply(200, JSON.stringify({
-                    builtOn: 'testNode',
-                    result: 'SUCCESS',
-                    duration: 1111111,
-                    culprits: [{
-                        name: 'name.here',
-                        email: 'name.here@mail.com'
-            }]
-                }));
+                .get(helpers.generateJenkinsJobApiUrl('found-on-jenkins', 124))
+                .reply(200, testData.sampleJenkinsApiResponse);
 
             done();
         });
@@ -64,8 +53,8 @@ describe('Jenkins API', function () {
                 expect(res.body.successful).to.be.equal(true);
                 expect(res.body.message.jobName).to.be.equal('found-on-jenkins');
                 expect(res.body.message.node).to.be.equal('testNode');
-                expect(res.body.message.duration).to.be.equal(1111111);
-                expect(res.body.message.result).to.be.equal('SUCCESS');
+                expect(res.body.message.duration).to.be.equal(155674);
+                expect(res.body.message.result).to.be.equal('UNSTABLE');
                 expect(res.body.message.culprits).to.have.length(1);
                 done();
             });

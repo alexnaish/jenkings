@@ -1,6 +1,11 @@
-var async = require('async');
+var async = require('async'),
+    config = require('config');
 
 module.exports = {
+
+    generateJenkinsJobApiUrl: function generateJenkinsJobApiPath(jobName, buildId) {
+        return '/view/' + config.ci.view + '/job/' + jobName + '/' + buildId + '/api/json';
+    },
 
     insertAssets: function (model, dataArray, finalCallback) {
         //Sort variables

@@ -25,9 +25,6 @@ module.exports = {
 
         JobRun.findOne(queryObject, function (err, result) {
             if (result) {
-
-                console.log('querying:::::', generateJenkinsJobApiUrl(job, build));
-
                 request.get(generateJenkinsJobApiUrl(job, build), function (error, response, body) {
                     if (!error && response && response.statusCode === 200) {
                         try {
@@ -35,8 +32,6 @@ module.exports = {
                             var payload = _.pick(bodyJson, ['result', 'builtOn', 'duration', 'culprits']);
                             payload.node = payload.builtOn;
                             delete payload.builtOn;
-
-                            console.log('Jenkings result::::::', payload);
 
                             JobService.update(queryObject, payload, function (status, response) {
                                 if (status === 200) {
