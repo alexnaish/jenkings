@@ -30,6 +30,8 @@ module.exports = {
                             payload.node = payload.builtOn;
                             delete payload.builtOn;
 
+                            console.log('inside fetchAndPopulateJobRun', job, build, payload);
+
                             JobService.update(queryObject, payload, function (status, response) {
                                 if (status === 200) {
                                     JobRun.findOne(queryObject, function (err, finalResult) {
