@@ -2,9 +2,9 @@
 
 <ul>
     <li class="fade" ng-repeat="job in jobruns | limitTo:20 | orderBy: 'dateCreated':true track by $index ">
-        <div class="notification" ng-class="{ 'green': job.result === 'SUCCESS', 'amber': job.result === 'PENDING', 'red': job.result === 'FAILURE'}">
+        <div class="notification" ng-class="{ 'green': job.result === 'SUCCESS', 'amber': job.result === 'PENDING', 'blue': job.result === 'UNSTABLE', 'red': job.result === 'FAILURE'}">
             <div class="icon">
-                <i class="fa fa-check" ng-class="{ 'fa-check': job.result === 'SUCCESS', 'fa-question': job.result === 'PENDING', 'fa-times': job.result === 'FAILURE'}"></i>
+                <i class="fa fa-check" ng-class="{ 'fa-check': job.result === 'SUCCESS', 'fa-question': job.result === 'PENDING', 'fa-bolt': job.result === 'UNSTABLE', 'fa-times': job.result === 'FAILURE'}"></i>
             </div>
             <div class="body">
                 <p>Name: {{job.jobName}} ({{job.buildId}}) on <strong>{{job.branch}}</strong> @ {{job.dateCreated}}</p>

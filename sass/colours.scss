@@ -19,3 +19,10 @@ html .red {
         background-color: $dark-red;
     }
 }
+
+html .blue {
+    background-color: $light-blue;
+    &:hover {
+        background-color: $dark-blue;
+    }
+}
