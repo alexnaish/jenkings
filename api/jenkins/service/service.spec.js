@@ -111,7 +111,7 @@ describe('Jenkins Service', function () {
                 statusCode: 200
             }, JSON.stringify({
                 builtOn: 'test',
-                result: 'SUCCESSFUL'
+                result: 'SUCCESS'
             }));
 
             findStub.withArgs({
