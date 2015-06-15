@@ -15,6 +15,7 @@ module.exports = {
         JobService.create(req.body, function (statusCode, response) {
             if (statusCode === 201) {
                 if (response.result === 'PENDING') {
+                    console.log('initial result', response);
                     JenkinsService.fetchAndPopulateJobRun(response.jobName, response.buildId, function (fetchStatusCode, fetchResponse) {
                         if (fetchStatusCode === 200) {
                             console.log('fetchResponse.message', fetchResponse.message);
