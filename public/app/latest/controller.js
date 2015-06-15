@@ -8,6 +8,9 @@ component.controller("LatestController", ['$scope', 'JobService', function ($sco
     });
 
     socket.on('jenkings:new-job', function (data) {
+
+        console.log('new job received', data.jobName, data.buildId);
+
         $scope.jobruns.push(data);
         $scope.$digest();
     });
