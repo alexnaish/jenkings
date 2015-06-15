@@ -31,7 +31,7 @@ var jobSchema = mongoose.Schema({
         type: mongoose.Schema.Types.Array
     },
     duration: {
-        type: String
+        type: Number
     }
 });
 

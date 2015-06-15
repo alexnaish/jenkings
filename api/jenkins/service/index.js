@@ -29,9 +29,15 @@ module.exports = {
                     if (!error && response && response.statusCode === 200) {
                         try {
                             var bodyJson = JSON.parse(body);
-                            JobService.update(queryObject, _.pick(bodyJson, ['result', 'builtOn', 'duration', 'culprits']), function (status, response) {
+                            var payload = _.pick(bodyJson, ['result', 'builtOn', 'duration', 'culprits']);
+                            payload.node = payload.builtOn;
+                            delete payload.builtOn;
+
+                            JobService.update(queryObject, payload, function (status, response) {
                                 if (status === 200) {
-                                    renderResponse(200, true, 'updated', callback);
+                                    JobRun.findOne(queryObject, function (err, finalResult) {
+                                        renderResponse(200, true, finalResult, callback);
+                                    });
                                 } else {
                                     renderResponse(500, false, response.message, callback);
                                 }

@@ -62,7 +62,11 @@ describe('Jenkins API', function () {
             .end(function (err, res) {
                 if (err) done(err);
                 expect(res.body.successful).to.be.equal(true);
-                expect(res.body.message).to.be.equal('updated');
+                expect(res.body.message.jobName).to.be.equal('found-on-jenkins');
+                expect(res.body.message.node).to.be.equal('testNode');
+                expect(res.body.message.duration).to.be.equal(1111111);
+                expect(res.body.message.result).to.be.equal('SUCCESS');
+                expect(res.body.message.culprits).to.have.length(1);
                 done();
             });
     });
