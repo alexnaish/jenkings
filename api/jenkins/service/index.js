@@ -25,8 +25,6 @@ module.exports = {
                 request.get(generateJenkinsJobApiUrl(job, build), function (error, response, body) {
                     if (!error && response && response.statusCode === 200) {
                         try {
-
-                            console.log('my body', body);
                             var bodyJson = JSON.parse(body);
                             var payload = _.pick(bodyJson, ['result', 'builtOn', 'duration', 'culprits']);
                             payload.node = payload.builtOn;
