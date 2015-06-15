@@ -8,11 +8,8 @@ function generateJenkinsJobApiUrl(jobName, buildId) {
     return config.ci.domain + '/view/' + config.ci.view + '/job/' + jobName + '/' + buildId + '/api/json';
 };
 
-function renderResponse(statusCode, successful, message, callback) {
-    callback(statusCode, {
-        successful: successful,
-        message: message
-    });
+function renderResponse(statusCode, successful, response, callback) {
+    callback(statusCode, response);
 };
 
 module.exports = {
@@ -28,6 +25,8 @@ module.exports = {
                 request.get(generateJenkinsJobApiUrl(job, build), function (error, response, body) {
                     if (!error && response && response.statusCode === 200) {
                         try {
+
+                            console.log('my body', body);
                             var bodyJson = JSON.parse(body);
                             var payload = _.pick(bodyJson, ['result', 'builtOn', 'duration', 'culprits']);
                             payload.node = payload.builtOn;
@@ -39,18 +38,24 @@ module.exports = {
                                         renderResponse(200, true, finalResult, callback);
                                     });
                                 } else {
-                                    renderResponse(500, false, response.message, callback);
+                                    renderResponse(500, false, {
+                                        message: response.message
+                                    }, callback);
                                 }
                             });
                         } catch (exception) {
                             renderResponse(500, false, exception, callback);
                         }
                     } else {
-                        renderResponse(404, false, 'Not found on CI. Maybe its dropped off?', callback);
+                        renderResponse(404, false, {
+                            message: 'Not found on CI. Maybe its dropped off?'
+                        }, callback);
                     }
                 });
             } else {
-                renderResponse(404, false, 'No jobrun found in Jenkings.', callback);
+                renderResponse(404, false, {
+                    message: 'No jobrun found in Jenkings.'
+                }, callback);
             }
         });
     }

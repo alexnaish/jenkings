@@ -26,7 +26,7 @@ module.exports = {
                     JenkinsService.fetchAndPopulateJobRun(response.jobName, response.buildId, function (fetchStatusCode, fetchResponse) {
                         if (fetchStatusCode === 200) {
                             emitSocketBroadcast(req.io, 'jenkings:new-job', fetchResponse.message);
-                            response = fetchResponse.message;
+                            response = fetchResponse;
                         }
                         generateResponse(res, statusCode, response);
                     });

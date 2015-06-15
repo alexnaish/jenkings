@@ -52,8 +52,6 @@ describe('Jenkins Service', function () {
         it('will return a 404 if no jobrun found in database', function (done) {
             JenkinsService.fetchAndPopulateJobRun('missing', 1, function (statusCode, result) {
                 expect(statusCode).to.be.equal(404);
-                expect(result).to.have.property('successful');
-                expect(result.successful).to.be.equal(false);
                 expect(result).to.have.property('message');
                 expect(result.message).to.be.equal('No jobrun found in Jenkings.');
                 done();
@@ -68,8 +66,6 @@ describe('Jenkins Service', function () {
 
             JenkinsService.fetchAndPopulateJobRun('test1', 2, function (statusCode, result) {
                 expect(statusCode).to.be.equal(404);
-                expect(result).to.have.property('successful');
-                expect(result.successful).to.be.equal(false);
                 expect(result).to.have.property('message');
                 expect(result.message).to.be.equal('Not found on CI. Maybe its dropped off?');
                 done();
@@ -84,8 +80,6 @@ describe('Jenkins Service', function () {
 
             JenkinsService.fetchAndPopulateJobRun('test1', 2, function (statusCode, result) {
                 expect(statusCode).to.be.equal(500);
-                expect(result).to.have.property('successful');
-                expect(result.successful).to.be.equal(false);
                 expect(result).to.have.property('message');
                 done();
             });
@@ -106,8 +100,6 @@ describe('Jenkins Service', function () {
 
             JenkinsService.fetchAndPopulateJobRun('test2', 3, function (statusCode, result) {
                 expect(statusCode).to.be.equal(500);
-                expect(result).to.have.property('successful');
-                expect(result.successful).to.be.equal(false);
                 expect(result).to.have.property('message');
                 done();
             });
@@ -122,16 +114,28 @@ describe('Jenkins Service', function () {
                 result: 'SUCCESSFUL'
             }));
 
+            findStub.withArgs({
+                jobName: 'test1',
+                buildId: 2
+            }).onSecondCall().yields(null, {
+                _id: 'testidhere',
+                jobName: 'test1',
+                buildId: 2,
+                result: 'SUCCESS'
+            });
+
             updateStub.yields(200, {
                 ok: 1,
                 n: 1
             });
 
             JenkinsService.fetchAndPopulateJobRun('test1', 2, function (statusCode, result) {
+                console.log(statusCode, result);
                 expect(statusCode).to.be.equal(200);
-                expect(result).to.have.property('successful');
-                expect(result.successful).to.be.equal(true);
-                expect(result).to.have.property('message');
+                expect(result).to.have.property('_id');
+                expect(result).to.have.property('result');
+                expect(result).to.have.property('jobName');
+                expect(result).to.have.property('buildId');
                 done();
             });
         });

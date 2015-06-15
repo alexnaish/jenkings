@@ -50,12 +50,11 @@ describe('Jenkins API', function () {
             .expect(200)
             .end(function (err, res) {
                 if (err) done(err);
-                expect(res.body.successful).to.be.equal(true);
-                expect(res.body.message.jobName).to.be.equal('found-on-jenkins');
-                expect(res.body.message.node).to.be.equal('testNode');
-                expect(res.body.message.duration).to.be.equal(155674);
-                expect(res.body.message.result).to.be.equal('UNSTABLE');
-                expect(res.body.message.culprits).to.have.length(1);
+                expect(res.body.jobName).to.be.equal('found-on-jenkins');
+                expect(res.body.node).to.be.equal('testNode');
+                expect(res.body.duration).to.be.equal(155674);
+                expect(res.body.result).to.be.equal('UNSTABLE');
+                expect(res.body.culprits).to.have.length(1);
                 done();
             });
     });
@@ -67,7 +66,7 @@ describe('Jenkins API', function () {
             .expect(404)
             .end(function (err, res) {
                 if (err) done(err);
-                expect(res.body.successful).to.be.equal(false);
+                console.log('res.body', res.body);
                 expect(res.body.message).to.be.contain('Not found on CI.');
                 done();
             });
