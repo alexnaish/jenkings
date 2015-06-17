@@ -1,6 +1,7 @@
 var sinon = require('sinon'),
     JobService = require('../service/'),
     JobRun = require('../model'),
+    QueueService = require('../../queue/service/'),
     expect = require('chai').expect;
 
 describe('Job Service', function () {
@@ -10,7 +11,7 @@ describe('Job Service', function () {
         var findStub;
 
         before(function () {
-            findStub = sinon.stub(JobRun, 'find')
+            findStub = sinon.stub(JobRun, 'find');
 
             findStub.withArgs({
                 jobName: 'missing'

@@ -9,11 +9,7 @@ function generateJenkinsJobApiUrl(jobName, buildId) {
 };
 
 function renderResponse(statusCode, successful, response, callback) {
-    if (callback === undefined) {
-        callback = console.log;
-    }
     callback(statusCode, response);
-
 };
 
 module.exports = {
@@ -33,8 +29,6 @@ module.exports = {
                             var payload = _.pick(bodyJson, ['result', 'builtOn', 'duration', 'culprits']);
                             payload.node = payload.builtOn;
                             delete payload.builtOn;
-
-                            console.log('inside fetchAndPopulateJobRun', job, build, payload);
 
                             JobService.update(queryObject, payload, function (status, response) {
                                 if (status === 200) {

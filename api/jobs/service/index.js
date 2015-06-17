@@ -39,7 +39,7 @@ module.exports = {
             } else {
                 QueueService.create('new-job', ['jenkings:new-job', result]);
                 if (payload.result === 'PENDING') {
-                    QueueService.create('pending-job', [result.jobName, result.buildId]);
+                    QueueService.create('pending-job', [result.jobName, result.buildId, console.log]);
                 }
                 callback(201, result);
             }

@@ -6,6 +6,8 @@ var utils = require('../../../test/utils'),
     config = require('config'),
     nock = require('nock'),
     expect = require('chai').expect,
+    sinon = require('sinon'),
+    QueueService = require('../../queue/service/'),
     request = require('supertest')(app);
 
 describe('JobRun API', function () {
@@ -32,10 +34,22 @@ describe('JobRun API', function () {
         branch: 'master'
         }];
 
+    var queueStub;
+
     before(function (done) {
         helpers.insertAssets(JobModel, assets, function () {
             done();
         });
+    });
+
+    beforeEach(function (done) {
+        queueStub = sinon.stub(QueueService, 'create');
+        done();
+    });
+
+    afterEach(function (done) {
+        QueueService.create.restore();
+        done();
     });
 
     after(function (done) {
@@ -93,6 +107,8 @@ describe('JobRun API', function () {
                 .expect('Content-Type', /json/)
                 .expect(403)
                 .end(function (err, res) {
+
+                    expect(queueStub.called).to.be.equal(false);
                     expect(res.body).to.be.have.property('name');
                     expect(res.body.name).to.be.contain('ValidationError');
                     expect(res.body).to.be.have.property('message');
@@ -116,6 +132,7 @@ describe('JobRun API', function () {
                 .expect(201)
                 .end(function (err, res) {
 
+                    expect(queueStub.calledOnce).to.be.equal(true);
                     expect(res.body).to.be.have.property('_id');
                     expect(res.body).to.be.have.property('jobName');
                     expect(res.body.jobName).to.be.equal('test');
@@ -124,6 +141,35 @@ describe('JobRun API', function () {
                     expect(res.body).to.be.have.property('result');
                     expect(res.body.result).to.be.equal('FAILURE');
                     expect(res.body).to.be.have.property('branch');
+                    done();
+                });
+        });
+
+        it('/jobs should 201 and create both events if job is pending', function (done) {
+
+            var payload = {
+                jobName: 'test',
+                buildId: 2,
+                branch: 'test',
+                result: 'PENDING'
+            };
+
+            request.post('/api/jobs')
+                .send(payload)
+                .expect('Content-Type', /json/)
+                .expect(201)
+                .end(function (err, res) {
+
+                    expect(queueStub.calledTwice).to.be.equal(true);
+                    expect(res.body).to.be.have.property('_id');
+                    expect(res.body).to.be.have.property('jobName');
+                    expect(res.body.jobName).to.be.equal('test');
+                    expect(res.body).to.be.have.property('buildId');
+                    expect(res.body.buildId).to.be.equal('2');
+                    expect(res.body).to.be.have.property('result');
+                    expect(res.body.result).to.be.equal('PENDING');
+                    expect(res.body).to.be.have.property('branch');
+                    expect(res.body.jobName).to.be.equal('test');
                     done();
                 });
         });
