@@ -3,13 +3,10 @@ var config = require('config'),
 
 module.exports = {
 
-    apply: function (app, io) {
+    apply: function (app) {
         app.route(config.app.apiPath + '/jobs')
             .get(api.listAllJobs)
-            .post(function (req, res, next) {
-                req.io = io;
-                api.createNewJobRun(req, res, next);
-            });
+            .post(api.createNewJobRun);
 
         app.route(config.app.apiPath + '/jobs/:name')
             .get(api.getJobInformation);

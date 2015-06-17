@@ -1,4 +1,5 @@
-var JobRun = require('../model');
+var JobRun = require('../model'),
+    QueueService = require('../../queue/service/');
 
 module.exports = {
 
@@ -36,6 +37,10 @@ module.exports = {
                     message: err.message
                 });
             } else {
+                QueueService.create('new-job', ['jenkings:new-job', result]);
+                if (payload.result === 'PENDING') {
+                    QueueService.create('pending-job', [result.jobName, result.buildId]);
+                }
                 callback(201, result);
             }
         });

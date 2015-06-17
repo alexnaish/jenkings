@@ -4,8 +4,8 @@ var jobs = require('../jobs/routing'),
 
 module.exports = {
 
-    apply: function (app, io) {
-        jobs.apply(app, io);
+    apply: function (app) {
+        jobs.apply(app);
         branches.apply(app);
         jenkins.apply(app);
     }

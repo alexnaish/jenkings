@@ -128,37 +128,6 @@ describe('JobRun API', function () {
                 });
         });
 
-        it('/jobs should 201 and return updated document with jenkins info if current result is PENDING', function (done) {
-
-            var payload = {
-                jobName: 'test-job',
-                buildId: 2,
-                branch: 'master_branch',
-                result: 'PENDING'
-            };
-
-            nock(config.ci.domain)
-                .get(helpers.generateJenkinsJobApiUrl('test-job', 2))
-                .reply(200, testData.sampleJenkinsApiResponse);
-
-            request.post('/api/jobs')
-                .send(payload)
-                .expect('Content-Type', /json/)
-                .expect(201)
-                .end(function (err, res) {
-                    expect(res.body).to.be.have.property('_id');
-                    expect(res.body).to.be.have.property('jobName');
-                    expect(res.body.jobName).to.be.equal('test-job');
-                    expect(res.body).to.be.have.property('buildId');
-                    expect(res.body.buildId).to.be.equal('2');
-                    expect(res.body).to.be.have.property('result');
-                    expect(res.body.result).to.be.equal('UNSTABLE');
-                    expect(res.body).to.be.have.property('branch');
-                    expect(res.body.branch).to.be.equal('master_branch');
-                    done();
-                });
-        });
-
 
     });
 

@@ -1,12 +1,8 @@
 var JobService = require('../service/'),
-    JenkinsService = require('../../jenkins/service');
+    QueueService = require('../../queue/service');
 
 function generateResponse(res, statusCode, result) {
     res.status(statusCode).json(result);
-};
-
-function emitSocketBroadcast(io, name, data) {
-    io.emit(name, data);
 };
 
 module.exports = {
@@ -21,24 +17,7 @@ module.exports = {
 
     createNewJobRun: function (req, res, next) {
         JobService.create(req.body, function (statusCode, response) {
-            if (statusCode === 201) {
-                if (response.result === 'PENDING') {
-                    setTimeout(function () {
-                        JenkinsService.fetchAndPopulateJobRun(response.jobName, response.buildId, function (fetchStatusCode, fetchResponse) {
-                            if (fetchStatusCode === 200) {
-                                emitSocketBroadcast(req.io, 'jenkings:new-job', fetchResponse.message);
-                                response = fetchResponse;
-                            }
-                            generateResponse(res, statusCode, response);
-                        });
-                    }, 5000);
-                } else {
-                    emitSocketBroadcast(req.io, 'jenkings:new-job', response);
-                    generateResponse(res, statusCode, response);
-                }
-            } else {
-                generateResponse(res, statusCode, response);
-            }
+            generateResponse(res, statusCode, response);
         });
     },
 

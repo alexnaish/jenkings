@@ -7,6 +7,7 @@ var config = require('config'),
     mongoose = require('mongoose'),
     morgan = require('morgan'),
     router = require('./router'),
+    scheduling = require('./scheduling'),
     port = process.env.PORT || 1337;
 
 module.exports = app;
@@ -30,7 +31,7 @@ app.use(morgan('dev', {
 }));
 app.disable('x-powered-by');
 
-router.apply(app, io);
+router.apply(app);
 app.get('/config', function (req, res, next) {
     res.json(config);
 });
@@ -38,6 +39,8 @@ app.get('*', function (req, res, next) {
     res.status(404).send('Jenkings Fallback 404');
     res.end();
 });
+
+scheduling.start(io);
 
 console.log('my env:', process.env.NODE_ENV);
 server.listen(port, function (error) {

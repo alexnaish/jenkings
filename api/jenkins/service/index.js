@@ -9,7 +9,11 @@ function generateJenkinsJobApiUrl(jobName, buildId) {
 };
 
 function renderResponse(statusCode, successful, response, callback) {
+    if (callback === undefined) {
+        callback = console.log;
+    }
     callback(statusCode, response);
+
 };
 
 module.exports = {
