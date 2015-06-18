@@ -161,6 +161,15 @@ describe('JobRun API', function () {
                 .end(function (err, res) {
 
                     expect(queueStub.calledTwice).to.be.equal(true);
+
+                    expect(queueStub.firstCall.args[0]).to.be.equal('new-job');
+                    expect(queueStub.firstCall.args[1][0]).to.be.equal('jenkings:new-job');
+
+
+                    expect(queueStub.secondCall.args[0]).to.be.equal('pending-job');
+                    expect(queueStub.secondCall.args[1][0]).to.be.equal('test');
+                    expect(queueStub.secondCall.args[1][1]).to.be.equal('2');
+
                     expect(res.body).to.be.have.property('_id');
                     expect(res.body).to.be.have.property('jobName');
                     expect(res.body.jobName).to.be.equal('test');
