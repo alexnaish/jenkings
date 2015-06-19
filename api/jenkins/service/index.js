@@ -2,6 +2,7 @@ var config = require('config'),
     request = require('request'),
     _ = require('lodash'),
     JobRun = require('../../jobs/model'),
+    QueueService = require('../../queue/service'),
     JobService = require('../../jobs/service');
 
 function generateJenkinsJobApiUrl(jobName, buildId) {
@@ -33,7 +34,11 @@ module.exports = {
                             JobService.update(queryObject, payload, function (status, response) {
                                 if (status === 200) {
                                     JobRun.findOne(queryObject, function (err, finalResult) {
-                                        renderResponse(200, true, finalResult, callback);
+                                        if (callback === undefined) {
+                                            QueueService.create('job-updated', ['jenkings:job-updated', finalResult]);
+                                        } else {
+                                            renderResponse(200, true, finalResult, callback);
+                                        }
                                     });
                                 } else {
                                     renderResponse(500, false, {

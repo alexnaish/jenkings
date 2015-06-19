@@ -3,6 +3,7 @@ var sinon = require('sinon'),
     JenkinsService = require('../service/'),
     JobRun = require('../../jobs/model'),
     JobService = require('../../jobs/service'),
+    QueueService = require('../../queue/service'),
     expect = require('chai').expect;
 
 describe('Jenkins Service', function () {
@@ -11,11 +12,13 @@ describe('Jenkins Service', function () {
 
         var findStub,
             updateStub,
+            queueStub,
             requestStub;
 
         beforeEach(function (done) {
             findStub = sinon.stub(JobRun, 'findOne');
             updateStub = sinon.stub(JobService, 'update');
+            queueStub = sinon.stub(QueueService, 'create');
             requestStub = sinon.stub(request, 'get');
 
             findStub.withArgs({
@@ -46,6 +49,7 @@ describe('Jenkins Service', function () {
             JobRun.findOne.restore();
             JobService.update.restore();
             request.get.restore();
+            QueueService.create.restore();
             done();
         });
 
@@ -130,7 +134,6 @@ describe('Jenkins Service', function () {
             });
 
             JenkinsService.fetchAndPopulateJobRun('test1', 2, function (statusCode, result) {
-                console.log(statusCode, result);
                 expect(statusCode).to.be.equal(200);
                 expect(result).to.have.property('_id');
                 expect(result).to.have.property('result');
@@ -138,6 +141,38 @@ describe('Jenkins Service', function () {
                 expect(result).to.have.property('buildId');
                 done();
             });
+        });
+
+        it('will create a job-update queue event if no callback is specified', function () {
+
+            requestStub.yields(null, {
+                statusCode: 200
+            }, JSON.stringify({
+                builtOn: 'test',
+                result: 'SUCCESS'
+            }));
+
+            findStub.withArgs({
+                jobName: 'test1',
+                buildId: 2
+            }).onSecondCall().yields(null, {
+                _id: 'testidhere',
+                jobName: 'test1',
+                buildId: 2,
+                result: 'SUCCESS'
+            });
+
+            updateStub.yields(200, {
+                ok: 1,
+                n: 1
+            });
+
+            var result = JenkinsService.fetchAndPopulateJobRun('test1', 2);
+
+            expect(queueStub.called).to.be.equal(true);
+            expect(queueStub.firstCall.args[0]).to.be.equal('job-updated');
+            expect(queueStub.firstCall.args[1][0]).to.be.equal('jenkings:job-updated');
+            expect(queueStub.firstCall.args[1][1]).to.have.property('_id');
         });
 
     });
