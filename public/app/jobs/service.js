@@ -3,7 +3,6 @@ var component = angular.module('jobs.service', []);
 component.service("JobService", ['$http', function ($http) {
 
     var service = {
-
         listAllJobs: function () {
             return $http.get('/api/jobs')
                 .then(
@@ -14,7 +13,6 @@ component.service("JobService", ['$http', function ($http) {
                         throw httpError.status + " : " + httpError.data;
                     });
         }
-
     };
 
     return service;

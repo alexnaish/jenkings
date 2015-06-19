@@ -13,7 +13,6 @@ component.controller("LatestController", ['$scope', 'JobService', function ($sco
 
         $scope.$apply(function () {
             $scope.jobruns.push(data);
-            $scope.jobruns = $scope.jobruns.slice(1, 21);
         });
     });
 
