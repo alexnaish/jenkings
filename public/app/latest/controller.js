@@ -16,4 +16,7 @@ component.controller("LatestController", ['$scope', 'JobService', function ($sco
         });
     });
 
+    socket.on('jenkings:job-updated', function (data) {
+        console.log('job update received', data.jobName, data.buildId);
+    });
 }]);
