@@ -9,9 +9,7 @@ module.exports = {
     },
 
     getBranchRuns: function (req, res, next) {
-        BranchService.find({
-            branch: req.params.branch
-        }, function (statusCode, results) {
+        BranchService.findLatest(req.params.branch, function (statusCode, results) {
             res.status(statusCode).json(results);
         });
     },

@@ -175,5 +175,17 @@ describe('Jenkins Service', function () {
             expect(queueStub.firstCall.args[1][1]).to.have.property('_id');
         });
 
+        it('will not create a job-update queue event if status is not successful even if no callback is specified', function () {
+
+            findStub.withArgs({
+                jobName: 'test1',
+                buildId: 2
+            }).yields(null, null);
+
+            var result = JenkinsService.fetchAndPopulateJobRun('test1', 2);
+
+            expect(queueStub.called).to.not.be.equal(true);
+        });
+
     });
 });

@@ -239,6 +239,9 @@ a {
     .btn.btn-green:hover {
       background-color: #53b567;
       border-color: #4bae5f; }
+    .btn.btn-green:disabled {
+      background-color: #acdcb6;
+      border-color: #9bd4a6; }
 
 html .green {
   background-color: #7AB885; }

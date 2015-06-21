@@ -29,6 +29,12 @@
     "moment": "^2.10.3",
     "sinon": "^1.14.1",
     "supertest": "^1.0.1",
-    "nock": "~2.5.0"
+    "nock": "~2.5.0",
+    "karma": "~0.12.36",
+    "karma-chai": "~0.1.0",
+    "mocha": "~2.2.5",
+    "karma-mocha": "~0.1.10",
+    "phantomjs": "~1.9.17",
+    "karma-phantomjs-launcher": "~0.2.0"
   }
 }

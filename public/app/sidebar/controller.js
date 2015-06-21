@@ -1,17 +1,16 @@
-var sidebar = angular.module('sidebar', []);
+var sidebar = angular.module('sidebar', ['branch']);
 
-
-sidebar.controller("SidebarController", ['$scope', function ($scope) {
+sidebar.controller("SidebarController", ['$scope', 'BranchService', function ($scope, BranchService) {
     console.log('loaded SidebarController');
+
     $scope.branchSwitcher = {
         text: 'Switch Branch',
-        options: [{
-            label: 'Master Branch',
-            url: '#/branch/master'
-        }, {
-            label: 'Test Branch',
-            url: '#/branch/test'
-        }]
+        urlPrefix: '#/branch/',
+        options: []
     };
+
+    BranchService.listBranches().then(function (data) {
+        $scope.branchSwitcher.options = data;
+    });
 
 }]);

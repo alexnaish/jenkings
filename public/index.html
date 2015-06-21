@@ -20,7 +20,7 @@
     <div class="main">
         <aside class="side-bar" ng-controller="SidebarController">
             <header>
-                <dropdown-menu text="branchSwitcher.text" options="branchSwitcher.options"></dropdown-menu>
+                <dropdown-menu text="branchSwitcher.text" url-prefix="branchSwitcher.urlPrefix" options="branchSwitcher.options"></dropdown-menu>
             </header>
             <nav>
                 <ul class="nav">
@@ -35,9 +35,6 @@
                     </li>
                     <li>
                         <a href="/#/branch/master"> <i class="fa fa-file-text icon"></i> Another</a>
-                    </li>
-                    <li>
-                        <a href="/#/branch/master"> <i class="fa fa-envelope-o icon"></i> And Another</a>
                     </li>
                     <li>
                         <a href="http://www.alexnaish.co.uk"> <i class="fa fa-pencil icon"></i> Credits</a>

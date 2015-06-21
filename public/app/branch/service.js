@@ -3,7 +3,7 @@ var component = angular.module('branch.service', []);
 component.service("BranchService", ['$http', function ($http) {
 
     var service = {
-        listAllBranches: function (branch) {
+        listBranches: function (branch) {
             return $http.get('/api/branches')
                 .then(
                     function (response) {

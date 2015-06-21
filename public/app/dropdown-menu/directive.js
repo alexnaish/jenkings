@@ -4,6 +4,7 @@ angular.module('dropdown-menu', []).directive('dropdownMenu', function () {
         controller: 'DropdownController',
         scope: {
             text: '=',
+            urlPrefix: '=',
             options: '=',
             isOpen: '@'
         },
@@ -18,7 +19,11 @@ angular.module('dropdown-menu', []).directive('dropdownMenu', function () {
         $scope.isOpen = !$scope.isOpen;
     };
 
-    $scope.$on('$locationChangeSuccess', function () {
+    $scope.emptyOptions = function () {
+        return $scope.options.length === 0
+    };
+
+    $scope.$on('$locationChangeStart', function () {
         $scope.isOpen = false;
     });
 

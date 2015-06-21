@@ -33,10 +33,35 @@ describe('Branch Service', function () {
 
             BranchService.findDistinct(function (statusCode, result) {
                 expect(statusCode).to.be.equal(500);
-
+                expect(result).to.have.property('name');
+                expect(result).to.have.property('message');
                 JobRun.find.restore();
                 done();
             });
+        });
+
+    });
+
+    describe('findLatest function', function () {
+
+        it('will return the a 500 status and the error information if the database function returns an error', function (done) {
+
+            var modelStub = sinon.stub(JobRun, 'aggregate');
+
+            modelStub.yields({
+                name: 'MongooseError?',
+                message: 'some message'
+            }, null);
+
+
+            BranchService.findLatest('test', function (statusCode, result) {
+                expect(statusCode).to.be.equal(500);
+                expect(result).to.have.property('name');
+                expect(result).to.have.property('message');
+                JobRun.aggregate.restore();
+                done();
+            });
+
         });
 
     });
@@ -87,7 +112,6 @@ describe('Branch Service', function () {
 
             BranchService.find('test', function (statusCode, result) {
                 expect(statusCode).to.be.equal(500);
-
                 JobRun.find.restore();
                 done();
             });

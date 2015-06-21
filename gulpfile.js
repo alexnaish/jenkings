@@ -3,6 +3,7 @@ var gulp = require('gulp'),
     istanbul = require('gulp-istanbul'),
     nodemon = require('gulp-nodemon'),
     sass = require('gulp-sass'),
+    karma = require('karma').server,
     app;
 
 gulp.task('mocha', function () {
@@ -29,6 +30,15 @@ gulp.task('mocha', function () {
                 });
         });
 });
+
+gulp.task('unit', function (done) {
+    karma.start({
+        configFile: __dirname + '/config/karma.conf.js'
+    }, function () {
+        done();
+    });
+});
+
 
 gulp.task('nodemon', function () {
     process.env.NODE_ENV = 'development';

@@ -10,7 +10,11 @@ function generateJenkinsJobApiUrl(jobName, buildId) {
 };
 
 function renderResponse(statusCode, successful, response, callback) {
-    callback(statusCode, response);
+    if (callback === undefined) {
+        if (successful) QueueService.create('job-updated', ['jenkings:job-updated', response]);
+    } else {
+        callback(statusCode, response);
+    }
 };
 
 module.exports = {
@@ -34,11 +38,7 @@ module.exports = {
                             JobService.update(queryObject, payload, function (status, response) {
                                 if (status === 200) {
                                     JobRun.findOne(queryObject, function (err, finalResult) {
-                                        if (callback === undefined) {
-                                            QueueService.create('job-updated', ['jenkings:job-updated', finalResult]);
-                                        } else {
-                                            renderResponse(200, true, finalResult, callback);
-                                        }
+                                        renderResponse(200, true, finalResult, callback);
                                     });
                                 } else {
                                     renderResponse(500, false, {
