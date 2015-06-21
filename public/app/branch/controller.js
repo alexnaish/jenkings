@@ -32,4 +32,10 @@ component.controller("BranchController", ['$routeParams', 'BranchService', '$sco
         }
     });
 
+    socket.on('jenkings:job-updated', function (data) {
+        if (data.branch === $scope.trackingBranch) {
+            addOrReplace($scope.trackedJobs, 'jobName', data);
+        }
+    });
+
 }]);
