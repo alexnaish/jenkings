@@ -11,7 +11,7 @@
                     <div ng-if="displayAsList">
                         <ul>
                             <li>Run On: {{job.node}}</li>
-                            <li>Duration: {{job.duration}} ms</li>
+                            <li>Duration: {{job.duration / 1000}} seconds</li>
                             <li>Commit: {{job.gitCommit}}</li>
                             <li>Culprits: <span ng-repeat="culprit in job.culprits">{{culprit.fullName}}{{$last ? '' : ', '}}</span>
                             </li>
