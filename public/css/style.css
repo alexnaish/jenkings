@@ -446,6 +446,8 @@ html .blue {
     font-size: 40px;
     font-weight: bold;
     text-align: center; }
+    .notification.desktop-mode .title {
+      border: none; }
     .notification.desktop-mode .icon {
       font-size: 40px;
       width: 110px; }
