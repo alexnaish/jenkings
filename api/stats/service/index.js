@@ -3,15 +3,9 @@ var JobRun = require('../../jobs/model');
 module.exports = {
 
     generateHistorical: function (queryObject, callback) {
-        console.log('req.params', queryObject);
-
-        var matchObject = {
-            branch: 'master',
-            result: {
-                $ne: 'PENDING'
-            }
+        queryObject.result = {
+            $ne: 'PENDING'
         };
-
 
         JobRun.aggregate([
                 {
