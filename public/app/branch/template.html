@@ -7,13 +7,15 @@
                 <i class="fa fa-check" ng-class="{ 'fa-check': job.result === 'SUCCESS', 'fa-question': job.result === 'PENDING', 'fa-bolt': job.result === 'UNSTABLE', 'fa-times': job.result === 'FAILURE'}"></i>
             </div>
             <div class="body">
-                <p>{{job.jobName}} ({{job.buildId}})
+                <p class="title">{{job.jobName}} ({{job.buildId}})
                     <div ng-if="displayAsList">
                         <ul>
-                            <li>Run On: {{job.node}}</li>
-                            <li>Duration: {{job.duration / 1000}} seconds</li>
-                            <li>Commit: {{job.gitCommit}}</li>
-                            <li>Culprits: <span ng-repeat="culprit in job.culprits">{{culprit.fullName}}{{$last ? '' : ', '}}</span>
+                            <li>Run On: <strong>{{job.node}}</strong>
+                            </li>
+                            <li>Duration: <strong>{{job.duration / 1000}}</strong> seconds</li>
+                            <li>Commit: <strong>{{job.gitCommit}}</strong>
+                            </li>
+                            <li ng-if="job.culprits && job.culprits.length > 0">Culprits: <span ng-repeat="culprit in job.culprits"><strong>{{culprit.fullName}}{{$last ? '' : ', '}}</strong></span>
                             </li>
                         </ul>
                         <a target="_blank" href="http://build.nowtv.bskyb.com/view/6.%20Iceberg/job/{{job.jobName}}/{{job.buildId}}/api/json">Jenkins API</a> --------
