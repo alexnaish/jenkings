@@ -2,13 +2,17 @@
 
 <div class="grid">
     <div class="row">
-        <div class="class-1-3"></div>
+        <div class="class-1-3">
+            <ul>
+                <li ng-repeat="job in jobs">{{job}}</li>
+            </ul>
+        </div>
         <div class="class-1-3"></div>
         <div class="class-1-3"></div>
     </div>
 
     <div class="row cards">
-        <canvas ng-if="chartGenerated" id="pie" class="chart chart-pie" data="pieData" labels="pieLabels"></canvas>
+        <canvas ng-if="chartGenerated" id="pie" class="chart chart-pie" data="pie"></canvas>
     </div>
 
     <!--
