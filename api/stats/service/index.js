@@ -1,16 +1,21 @@
-var JobRun = require('../../jobs/model'),
-    _ = require('lodash');
+var JobRun = require('../../jobs/model');
 
 module.exports = {
 
-    generateHistorical: function (branch, callback) {
+    generateHistorical: function (queryObject, callback) {
+        console.log('req.params', queryObject);
+
+        var matchObject = {
+            branch: 'master',
+            result: {
+                $ne: 'PENDING'
+            }
+        };
+
+
         JobRun.aggregate([
-            {
-                $match: {
-                    branch: 'master',
-                    result: {
-                        $ne: 'PENDING'
-                    }
+                {
+                    $match: matchObject
                 }
             }, {
                 $project: {
@@ -60,14 +65,14 @@ module.exports = {
                     result: "$_id.result",
                     count: "$count"
                 }
-            }
-    ], function (err, result) {
-            if (err) {
-                callback(500, err);
-            } else {
-                callback(200, result);
-            }
-        });
-    }
+            }],
+            function (err, result) {
+                if (err) {
+                    callback(500, err);
+                } else {
+                    callback(200, result);
+                }
+            });
+}
 
 };

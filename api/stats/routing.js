@@ -8,6 +8,9 @@ module.exports = {
         app.route(config.app.apiPath + '/stats/:branch')
             .get(api.generateStats);
 
+        app.route(config.app.apiPath + '/stats/:branch/:jobName')
+            .get(api.generateStats);
+
     }
 
 }
