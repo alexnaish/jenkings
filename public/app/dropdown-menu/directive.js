@@ -12,8 +12,6 @@ angular.module('dropdown-menu', []).directive('dropdownMenu', function () {
     };
 }).controller('DropdownController', ['$scope', function ($scope) {
 
-    console.log('loaded DropdownController');
-
     $scope.isOpen = $scope.isOpen || false;
     $scope.toggleDropdown = function () {
         $scope.isOpen = !$scope.isOpen;

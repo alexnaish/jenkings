@@ -1,7 +1,17 @@
-var component = angular.module('stats.controller', ['']);
+var component = angular.module('stats.controller', ['chart.js']);
 
-component.controller("StatsController", ['$scope', function ($scope) {
+component.controller("StatsController", ['$scope', '$routeParams', function ($scope, $routeParams) {
     console.log('loaded StatsController');
-    $scope.loaded = true;
+
+    $scope.trackingBranch = $routeParams.branchName;
+
+    $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
+    $scope.series = ['Series A', 'Series B'];
+    $scope.data = [
+        [65, 59, 80, 81, 56, 55, 40], [28, 48, 40, 19, 86, 27, 90]
+    ];
+    $scope.onClick = function (points, evt) {
+        console.log(points, evt);
+    };
 
 }]);

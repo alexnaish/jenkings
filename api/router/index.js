@@ -1,6 +1,7 @@
 var jobs = require('../jobs/routing'),
     branches = require('../branches/routing'),
-    jenkins = require('../jenkins/routing');
+    jenkins = require('../jenkins/routing'),
+    stats = require('../stats/routing');
 
 module.exports = {
 
@@ -8,5 +9,6 @@ module.exports = {
         jobs.apply(app);
         branches.apply(app);
         jenkins.apply(app);
+        stats.apply(app);
     }
 };
