@@ -1,9 +1,13 @@
 var component = angular.module('stats.controller', ['chart.js']);
 
-component.controller("StatsController", ['$scope', '$routeParams', function ($scope, $routeParams) {
+component.controller("StatsController", ['$scope', '$routeParams', 'StatsService', function ($scope, $routeParams, StatsService) {
     console.log('loaded StatsController');
 
-    $scope.trackingBranch = $routeParams.branchName;
+    $scope.trackingBranch = $routeParams.branchName || 'master';
+
+    StatsService.getHistoricalStats($scope.trackingBranch).then(function (data) {
+        console.log('received:::', data);
+    });
 
     $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
     $scope.series = ['Series A', 'Series B'];
@@ -11,7 +15,7 @@ component.controller("StatsController", ['$scope', '$routeParams', function ($sc
         [65, 59, 80, 81, 56, 55, 40], [28, 48, 40, 19, 86, 27, 90]
     ];
     $scope.onClick = function (points, evt) {
-        console.log(points, evt);
+        alert(points);
     };
 
 }]);
