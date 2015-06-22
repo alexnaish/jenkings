@@ -1,7 +1,7 @@
 <h2 class="title">Branch Tracker: {{trackingBranch}}<small class="options"><a ng-click="toggleDisplayMode()">Toggle Display Mode</a></small></h2>
 
 <ul>
-    <li class="fade" ng-repeat="job in trackedJobs">
+    <li class="fade" ng-repeat="job in trackedJobs| orderBy:'-jobName'">
         <div class="notification" ng-class="{'desktop-mode': !displayAsList, 'green': job.result === 'SUCCESS', 'amber': job.result === 'PENDING', 'blue': job.result === 'UNSTABLE', 'red': job.result === 'FAILURE'}">
             <div class="icon">
                 <i class="fa fa-check" ng-class="{ 'fa-check': job.result === 'SUCCESS', 'fa-question': job.result === 'PENDING', 'fa-bolt': job.result === 'UNSTABLE', 'fa-times': job.result === 'FAILURE'}"></i>
