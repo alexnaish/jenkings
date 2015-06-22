@@ -7,7 +7,7 @@
                 <i class="fa fa-check" ng-class="{ 'fa-check': job.result === 'SUCCESS', 'fa-question': job.result === 'PENDING', 'fa-bolt': job.result === 'UNSTABLE', 'fa-times': job.result === 'FAILURE'}"></i>
             </div>
             <div class="body">
-                <p class="title">{{job.jobName}} ({{job.buildId}}) <small class="options"><a target="_blank" href="http://build.nowtv.bskyb.com/view/6.%20Iceberg/job/{{job.jobName}}/{{job.buildId}}/api/json">Jenkins API</a> --------
+                <p class="title">{{job.jobName}} ({{job.buildId}}) <small ng-if="displayAsList" class="options"><a target="_blank" href="http://build.nowtv.bskyb.com/view/6.%20Iceberg/job/{{job.jobName}}/{{job.buildId}}/api/json">Jenkins API</a> --------
                         <a target="_blank" href="/api/jenkins/fetch/{{job.jobName}}/{{job.buildId}}">Fetch &amp; Populate</a></small>
                 </p>
                 <div ng-if="displayAsList">
