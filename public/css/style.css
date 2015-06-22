@@ -469,3 +469,8 @@ html .blue {
       margin-bottom: 15px; }
     .notification .body li {
       line-height: 1.1; }
+      .notification .body li a {
+        color: #CCC;
+        text-decoration: underline; }
+        .notification .body li a:hover {
+          color: #FFF; }

@@ -47,6 +47,13 @@
         }
         li {
             line-height: 1.1;
+            a {
+                color: #CCC;
+                text-decoration: underline;
+                &:hover {
+                    color: #FFF;
+                }
+            }
         }
     }
 }
