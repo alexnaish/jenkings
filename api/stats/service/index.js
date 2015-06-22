@@ -9,7 +9,7 @@ module.exports = {
 
         JobRun.aggregate([
                 {
-                    $match: matchObject
+                    $match: queryObject
             }, {
                     $project: {
                         dateCreated: 1,
