@@ -4,9 +4,15 @@ component.controller("BranchController", ['$routeParams', 'BranchService', '$sco
     console.log('loaded JobsController');
 
     $scope.trackingBranch = $routeParams.branchName || 'master';
+    $scope.displayAsList = true;
+
     BranchService.listAllBranchRuns($scope.trackingBranch).then(function (data) {
         $scope.trackedJobs = data;
     });
+
+    $scope.toggleDisplayMode = function () {
+        $scope.displayAsList = !$scope.displayAsList;
+    }
 
     function addOrReplace(array, key, data) {
         var replaced = false;

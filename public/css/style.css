@@ -156,6 +156,12 @@ a {
     font-size: 24px;
     padding-bottom: 10px;
     border-bottom: 1px solid lightgray; }
+    .main .title .options {
+      float: right;
+      font-size: 18px;
+      cursor: pointer; }
+      .main .title .options a:hover {
+        color: #717171; }
 
 .fade.ng-move,
 .fade.ng-enter,
@@ -430,7 +436,18 @@ html .blue {
   background-color: #73BEFF;
   color: #fff;
   cursor: pointer;
-  transition: all 0.3s ease; }
+  transition: background-color 0.3s ease; }
+  .notification.desktop-mode {
+    min-width: 400px;
+    width: 25%;
+    float: left;
+    margin: 15px;
+    min-height: 300px;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center; }
+    .notification.desktop-mode .icon {
+      font-size: 40px; }
   .notification strong {
     font-weight: bold; }
   .notification .icon {
