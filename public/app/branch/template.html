@@ -9,6 +9,13 @@
             <div class="body">
                 <p>{{job.jobName}} ({{job.buildId}})
                     <div ng-if="displayAsList">
+                        <ul>
+                            <li>Run On: {{job.node}}</li>
+                            <li>Duration: {{job.duration / 60000 }} minutes</li>
+                            <li>Commit: {{job.gitCommit}}</li>
+                            <li>Culprits: <span ng-repeat="culprit in job.culprits">{{culprit.fullName}}{{$last ? '' : ', '}}</span>
+                            </li>
+                        </ul>
                         <a target="_blank" href="http://build.nowtv.bskyb.com/view/6.%20Iceberg/job/{{job.jobName}}/{{job.buildId}}/api/json">Jenkins API</a> --------
                         <a target="_blank" href="/api/jenkins/fetch/{{job.jobName}}/{{job.buildId}}">Fetch &amp; Populate</a>
                     </div>
