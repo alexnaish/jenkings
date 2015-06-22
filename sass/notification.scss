@@ -11,7 +11,7 @@
     transition: background-color 0.3s ease;
     &.desktop-mode {
         min-width: 400px;
-        width: 25%;
+        width: 30%;
         float: left;
         margin: 15px;
         min-height: 300px;
@@ -20,6 +20,7 @@
         text-align: center;
         .icon {
             font-size: 40px;
+            width: 110px;
         }
     }
     strong {

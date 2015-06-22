@@ -439,7 +439,7 @@ html .blue {
   transition: background-color 0.3s ease; }
   .notification.desktop-mode {
     min-width: 400px;
-    width: 25%;
+    width: 30%;
     float: left;
     margin: 15px;
     min-height: 300px;
@@ -447,7 +447,8 @@ html .blue {
     font-weight: bold;
     text-align: center; }
     .notification.desktop-mode .icon {
-      font-size: 40px; }
+      font-size: 40px;
+      width: 110px; }
   .notification strong {
     font-weight: bold; }
   .notification .icon {
