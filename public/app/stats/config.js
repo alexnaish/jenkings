@@ -5,6 +5,10 @@ component.config(function ($routeProvider) {
         .when('/stats/:branchName', {
             templateUrl: 'app/stats/template.html',
             controller: 'StatsController',
-            resolve: {}
+            resolve: {
+                config: function (ConfigService) {
+                    return ConfigService.retrieveConfig();
+                }
+            }
         })
 });

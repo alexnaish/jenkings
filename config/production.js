@@ -20,6 +20,9 @@ module.exports = {
             "iceberg-macslave-frontend-unit",
             "iceberg-macslave-backend-unit",
             "iceberg-macslave-backend-e2e",
+            "iceberg-macslave-protractor-shard-1",
+            "iceberg-macslave-protractor-shard-2",
+            "iceberg-macslave-protractor-shard-3"
         ]
     }
 };

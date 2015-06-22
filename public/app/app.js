@@ -1,5 +1,5 @@
 var app = angular.module('Jenkings', [
-  'sidebar', 'latest', 'branch', 'jobs', 'stats', 'dropdown-menu', 'ngAnimate'
+  'config', 'sidebar', 'latest', 'branch', 'jobs', 'stats', 'dropdown-menu', 'ngAnimate'
 ]);
 
 app.config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
