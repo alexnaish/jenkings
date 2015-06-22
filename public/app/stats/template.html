@@ -3,7 +3,7 @@
 <div class="grid">
     <div class="row">
         <div class="class-1-3">
-            <select ng-model="chosenJob" ng-options="job in jobs"></select>
+            <select ng-model="chosenJob" ng-options="job for job in jobs"></select>
         </div>
         <div class="class-1-3">Chosen Job: {{chosenJob || "All"}}</div>
         <div class="class-1-3">
