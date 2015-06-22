@@ -27,9 +27,7 @@ var jobSchema = mongoose.Schema({
     gitCommit: {
         type: String
     },
-    culprits: {
-        type: mongoose.Schema.Types.Array
-    },
+    culprits: {},
     duration: {
         type: Number
     }
