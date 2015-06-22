@@ -13,7 +13,7 @@
                             <li>Run On: <strong>{{job.node}}</strong>
                             </li>
                             <li>Duration: <strong>{{job.duration / 1000}}</strong> seconds</li>
-                            <li>Commit: <strong>{{job.gitCommit}}</strong>
+                            <li>Commit: <strong><a href="//gitlab.nowtv.bskyb.com/iceberg/commit/{{job.gitCommit}}">{{job.gitCommit}}</a></strong>
                             </li>
                             <li ng-if="job.culprits && job.culprits.length > 0">Culprits: <span ng-repeat="culprit in job.culprits"><strong>{{culprit.fullName}}{{$last ? '' : ', '}}</strong></span>
                             </li>
