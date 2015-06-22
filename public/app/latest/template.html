@@ -2,15 +2,28 @@
 
 <ul>
     <li class="fade" ng-repeat="job in jobruns | orderBy: 'dateCreated':true track by $index | limitTo:20">
-        <div class="notification" ng-class="{ 'green': job.result === 'SUCCESS', 'amber': job.result === 'PENDING', 'blue': job.result === 'UNSTABLE', 'red': job.result === 'FAILURE'}">
+        <div class="notification" ng-class="{'green': job.result === 'SUCCESS', 'amber': job.result === 'PENDING', 'blue': job.result === 'UNSTABLE', 'red': job.result === 'FAILURE'}">
             <div class="icon">
                 <i class="fa fa-check" ng-class="{ 'fa-check': job.result === 'SUCCESS', 'fa-question': job.result === 'PENDING', 'fa-bolt': job.result === 'UNSTABLE', 'fa-times': job.result === 'FAILURE'}"></i>
             </div>
             <div class="body">
-                <p>Name: {{job.jobName}} ({{job.buildId}}) on <strong>{{job.branch}}</strong> @ {{job.dateCreated}}
-                    <a target="_blank" href="http://build.nowtv.bskyb.com/view/6.%20Iceberg/job/{{job.jobName}}/{{job.buildId}}/api/json">Jenkins API</a> --------
-                    <a target="_blank" href="/api/jenkins/fetch/{{job.jobName}}/{{job.buildId}}">Fetch &amp; Populate</a>
+                <p class="title">{{job.jobName}} ({{job.buildId}})
+                    <small class="options">
+                        <a target="_blank" href="http://build.nowtv.bskyb.com/view/6.%20Iceberg/job/{{job.jobName}}/{{job.buildId}}/api/json">Jenkins API</a> --------
+                        <a target="_blank" href="/api/jenkins/fetch/{{job.jobName}}/{{job.buildId}}">Fetch &amp; Populate</a>
+                    </small>
                 </p>
+                <div>
+                    <ul>
+                        <li>Run On: <strong>{{job.node}}</strong>
+                        </li>
+                        <li>Duration: <strong>{{job.duration / 1000}}</strong> seconds</li>
+                        <li>Commit: <a href="//gitlab.nowtv.bskyb.com/iceberg/commit/{{job.gitCommit}}">{{job.gitCommit}}</a>
+                        </li>
+                        <li ng-if="job.culprits && job.culprits.length > 0">Culprits: <span ng-repeat="culprit in job.culprits"><strong>{{culprit.fullName}}{{$last ? '' : ', '}}</strong></span>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </li>
