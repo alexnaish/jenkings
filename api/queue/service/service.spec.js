@@ -6,7 +6,7 @@ var QueueService = require('./'),
 
 describe('QueueService', function () {
 
-    var saveStub, findStub, updateStub, consoleStub;
+    var saveStub, findStub, updateStub, consoleStub, finaliseStub;
 
     beforeEach(function () {
         saveStub = sinon.stub(QueueModel.prototype, 'save');
@@ -45,10 +45,10 @@ describe('QueueService', function () {
             processed: false
         }).yields(null, testData);
 
-
         QueueService.process(testId, null, consoleStub);
 
         setTimeout(function () {
+            expect(consoleStub.calledOnce).to.be.equal(true);
             expect(consoleStub.calledOnce).to.be.equal(true);
         }, 0);
 
