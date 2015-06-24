@@ -3,8 +3,6 @@ var component = angular.module('branch.controller', []);
 component.controller("BranchController", ['$routeParams', 'BranchService', '$scope', function ($routeParams, BranchService, $scope) {
     console.log('loaded JobsController');
 
-    console.log('$routeParams', $routeParams)
-
     $scope.trackingBranch = $routeParams.branchName || 'master';
     $scope.displayAsList = true;
 
