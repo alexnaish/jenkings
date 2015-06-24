@@ -2,9 +2,9 @@
 
 <ul>
     <li class="fade" ng-repeat="job in jobruns | orderBy: 'dateCreated':true track by $index | limitTo:20">
-        <div class="notification" ng-class="{'green': job.result === 'SUCCESS', 'amber': job.result === 'PENDING', 'blue': job.result === 'UNSTABLE', 'red': job.result === 'FAILURE'}">
+        <div class="notification" ng-class="{'green': job.result === 'SUCCESS', 'amber': job.result === 'PENDING', 'blue': job.result === 'UNSTABLE', 'red': job.result === 'FAILURE', 'grey': job.result === 'ABORTED'}">
             <div class="icon">
-                <i class="fa fa-check" ng-class="{ 'fa-check': job.result === 'SUCCESS', 'fa-question': job.result === 'PENDING', 'fa-bolt': job.result === 'UNSTABLE', 'fa-times': job.result === 'FAILURE'}"></i>
+                <i class="fa fa-check" ng-class="{ 'fa-check': job.result === 'SUCCESS', 'fa-question': job.result === 'PENDING', 'fa-bolt': job.result === 'UNSTABLE', 'fa-times': job.result === 'FAILURE', 'fa-exclamation': job.result === 'ABORTED'}"></i>
             </div>
             <div class="body">
                 <p class="title">{{job.jobName}} ({{job.buildId}})
