@@ -6,7 +6,11 @@ component.controller("BranchController", ['$routeParams', 'BranchService', '$sco
     console.log('$routeParams', $routeParams)
 
     $scope.trackingBranch = $routeParams.branchName || 'master';
-    $scope.displayAsList = $routeParams.desktopMode || true;
+    $scope.displayAsList = true;
+
+    if ($routeParams.desktopMode) {
+        $scope.displayAsList = false;
+    }
 
     BranchService.listAllBranchRuns($scope.trackingBranch).then(function (data) {
         $scope.trackedJobs = data;
