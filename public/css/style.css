@@ -269,6 +269,11 @@ html .blue {
   html .blue:hover {
     background-color: #5ab2ff; }
 
+html .grey {
+  background-color: #AEAEAE; }
+  html .grey:hover {
+    background-color: #a1a1a1; }
+
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
