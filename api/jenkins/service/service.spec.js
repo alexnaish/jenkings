@@ -4,6 +4,7 @@ var sinon = require('sinon'),
     JobRun = require('../../jobs/model'),
     JobService = require('../../jobs/service'),
     QueueService = require('../../queue/service'),
+    testData = require('../../../test/data'),
     expect = require('chai').expect;
 
 describe('Jenkins Service', function () {
@@ -113,10 +114,7 @@ describe('Jenkins Service', function () {
 
             requestStub.yields(null, {
                 statusCode: 200
-            }, JSON.stringify({
-                builtOn: 'test',
-                result: 'SUCCESS'
-            }));
+            }, testData.createJenkinsApiResponse('unstable', 'test1', 123));
 
             findStub.withArgs({
                 jobName: 'test1',
@@ -180,11 +178,14 @@ describe('Jenkins Service', function () {
             findStub.withArgs({
                 jobName: 'test1',
                 buildId: 2
-            }).yields(null, null);
+            }).yields({
+                message: 'some error'
+            }, null);
 
             var result = JenkinsService.fetchAndPopulateJobRun('test1', 2);
 
             expect(queueStub.called).to.not.be.equal(true);
+
         });
 
     });

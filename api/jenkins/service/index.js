@@ -11,7 +11,9 @@ function generateJenkinsJobApiUrl(jobName, buildId) {
 
 function renderResponse(statusCode, successful, response, callback) {
     if (callback === undefined) {
-        if (successful) QueueService.create('job-updated', ['jenkings:job-updated', response]);
+        if (successful) {
+            QueueService.create('job-updated', ['jenkings:job-updated', response]);
+        }
     } else {
         callback(statusCode, response);
     }
@@ -31,9 +33,19 @@ module.exports = {
                     if (!error && response && response.statusCode === 200) {
                         try {
                             var bodyJson = JSON.parse(body);
-                            var payload = _.pick(bodyJson, ['result', 'builtOn', 'duration', 'culprits']);
+
+                            var payload = _.pick(bodyJson, ['result', 'builtOn', 'duration', 'culprits', 'artifacts', 'actions', 'changeSet']);
                             payload.node = payload.builtOn;
                             delete payload.builtOn;
+                            payload.artifacts = _.pluck(payload.artifacts, 'relativePath');
+                            if (payload.actions && payload.actions.length && payload.actions.length > 7) {
+                                payload.runInfo = payload.actions[7];
+                            } else {
+                                payload.runInfo = {};
+                            }
+                            delete payload.actions;
+                            if (payload.changeSet) payload.commitInfo = _.pluck(payload.changeSet.items, 'msg');
+                            delete payload.changeSet;
 
                             JobService.update(queryObject, payload, function (status, response) {
                                 if (status === 200) {

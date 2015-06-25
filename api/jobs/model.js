@@ -30,7 +30,12 @@ var jobSchema = mongoose.Schema({
     culprits: {},
     duration: {
         type: Number
-    }
+    },
+    artifacts: {},
+    runInfo: {
+        type: String
+    },
+    commitInfo: {}
 });
 
 jobSchema.index({

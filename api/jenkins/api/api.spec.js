@@ -31,7 +31,7 @@ describe('Jenkins API', function () {
 
             nock(config.ci.domain)
                 .get(helpers.generateJenkinsJobApiUrl('found-on-jenkins', 124))
-                .reply(200, testData.sampleJenkinsApiResponse);
+                .reply(200, testData.createJenkinsApiResponse('UNSTABLE', 'found-on-jenkins', 124));
 
             done();
         });
@@ -55,6 +55,9 @@ describe('Jenkins API', function () {
                 expect(res.body.duration).to.be.equal(155674);
                 expect(res.body.result).to.be.equal('UNSTABLE');
                 expect(res.body.culprits).to.have.length(1);
+                expect(res.body).to.have.property('runInfo');
+                expect(res.body).to.have.property('commitInfo');
+                expect(res.body).to.have.property('artifacts');
                 done();
             });
     });
@@ -66,7 +69,6 @@ describe('Jenkins API', function () {
             .expect(404)
             .end(function (err, res) {
                 if (err) done(err);
-                console.log('res.body', res.body);
                 expect(res.body.message).to.be.contain('Not found on CI.');
                 done();
             });
