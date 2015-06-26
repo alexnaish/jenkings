@@ -404,6 +404,8 @@ html .grey {
   float: none;
   padding: 30px;
   vertical-align: top; }
+  .main-content .section {
+    padding-top: 20px; }
 
 .cards {
   margin-left: 0px;
