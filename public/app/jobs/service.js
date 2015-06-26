@@ -12,6 +12,16 @@ component.service("JobService", ['$http', function ($http) {
                     function (httpError) {
                         throw httpError.status + " : " + httpError.data;
                     });
+        },
+        listSpecificJob: function (jobName, buildId) {
+            return $http.get('/api/jobs/' + jobName + '/' + buildId)
+                .then(
+                    function (response) {
+                        return response.data;
+                    },
+                    function (httpError) {
+                        throw httpError.status + " : " + httpError.data;
+                    });
         }
     };
 

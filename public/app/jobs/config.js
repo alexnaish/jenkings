@@ -2,9 +2,9 @@ var component = angular.module('jobs.config', ['ngRoute']);
 
 component.config(function ($routeProvider) {
     $routeProvider
-        .when('/latest', {
+        .when('/job/:jobName/:buildId', {
             templateUrl: 'app/jobs/template.html',
-            controller: 'JobController',
+            controller: 'JobsController',
             resolve: {}
         })
 });
