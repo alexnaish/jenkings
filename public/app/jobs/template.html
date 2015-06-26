@@ -1,4 +1,4 @@
-<h2 class="title">Job Information - {{::jobName}} - {{::buildId}} <a target="_blank" href="/api/jenkins/fetch/{{jobName}}/{{buildId}}">Fetch &amp; Populate</a></h2>
+<h2 class="title">Job Information - {{::jobName}} - {{::buildId}} <small class="options"><a target="_blank" href="/api/jenkins/fetch/{{jobName}}/{{buildId}}">Fetch &amp; Populate</a></small></h2>
 
 <div ng-if="job.runInfo" class="section row cards">
     <h2 class="title">Run Information</h2>
@@ -35,8 +35,14 @@
     </div>
 </div>
 
-<div ng-if="job.commitInfo && job.commitInfo.length > 0">GIT Messages: {{::job.commitInfo}}</div>
-<div>GIT Commit: {{::job.gitCommit}}</div>
+<div class="section" ng-if="job.artifacts&& job.artifacts.length > 0">
+    <h2 class="title">Commit Information</h2>
+    <div>GIT Commit: {{::job.gitCommit}}</div>
+    <div ng-if="job.commitInfo && job.commitInfo.length > 0">GIT Messages: <span ng-repeat="commit in job.commitInfo">{{commit}}{{$last ? '' : ', '}}</span>
+    </div>
+
+</div>
+
 
 
 <div class="section" ng-if="job.artifacts&& job.artifacts.length > 0">
