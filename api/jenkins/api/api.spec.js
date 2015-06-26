@@ -49,6 +49,7 @@ describe('Jenkins API', function () {
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function (err, res) {
+                console.log('res', res);
                 if (err) done(err);
                 expect(res.body.jobName).to.be.equal('found-on-jenkins');
                 expect(res.body.node).to.be.equal('testNode');

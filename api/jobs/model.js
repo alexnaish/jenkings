@@ -32,9 +32,7 @@ var jobSchema = mongoose.Schema({
         type: Number
     },
     artifacts: {},
-    runInfo: {
-        type: String
-    },
+    runInfo: {},
     commitInfo: {}
 });
 
