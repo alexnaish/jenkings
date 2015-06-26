@@ -46,6 +46,12 @@
         padding: 20px;
         title {
             margin-bottom: 15px;
+            .header {
+                color: #EEE;
+                &:hover {
+                    color: #FFF;
+                }
+            }
         }
         li {
             line-height: 1.1;
