@@ -485,10 +485,10 @@ html .grey {
           color: #CCC; }
 
 .artifact {
-  border: 5px solid #fff;
+  border: 5px solid #a1a1a1;
   cursor: pointer;
   width: 400px;
-  height: auto;
+  height: 400px;
   float: left;
   margin: 5px;
   position: relative;
@@ -518,4 +518,5 @@ html .grey {
     width: 400px;
     height: auto;
     text-align: left;
-    padding: 10px; }
+    padding: 10px;
+    word-wrap: break-word; }

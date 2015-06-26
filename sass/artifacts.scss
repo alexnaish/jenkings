@@ -1,5 +1,6 @@
+@import 'variables';
 .artifact {
-    border: 5px solid #fff;
+    border: 5px solid $dark-grey;
     cursor: pointer;
     width: 400px;
     height: 400px;
@@ -37,5 +38,6 @@
         height: auto;
         text-align: left;
         padding: 10px;
+        word-wrap: break-word;
     }
 }
