@@ -487,12 +487,12 @@ html .grey {
 .artifact {
   border: 5px solid #fff;
   cursor: pointer;
-  height: 182px;
+  width: 400px;
+  height: auto;
   float: left;
   margin: 5px;
   position: relative;
-  overflow: hidden;
-  width: 400px; }
+  overflow: hidden; }
   .artifact:hover .caption {
     opacity: 1; }
   .artifact img {
@@ -515,7 +515,7 @@ html .grey {
     transition: all 0.3s ease-out;
     left: 0;
     opacity: 0;
-    width: 380px;
+    width: 400px;
     height: auto;
     text-align: left;
     padding: 10px; }
