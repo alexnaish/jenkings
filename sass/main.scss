@@ -7,5 +7,9 @@
     vertical-align: top;
     .section {
         padding-top: 20px;
+        .info {
+            line-height: 2;
+            font-weight: bold;
+        }
     }
 }

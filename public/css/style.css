@@ -408,6 +408,9 @@ html .grey {
   vertical-align: top; }
   .main-content .section {
     padding-top: 20px; }
+    .main-content .section .info {
+      line-height: 2;
+      font-weight: bold; }
 
 .cards {
   margin-left: 0px;

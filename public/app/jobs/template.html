@@ -41,8 +41,11 @@
 
 <div class="section" ng-if="job.artifacts&& job.artifacts.length > 0">
     <h2 class="title">Commit Information</h2>
-    <div>GIT Commit: {{::job.gitCommit}}</div>
-    <div ng-if="job.commitInfo && job.commitInfo.length > 0">GIT Messages: <span ng-repeat="commit in job.commitInfo">{{commit}}{{$last ? '' : ', '}}</span>
+    <div>GIT Commit:
+        <span class="info">{{::job.gitCommit}}</span>
+    </div>
+    <div ng-if="job.commitInfo && job.commitInfo.length > 0">GIT Messages:
+        <span class="info" ng-repeat="commit in job.commitInfo">{{commit}}{{$last ? '' : ', '}}</span>
     </div>
 
 </div>
