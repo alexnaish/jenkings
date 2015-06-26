@@ -17,7 +17,7 @@ component.service("JobService", ['$http', function ($http) {
             return $http.get('/api/jobs/' + jobName + '/' + buildId)
                 .then(
                     function (response) {
-                        return response.data;
+                        return response.data[0];
                     },
                     function (httpError) {
                         throw httpError.status + " : " + httpError.data;
