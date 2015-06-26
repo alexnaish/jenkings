@@ -472,11 +472,11 @@ html .grey {
     display: table-cell;
     vertical-align: middle;
     padding: 20px; }
-    .notification .body title {
+    .notification .body .title {
       margin-bottom: 15px; }
-      .notification .body title .header {
+      .notification .body .title .header {
         color: #EEE; }
-        .notification .body title .header:hover {
+        .notification .body .title .header:hover {
           color: #FFF; }
     .notification .body li {
       line-height: 1.1; }
