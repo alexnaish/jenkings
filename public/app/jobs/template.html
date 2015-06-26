@@ -10,6 +10,10 @@
     </li>
     <li ng-if="job.commitInfo && job.commitInfo.length > 0">GIT Messages: {{::job.commitInfo}}</li>
     <li>GIT Commit: {{::job.gitCommit}}</li>
-    <li ng-if="job.artifacts && job.artifacts.length > 0">Artifacts: <img ng-repeat="artifact in job.artifacts" ng-src="http://build.nowtv.bskyb.com/view/6.%20Iceberg/job/{{::jobName}}/{{::buildId}}/artifact/{{::artifact}}" />
+    <li ng-if="job.artifacts && job.artifacts.length > 0">Artifacts:
+        <div ng-repeat="artifact in job.artifacts" class="artifact">
+            <img class="ng-scope" ng-src="http://build.nowtv.bskyb.com/view/6.%20Iceberg/job/{{::jobName}}/{{::buildId}}/artifact/{{::artifact}}">
+            <span class="caption">{{::artifact}}</span>
+        </div>
     </li>
 </ul>

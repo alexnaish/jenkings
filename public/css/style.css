@@ -483,3 +483,39 @@ html .grey {
         text-decoration: underline; }
         .notification .body li a:hover {
           color: #CCC; }
+
+.artifact {
+  border: 5px solid #fff;
+  cursor: pointer;
+  height: 182px;
+  float: left;
+  margin: 5px;
+  position: relative;
+  overflow: hidden;
+  width: 400px; }
+  .artifact:hover .caption {
+    opacity: 1; }
+  .artifact img {
+    height: 100%;
+    width: auto;
+    position: absolute;
+    left: 0;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out; }
+  .artifact .caption {
+    background-color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    color: #fff;
+    z-index: 100;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    left: 0;
+    opacity: 0;
+    width: 380px;
+    height: auto;
+    text-align: left;
+    padding: 10px; }
