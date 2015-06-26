@@ -475,9 +475,7 @@ html .grey {
     .notification .body .title {
       margin-bottom: 15px; }
       .notification .body .title .header {
-        color: #EEE; }
-        .notification .body .title .header:hover {
-          color: #FFF; }
+        color: #FFF; }
     .notification .body li {
       line-height: 1.1; }
       .notification .body li a {
