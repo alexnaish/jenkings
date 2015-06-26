@@ -1,8 +1,14 @@
 <h2 class="title">Job Information - {{jobName}} - {{buildId}}</h2>
 
 <ul>
-    <li>Run Info: {{job.runInfo}}</li>
-    <li>GIT Messages: {{job.commitInfo}}</li>
+    <li ng-if="job.runInfo">Run Info:
+        <ul>
+            <li>Total Tests: {{job.runInfo.totalCount}}</li>
+            <li>Skipped Tests: {{job.runInfo.skipCount}}</li>
+            <li>Failed Tests: {{job.runInfo.failCount}}</li>
+        </ul>
+    </li>
+    <li ng-if="job.commitInfo && job.commitInfo.length > 0">GIT Messages: {{job.commitInfo}}</li>
     <li>GIT Commit: {{job.gitCommit}}</li>
-    <li>Artifacts: {{job.artifacts}}</li>
+    <li ng-if="job.artifacts && job.artifacts.length > 0">Artifacts: {{job.artifacts}}</li>
 </ul>
