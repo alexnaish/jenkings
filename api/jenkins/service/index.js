@@ -73,5 +73,11 @@ module.exports = {
                 }, callback);
             }
         });
+    },
+
+    fetchAndReturnTestReport: function (job, build, callback) {
+        callback(200, {
+            result: 'tadadadada'
+        });
     }
 };
