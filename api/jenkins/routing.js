@@ -5,8 +5,11 @@ module.exports = {
 
     apply: function (app) {
 
-        app.route(config.app.apiPath + '/jenkins/fetch/:job/:build')
+        app.route(config.app.apiPath + '/jenkins/fetch/:job/:build/')
             .get(api.fetchJobRunInfo);
+
+        app.route(config.app.apiPath + '/jenkins/fetch/:job/:build/testReport')
+            .get(api.fetchJobRunTestReport);
 
     }
 

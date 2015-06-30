@@ -49,7 +49,6 @@ describe('Jenkins API', function () {
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function (err, res) {
-                console.log('res', res);
                 if (err) done(err);
                 expect(res.body.jobName).to.be.equal('found-on-jenkins');
                 expect(res.body.node).to.be.equal('testNode');
@@ -69,8 +68,20 @@ describe('Jenkins API', function () {
             .expect('Content-Type', /json/)
             .expect(404)
             .end(function (err, res) {
-                if (err) done(err);
+                if (err) return done(err);
                 expect(res.body.message).to.be.contain('Not found on CI.');
+                done();
+            });
+    });
+
+    it('should return a 200 and return the test report from jenkins if it exists', function (done) {
+
+        request.get('/api/jenkins/fetch/found-on-jenkins/123/testReport')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) return done(err);
+                //                expect(res.body.message).to.be.contain('Not found on CI.');
                 done();
             });
     });
