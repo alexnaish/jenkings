@@ -4,8 +4,7 @@ var StatsService = require('../service/'),
 module.exports = {
 
     generateStats: function (req, res, next) {
-        var queryParams = _.extend(req.query, req.params);
-        StatsService.generateHistorical(queryParams, function (statusCode, results) {
+        StatsService.generateHistorical(req.params.branch, req.params.jobName, function (statusCode, results) {
             res.status(statusCode).json(results);
         });
     }

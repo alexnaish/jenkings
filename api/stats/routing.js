@@ -5,7 +5,7 @@ module.exports = {
 
     apply: function (app) {
 
-        app.route(config.app.apiPath + '/stats/:branch')
+        app.route(config.app.apiPath + '/stats/:branch/:jobName')
             .get(api.generateStats);
 
     }
