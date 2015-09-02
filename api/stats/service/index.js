@@ -5,10 +5,13 @@ module.exports = {
     generateHistorical: function (branch, job, callback) {
         var queryObject = {
             jobName: job,
-            branch: branch
+            branch: branch,
+            result: { $ne: 'PENDING' }
         };
 
-        JobRun.find(queryObject).sort({ 'dateCreated': -1 })
+        JobRun.find(queryObject)
+            .sort({ 'dateCreated': -1 })
+            .select('result')
             .limit(5).exec(function (err, result) {
                 if (err) {
                     callback(500, err);
