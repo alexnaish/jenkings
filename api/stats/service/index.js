@@ -11,7 +11,7 @@ module.exports = {
 
         JobRun.find(queryObject)
             .sort({ 'dateCreated': -1 })
-            .select('result')
+            .select('result dateCreated')
             .limit(5).exec(function (err, result) {
                 if (err) {
                     callback(500, err);
