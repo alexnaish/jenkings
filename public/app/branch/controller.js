@@ -1,6 +1,6 @@
 var component = angular.module('branch.controller', []);
 
-component.controller("BranchController", ['$routeParams', 'BranchService', '$scope', function ($routeParams, BranchService, $scope) {
+component.controller("BranchController", ['$routeParams', 'BranchService', 'StatsService', '$scope', function ($routeParams, BranchService, StatsService, $scope) {
     console.log('loaded JobsController');
 
     $scope.trackingBranch = $routeParams.branchName || 'master';
@@ -16,7 +16,7 @@ component.controller("BranchController", ['$routeParams', 'BranchService', '$sco
 
     $scope.toggleDisplayMode = function () {
         $scope.displayAsList = !$scope.displayAsList;
-    }
+    };
 
     function addOrReplace(array, key, data) {
         var replaced = false;
@@ -36,9 +36,13 @@ component.controller("BranchController", ['$routeParams', 'BranchService', '$sco
         }
     };
 
-    socket.on('jenkings:new-job', function (data) {
-        if (data.branch === $scope.trackingBranch) {
-            addOrReplace($scope.trackedJobs, 'jobName', data);
+    socket.on('jenkings:new-job', function (job) {
+        if (job.branch === $scope.trackingBranch) {
+            addOrReplace($scope.trackedJobs, 'jobName', job);
+            StatsService.getHistoricalStats($scope.trackingBranch, job.jobName, 5).then(function(historicalData){
+                console.log('heres my historical data!', historicalData);
+                job.historical = historicalData;
+            });
         }
     });
 

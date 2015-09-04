@@ -13,7 +13,7 @@ module.exports = {
 
         var query = JobRun.find(queryObject)
             .sort({ 'dateCreated': -1 })
-            .select('result dateCreated')        
+            .select('result dateCreated')
             .limit(limit)
             .exec(function (err, result) {
                 if (err) {
