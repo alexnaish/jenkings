@@ -76,11 +76,12 @@
             .run {
                 min-width: 30px;
                 height: 30px;
+                border: 1px solid rgba(255,255,255,0.05);
                 
-                &.green {
+                &.success {
                     background-color: $dark-green;
                 }
-                &.red {
+                &.fail {
                     background-color: $dark-red;
                 }                
                 
