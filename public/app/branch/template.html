@@ -17,7 +17,7 @@
                         <a target="_blank" href="/api/jenkins/fetch/{{job.jobName}}/{{job.buildId}}">Fetch &amp; Populate</a>
                     </small>
                     <ul ng-else="displayAsList" class="history">
-                        <li ng-repeat="result in history[job.jobName]" class="run"></li> 
+                        <li ng-repeat="run in history[job.jobName]" class="run" ng-class="{'green': run.result === 'SUCCESS', 'red': run.result === 'UNSTABLE' || run.result === 'FAILURE'}"></li> 
                     </ul>
                 </p>
                 <div ng-if="displayAsList">
