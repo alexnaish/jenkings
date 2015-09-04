@@ -17,7 +17,7 @@
                         <a target="_blank" href="/api/jenkins/fetch/{{job.jobName}}/{{job.buildId}}">Fetch &amp; Populate</a>
                     </small>
                     <ul ng-else="displayAsList" class="history">
-                        <li ng-repeat="run in history[job.jobName] | orderBy: 'dateCreated'" class="run" title="{{run.dateCreated | date:"dd/MM/yyyy 'at' h:mma"}}" ng-class="{'success': run.result === 'SUCCESS', 'fail': run.result === 'UNSTABLE' || run.result === 'FAILURE'}"></li> 
+                        <li ng-repeat="run in history[job.jobName] | orderBy: 'dateCreated'" class="run" title="{{run.dateCreated | date:'dd/MM/yyyy h:mma'}}" ng-class="{'success': run.result === 'SUCCESS', 'fail': run.result === 'UNSTABLE' || run.result === 'FAILURE'}"></li> 
                     </ul>
                 </p>
                 <div ng-if="displayAsList">
