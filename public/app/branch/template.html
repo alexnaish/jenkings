@@ -7,7 +7,7 @@
     <li class="fade" ng-repeat="job in trackedJobs | orderBy:'jobName'">
         <div class="notification" ng-class="{'desktop-mode': !displayAsList, 'green': job.result === 'SUCCESS', 'amber': job.result === 'PENDING', 'red': job.result === 'UNSTABLE' || job.result === 'FAILURE', 'grey': job.result === 'ABORTED'}">
             <div class="icon">
-                <i class="fa fa-check" ng-class="{ 'fa-check': job.result === 'SUCCESS', 'fa-cog fa-spin': job.result === 'PENDING', 'fa-bolt': job.result === 'UNSTABLE', 'fa-times': job.result === 'FAILURE', 'fa-exclamation': job.result === 'ABORTED'}"></i>
+                <i class="fa fa-check" ng-class="{ 'fa-check': job.result === 'SUCCESS', 'fa-cog fa-spin': job.result === 'PENDING', 'fa-times': job.result === 'UNSTABLE' || job.result === 'FAILURE', 'fa-exclamation': job.result === 'ABORTED'}"></i>
             </div>
             <div class="body">
                 <p class="title">

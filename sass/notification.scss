@@ -78,6 +78,7 @@
                 min-width: 30px;
                 height: 30px;
                 border: 1px solid rgba(255,255,255,0.4);
+                border-radius: 50%;
                 
                 &.success {
                     background-color: $dark-green;
