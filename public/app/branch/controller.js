@@ -41,7 +41,7 @@ component.controller("BranchController", ['$routeParams', 'BranchService', 'Stat
             addOrReplace($scope.trackedJobs, 'jobName', job);
             StatsService.getHistoricalStats($scope.trackingBranch, job.jobName, 5).then(function(historicalData){
                 console.log('heres my historical data!', job.jobName, historicalData);
-                job.historical = historicalData;
+                job.history = historicalData;
             });
         }
     });
