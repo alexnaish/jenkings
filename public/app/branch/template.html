@@ -7,7 +7,7 @@
     <li class="fade" ng-repeat="job in trackedJobs | orderBy:'jobName'">
         <div class="notification" ng-class="{'desktop-mode': !displayAsList, 'green': job.result === 'SUCCESS', 'amber': job.result === 'PENDING', 'red': job.result === 'UNSTABLE' || job.result === 'FAILURE', 'grey': job.result === 'ABORTED'}">
             <div class="icon">
-                <i class="fa fa-check" ng-class="{ 'fa-check': job.result === 'SUCCESS', 'fa-question': job.result === 'PENDING', 'fa-bolt': job.result === 'UNSTABLE', 'fa-times': job.result === 'FAILURE', 'fa-exclamation': job.result === 'ABORTED'}"></i>
+                <i class="fa fa-check" ng-class="{ 'fa-check': job.result === 'SUCCESS', 'fa-cog fa-spin': job.result === 'PENDING', 'fa-bolt': job.result === 'UNSTABLE', 'fa-times': job.result === 'FAILURE', 'fa-exclamation': job.result === 'ABORTED'}"></i>
             </div>
             <div class="body">
                 <p class="title">
@@ -17,7 +17,7 @@
                         <a target="_blank" href="/api/jenkins/fetch/{{job.jobName}}/{{job.buildId}}">Fetch &amp; Populate</a>
                     </small>
                     <ul ng-else="displayAsList" class="history">
-                        <li ng-repeat="run in history[job.jobName] | orderBy: 'dateCreated' |" class="run" title="run.dateCreated | date:"dd/MM/yyyy 'at' h:mma"" ng-class="{'success': run.result === 'SUCCESS', 'fail': run.result === 'UNSTABLE' || run.result === 'FAILURE'}"></li> 
+                        <li ng-repeat="run in history[job.jobName] | orderBy: 'dateCreated'" class="run" title="run.dateCreated | date:"dd/MM/yyyy 'at' h:mma"" ng-class="{'success': run.result === 'SUCCESS', 'fail': run.result === 'UNSTABLE' || run.result === 'FAILURE'}"></li> 
                     </ul>
                 </p>
                 <div ng-if="displayAsList">
