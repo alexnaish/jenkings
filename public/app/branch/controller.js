@@ -4,6 +4,7 @@ component.controller("BranchController", ['$routeParams', 'BranchService', 'Stat
     console.log('loaded JobsController');
 
     $scope.trackingBranch = $routeParams.branchName || 'master';
+    $scope.history = {};
     $scope.displayAsList = true;
 
     if ($routeParams.desktopMode) {
@@ -40,8 +41,7 @@ component.controller("BranchController", ['$routeParams', 'BranchService', 'Stat
         if (job.branch === $scope.trackingBranch) {
             addOrReplace($scope.trackedJobs, 'jobName', job);
             StatsService.getHistoricalStats($scope.trackingBranch, job.jobName, 5).then(function(historicalData){
-                console.log('heres my historical data!', job.jobName, historicalData);
-                job.history = historicalData;
+                $scope.history[job.jobName] = historicalData;
             });
         }
     });
