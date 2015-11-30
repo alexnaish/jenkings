@@ -1,0 +1,19 @@
+<h2 class="title">Job History</h2>
+
+<div class="grid">
+    <div class="row">
+        <div class="col-1-3">
+            <select ng-model="chosenJob">
+                <option ng-repeat="job in jobs" value="{{job}}">{{job}}</option>
+            </select>
+        </div>
+        <div class="col-1-3">Chosen Job: {{chosenJob || "None"}}</div>
+        <div class="col-1-3">
+            <button type="button" class="btn btn-green" ng-click="generateStats()" ng-disabled="!chosenJob">Generate</button>
+        </div>
+    </div>
+
+    <div class="row cards">
+        <canvas ng-if="chartGenerated" id="pie" class="chart chart-pie" chart-data="builds" chart-labels="labels"></canvas>
+    </div>
+</div>

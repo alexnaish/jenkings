@@ -1,4 +1,4 @@
-var component = angular.module('stats.controller', ['chart.js']);
+var component = angular.module('stats.controller', []);
 
 component.controller("StatsController", ['$scope', '$routeParams', 'StatsService', 'config', function ($scope, $routeParams, StatsService, config) {
     console.log('loaded StatsController');

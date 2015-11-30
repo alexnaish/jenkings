@@ -2,13 +2,13 @@
 
 <div class="grid">
     <div class="row">
-        <div class="class-1-3">
+        <div class="col-1-3">
             <select ng-model="chosenJob">
                 <option ng-repeat="job in jobs" value="{{job}}">{{job}}</option>
             </select>
         </div>
-        <div class="class-1-3">Chosen Job: {{chosenJob || "All"}}</div>
-        <div class="class-1-3">
+        <div class="col-1-3">Chosen Job: {{chosenJob || "All"}}</div>
+        <div class="col-1-3">
             <button type="button" class="btn btn-green" ng-click="generateStats()">Generate</button>
         </div>
     </div>
