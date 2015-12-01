@@ -10,6 +10,10 @@
             $scope.displayAsList = false;
         }
 
+        StatsService.getProjects($scope.trackingBranch).then(function(projects) {
+            $scope.projects = projects;
+        });
+
         BranchService.listAllBranchRuns($scope.trackingBranch).then(function (data) {
             $scope.trackedJobs = data;
         });

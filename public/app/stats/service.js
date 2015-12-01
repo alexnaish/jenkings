@@ -10,6 +10,17 @@
                         function (httpError) {
                             throw httpError.status + " : " + httpError.data;
                         });
+            },
+
+            getProjects: function(branch) {
+                return $http.get('/api/stats/projects/' + branch)
+                    .then(
+                        function (response) {
+                            return response.data;
+                        },
+                        function (httpError) {
+                            throw httpError.status + " : " + httpError.data;
+                        });
             }
         };
         return service;
