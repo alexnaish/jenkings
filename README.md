@@ -18,15 +18,6 @@ Setup
 1. To start the application run `npm start`.
 1. To view the application and job statuses go to `http://localhost:1337`.
 
-Developing
------
-There is a gulp watcher for recompiling CSS/restarting the server on changes. Simple run
-
-`
-gulp
-`
-
-to start the watcher.
 
 Storing data
 -----
@@ -38,3 +29,26 @@ curl --data 'jobName=<your Jenkins job name>4&buildId=<Jenkins job number>&resul
 `
 
 Currently, Jenkings is only compatible with Jenkins CI server.
+
+Developing
+-----
+There is a gulp watcher for recompiling CSS/restarting the server on changes. Simple run
+
+`
+gulp
+`
+
+to start the watcher.
+
+Testing
+-----
+
+Gulp is configured to run Mocha with code coverage and run Karma unit tests in Phantom
+
+`
+gulp mocha
+`
+
+`
+gulp unit
+`
