@@ -1,16 +1,36 @@
 .project {
 
 	padding: 20px;
+	overflow: hidden;
 
 	.project-header {
 		border: 1px solid deeppink;
 		font-size: 20px;
 	}
 
-	.project-jobs {
-		border: 1px solid lightgrey;
-		font-size: 15px;
+}
+
+.project-jobs {
+	border: 1px solid lightgrey;
+	font-size: 15px;
+
+	.job {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		// justify-content: space-around;
+		border: 1px solid deeppink;
+
+		.icon {
+			flex-grow: 0;
+			width: 50px;
+		}
+
+		.body {
+			flex-grow: 1;
+			align-items: center;
+		}
+
 	}
 
 }
-
