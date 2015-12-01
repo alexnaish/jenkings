@@ -19,6 +19,9 @@
                         </li>
                         <li>Run On: <strong>{{job.node}}</strong>
                         </li>
+                        <li>
+                            Started On: <strong>{{job.dateCreated | date:'medium'}}</strong>
+                        </li>
                         <li>Duration: <span ng-bind-html="job.duration | duration"></span></li>
                         <li>Commit: <a href="//gitlab.nowtv.bskyb.com/iceberg/commit/{{job.gitCommit}}">{{job.gitCommit}}</a>
                         </li>

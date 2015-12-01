@@ -26,6 +26,9 @@
                             <strong>{{job.node}}</strong>
                         </li>
                         <li>
+                            Started On: <strong>{{job.dateCreated | date:'medium'}}</strong>
+                        </li>
+                        <li>
                             Duration:
                             <span ng-bind-html="job.duration | duration"></span>
                         </li>
