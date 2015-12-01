@@ -4,7 +4,7 @@ module.exports = {
 
     generateHistorical: function (branch, job, recordLimit, callback) {
         var limit = recordLimit || 5;
-        
+
         var queryObject = {
             jobName: job,
             branch: branch,
@@ -22,6 +22,14 @@ module.exports = {
                     callback(200, result);
                 }
             });
+    },
+    generateDistinctJobNames: function (callback) {
+        JobRun.distinct('jobName', function (err, results) {
+            if (err) {
+                return callback(500, err);
+            }
+            callback(200, results);
+        });
     }
 
 };

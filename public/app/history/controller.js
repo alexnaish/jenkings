@@ -4,10 +4,10 @@
 
         $scope.builds = [];
 
-        $scope.jobs = [
-            'iceberg-editorial-api-integration'
-        ];
-
+        HistoryService.fetchJobNames().then(function(data){
+            $scope.jobs = data;
+        });
+        
         $scope.generateStats = function () {
             HistoryService.listBuildsByName($scope.chosenJob).then(function (builds) {
                 $scope.chartGenerated = true;

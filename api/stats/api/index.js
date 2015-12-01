@@ -8,6 +8,11 @@ module.exports = {
         StatsService.generateHistorical(req.params.branch, req.params.jobName, limit, function (statusCode, results) {
             res.status(statusCode).json(results);
         });
+    },
+    listAllJobNames: function (req, res, next) {
+        StatsService.generateDistinctJobNames(function (statusCode, results) {
+            res.status(statusCode).json(results);
+        });
     }
 
 };
