@@ -21,6 +21,10 @@ var jobSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    project: {
+        type: String,
+        required: true
+    },
     node: {
         type: String
     },

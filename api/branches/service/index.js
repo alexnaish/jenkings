@@ -50,6 +50,9 @@ module.exports = {
                     },
                     culprits: {
                         $first: '$culprits'
+                    },
+                    project: {
+                        $first: '$project'
                     }
                 }
             },
@@ -63,7 +66,8 @@ module.exports = {
                     duration: 1,
                     node: 1,
                     gitCommit: 1,
-                    culprits: 1
+                    culprits: 1,
+                    project: 1
                 }
             }
 
