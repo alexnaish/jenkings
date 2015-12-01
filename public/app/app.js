@@ -1,12 +1,17 @@
-var app = angular.module('Jenkings', [
-  'config', 'sidebar', 'latest', 'branch', 'jobs', 'stats', 'history', 'dropdown-menu', 'ngAnimate', 'chart.js'
-]);
+(function (component) {
+    component.config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
+        $routeProvider
+            .when('/', {
+                redirectTo: '/latest'
+            });
 
-app.config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
-    $routeProvider
-        .when('/', {
-            redirectTo: '/latest'
-        })
+        $locationProvider.html5Mode(false);
+    }]);
 
-    $locationProvider.html5Mode(false);
-}]);
+    component.config(['$compileProvider', function ($compileProvider) {
+        $compileProvider.debugInfoEnabled(false);
+    }]);
+
+})(angular.module('Jenkings', [
+    'config', 'sidebar', 'latest', 'branch', 'jobs', 'stats', 'history', 'dropdown-menu', 'ngAnimate', 'chart.js'
+]));
