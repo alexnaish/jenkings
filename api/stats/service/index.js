@@ -30,6 +30,14 @@ module.exports = {
             }
             callback(200, results);
         });
+    },
+    generateDistinctProjectsByBranch: function (branch, callback) {
+        JobRun.find({branch: branch}).distinct('project', function (err, results) {
+            if (err) {
+                return callback(500, err);
+            }
+            callback(200, results);
+        });
     }
 
 };
