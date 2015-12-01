@@ -1,6 +1,6 @@
-var component = angular.module('jobs.controller', []);
+(function (component) {
 
-component.controller("JobsController", ['$scope', 'JobService', '$routeParams', function ($scope, JobService, $routeParams) {
+    component.controller("JobsController", ['$scope', 'JobService', '$routeParams', function ($scope, JobService, $routeParams) {
     console.log('loaded JobsController');
 
     $scope.jobName = $routeParams.jobName;
@@ -11,3 +11,5 @@ component.controller("JobsController", ['$scope', 'JobService', '$routeParams', 
         $scope.job = data;
     });
 }]);
+
+} (angular.module('jobs.controller', [])));

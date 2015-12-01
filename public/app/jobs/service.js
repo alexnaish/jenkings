@@ -1,6 +1,5 @@
-var component = angular.module('jobs.service', []);
-
-component.service("JobService", ['$http', function ($http) {
+(function (component) {
+    component.service("JobService", ['$http', function ($http) {
 
     var service = {
         listAllJobs: function () {
@@ -28,3 +27,5 @@ component.service("JobService", ['$http', function ($http) {
     return service;
 
 }]);
+
+} (angular.module('jobs.service', [])));
