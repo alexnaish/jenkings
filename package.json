@@ -26,15 +26,18 @@
     "gulp-mocha": "^2.1.0",
     "gulp-nodemon": "^2.0.3",
     "gulp-sass": "^2.0.1",
-    "moment": "^2.10.3",
-    "sinon": "^1.14.1",
-    "supertest": "^1.0.1",
-    "nock": "~2.5.0",
+    "jasmine-core": "^2.4.0",
     "karma": "~0.12.36",
     "karma-chai": "~0.1.0",
-    "mocha": "~2.2.5",
+    "karma-jasmine": "^0.3.6",
     "karma-mocha": "~0.1.10",
+    "karma-phantomjs-launcher": "~0.2.0",
+    "karma-spec-reporter": "0.0.23",
+    "mocha": "~2.2.5",
+    "moment": "^2.10.3",
+    "nock": "~2.5.0",
     "phantomjs": "~1.9.17",
-    "karma-phantomjs-launcher": "~0.2.0"
+    "sinon": "^1.14.1",
+    "supertest": "^1.0.1"
   }
 }
