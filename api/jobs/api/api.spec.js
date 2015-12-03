@@ -15,21 +15,25 @@ describe('JobRun API', function () {
     var assets = [{
         jobName: 'test-run-1',
         buildId: '123',
+        project: 'test',
         result: 'SUCCESS',
         branch: 'master'
         }, {
         jobName: 'test-run-1',
         buildId: '124',
+        project: 'test',
         result: 'FAILURE',
         branch: 'test-branch'
         }, {
         jobName: 'test-run-2',
         buildId: '100',
+        project: 'test',
         result: 'PENDING',
         branch: 'master'
         }, {
         jobName: 'delete-me',
         buildId: '1',
+        project: 'test',
         result: 'SUCCESS',
         branch: 'master'
         }];
@@ -123,7 +127,8 @@ describe('JobRun API', function () {
                 jobName: 'test',
                 buildId: 1,
                 branch: 'test',
-                result: 'FAILURE'
+                result: 'FAILURE',
+                project: 'test'
             };
 
             request.post('/api/jobs')
@@ -151,7 +156,8 @@ describe('JobRun API', function () {
                 jobName: 'test',
                 buildId: 2,
                 branch: 'test',
-                result: 'PENDING'
+                result: 'PENDING',
+                project: 'test'
             };
 
             request.post('/api/jobs')
