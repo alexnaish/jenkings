@@ -17,6 +17,7 @@ do
 		for i in {1..5}
 		do
 			selectedStatus=${status[$RANDOM % ${#status[@]} ]}
+			sleep 0.2
 			curl --data "jobName=$job&project=$project&buildId=$i&result=$selectedStatus&branch=${2-$defaultBranch}&node=slave01&gitCommit=someSampleGitCommit" http://$1/api/jobs &
 		done
 	done
