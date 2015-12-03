@@ -30,7 +30,6 @@
     "karma": "~0.12.36",
     "karma-chai": "~0.1.0",
     "karma-jasmine": "^0.3.6",
-    "karma-mocha": "~0.1.10",
     "karma-phantomjs-launcher": "~0.2.0",
     "karma-spec-reporter": "0.0.23",
     "mocha": "~2.2.5",
