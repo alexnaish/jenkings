@@ -25,7 +25,7 @@ Storing data
 To save data to the Jenkings database simply:
 
 `
-curl --data 'jobName=<your Jenkins job name>&project=<Project name (API or UI or etc>&buildId=<Jenkins job number>&result=<state of job>&branch=<Source control branch>&node=<host job ran on>&gitCommit=<identifier for commit that triggered the job>' http://<jenkings server>/api/jobs
+curl --data 'jobName=<your Jenkins job name>&project=<Project name (API or UI etc)>&buildId=<Jenkins job number>&result=<state of job>&branch=<Source control branch>&node=<host job ran on>&gitCommit=<identifier for commit that triggered the job>' http://<jenkings server>/api/jobs
 `
 
 Currently, Jenkings is only compatible with Jenkins CI server.
