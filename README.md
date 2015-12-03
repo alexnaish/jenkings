@@ -40,6 +40,8 @@ gulp
 
 to start the watcher.
 
+There is a bash script that will insert a series of sample data into a database to allow a visual representation of what Jenkings would look like once populated. This can be found at `./test/populate.sh`
+
 Testing
 -----
 
