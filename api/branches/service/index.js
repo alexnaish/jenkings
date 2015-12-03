@@ -29,7 +29,16 @@ module.exports = {
                 }
             }, {
                 $group: {
-                    _id: '$jobName',
+                    _id: {
+                        jobName: '$jobName',
+                        project: '$project'
+                    },
+                    jobName: {
+                        $first: '$jobName'
+                    },
+                    project: {
+                        $first: '$project'
+                    },
                     dateCreated: {
                         $first: '$dateCreated'
                     },
@@ -50,24 +59,21 @@ module.exports = {
                     },
                     culprits: {
                         $first: '$culprits'
-                    },
-                    project: {
-                        $first: '$project'
                     }
                 }
             },
             {
                 $project: {
                     _id: 0,
-                    jobName: '$_id',
+                    jobName: 1,
+                    project: 1,
                     buildId: 1,
                     dateCreated: 1,
                     result: 1,
                     duration: 1,
                     node: 1,
                     gitCommit: 1,
-                    culprits: 1,
-                    project: 1
+                    culprits: 1
                 }
             }
 
