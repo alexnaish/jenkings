@@ -36,7 +36,9 @@ app.get('/config', function (req, res, next) {
     res.json(config);
 });
 app.get('*', function (req, res, next) {
-    res.status(404).send('Jenkings Fallback 404');
+    res.status(404).json({
+        error: '404 Fallback'
+    });
     res.end();
 });
 
