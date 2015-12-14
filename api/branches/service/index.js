@@ -33,6 +33,9 @@ module.exports = {
                         jobName: '$jobName',
                         project: '$project'
                     },
+                    id: {
+                        $first: '$_id'
+                    },
                     jobName: {
                         $first: '$jobName'
                     },
@@ -65,6 +68,7 @@ module.exports = {
             {
                 $project: {
                     _id: 0,
+                    id: 1,
                     jobName: 1,
                     project: 1,
                     buildId: 1,
