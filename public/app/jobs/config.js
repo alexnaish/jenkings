@@ -2,11 +2,11 @@
 
     component.config(function ($routeProvider) {
         $routeProvider
-            .when('/job/:jobName/:buildId', {
+            .when('/job/:id', {
                 templateUrl: 'app/jobs/template.html',
                 controller: 'JobsController',
                 resolve: {}
-            })
+            });
     });
 
 } (angular.module('jobs.config', ['ngRoute'])));

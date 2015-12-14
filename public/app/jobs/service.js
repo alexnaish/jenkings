@@ -12,8 +12,8 @@
                         throw httpError.status + " : " + httpError.data;
                     });
         },
-        listSpecificJob: function (jobName, buildId) {
-            return $http.get('/api/jobs/' + jobName + '/' + buildId)
+        listSpecificJob: function (jobId) {
+            return $http.get('/api/jobs/id/' + jobId)
                 .then(
                     function (response) {
                         return response.data[0];

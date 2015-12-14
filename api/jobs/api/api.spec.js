@@ -12,36 +12,40 @@ var utils = require('../../../test/utils'),
 
 describe('JobRun API', function () {
 
-    var assets = [{
-        jobName: 'test-run-1',
-        buildId: '123',
-        project: 'test',
-        result: 'SUCCESS',
-        branch: 'master'
+    var assets = [
+        {
+            jobName: 'test-run-1',
+            buildId: '123',
+            project: 'test',
+            result: 'SUCCESS',
+            branch: 'master'
         }, {
-        jobName: 'test-run-1',
-        buildId: '124',
-        project: 'test',
-        result: 'FAILURE',
-        branch: 'test-branch'
+            jobName: 'test-run-1',
+            buildId: '124',
+            project: 'test',
+            result: 'FAILURE',
+            branch: 'test-branch'
         }, {
-        jobName: 'test-run-2',
-        buildId: '100',
-        project: 'test',
-        result: 'PENDING',
-        branch: 'master'
+            jobName: 'test-run-2',
+            buildId: '100',
+            project: 'test',
+            result: 'PENDING',
+            branch: 'master'
         }, {
-        jobName: 'delete-me',
-        buildId: '1',
-        project: 'test',
-        result: 'SUCCESS',
-        branch: 'master'
+            jobName: 'delete-me',
+            buildId: '1',
+            project: 'test',
+            result: 'SUCCESS',
+            branch: 'master'
         }];
+
+    var insertedAssets;
 
     var queueStub;
 
     before(function (done) {
-        helpers.insertAssets(JobModel, assets, function () {
+        helpers.insertAssets(JobModel, assets, function (error, insertedDocuments) {
+            insertedAssets = insertedDocuments;
             done();
         });
     });
@@ -86,17 +90,40 @@ describe('JobRun API', function () {
                 });
         });
 
-        it('/jobs/:name/:buildId should return a 200 and list one specific run', function (done) {
-            request.get('/api/jobs/test-run-1/123')
+        it('/jobs/id/:buildId should return a 200 and list one specific run', function (done) {
+            var testObject = insertedAssets[0];
+            request.get('/api/jobs/id/'+testObject._id)
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .end(function (err, res) {
                     if (err) done(err);
                     expect(res.body).to.be.length(1);
-                    expect(res.body[0].jobName).to.be.equal('test-run-1');
-                    expect(res.body[0].buildId).to.be.equal('123');
-                    expect(res.body[0].result).to.be.equal('SUCCESS');
-                    expect(res.body[0].branch).to.be.equal('master');
+                    expect(res.body[0].jobName).to.be.equal(testObject.jobName);
+                    expect(res.body[0].buildId).to.be.equal(testObject.buildId);
+                    expect(res.body[0].result).to.be.equal(testObject.result);
+                    expect(res.body[0].branch).to.be.equal(testObject.branch);
+                    done();
+                });
+        });
+
+        it('/jobs/id/:jobId should return a 400 and json error object if ID is invalid', function (done) {
+            request.get('/api/jobs/id/invalid-id')
+                .expect('Content-Type', /json/)
+                .expect(400)
+                .end(function (err, res) {
+                    if (err) done(err);
+                    expect(res.body.error).to.contain('Invalid ID');
+                    done();
+                });
+        });
+
+        it('/jobs/id/:jobId should return a 404 and json error object if no result returned', function (done) {
+            request.get('/api/jobs/id/123456789123456789123123')
+                .expect('Content-Type', /json/)
+                .expect(404)
+                .end(function (err, res) {
+                    if (err) done(err);
+                    expect(res.body.error).to.contain('Job not found');
                     done();
                 });
         });

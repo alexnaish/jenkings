@@ -22,7 +22,7 @@ module.exports = {
                 callback(500, err);
             } else {
                 if (results && results.length === 0) {
-                    callback(404, results);
+                    callback(404, {error: 'Job not found.'});
                 } else {
                     callback(200, results);
                 }
