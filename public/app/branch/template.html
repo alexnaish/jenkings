@@ -9,16 +9,13 @@
         <div class="cell project" ng-repeat="project in projects track by project">
             <header class="project-header">{{project}}</header>
             <ul class="project-jobs">
-                <li ng-repeat="job in trackedJobs | filter: { project: project }">
-                    <div class="job" ng-class="{'green': job.result === 'SUCCESS', 'amber': job.result === 'PENDING', 'red': job.result === 'UNSTABLE' || job.result === 'FAILURE', 'grey': job.result === 'ABORTED'}">
-                        <div class="icon">
-                            <i class="fa fa-check" ng-class="{ 'fa-check': job.result === 'SUCCESS', 'fa-cog fa-spin': job.result === 'PENDING', 'fa-times': job.result === 'UNSTABLE' || job.result === 'FAILURE', 'fa-exclamation': job.result === 'ABORTED'}"></i>
-                        </div>
-                        <div class="body">
-                            <a class="header" ng-href="/#/job/{{job.jobName}}/{{job.buildId}}">{{job.jobName}} ({{job.buildId}})</a>
-                        </div>
+                <li ng-repeat="job in trackedJobs | filter: { project: project }" class="job" ng-class="{'green': job.result === 'SUCCESS', 'amber': job.result === 'PENDING', 'red': job.result === 'UNSTABLE' || job.result === 'FAILURE', 'grey': job.result === 'ABORTED'}">
+                    <div class="icon">
+                        <i class="fa fa-check" ng-class="{ 'fa-check': job.result === 'SUCCESS', 'fa-cog fa-spin': job.result === 'PENDING', 'fa-times': job.result === 'UNSTABLE' || job.result === 'FAILURE', 'fa-exclamation': job.result === 'ABORTED'}"></i>
                     </div>
-
+                    <div class="body">
+                        <a class="header" ng-href="/#/job/{{job.id}}">{{job.jobName}} ({{job.buildId}})</a>
+                    </div>
                 </li>
             </ul>
         </div>
