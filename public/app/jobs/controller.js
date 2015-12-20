@@ -1,12 +1,8 @@
 (function (component) {
 
-    component.controller("JobsController", ['$scope', 'JobService', '$routeParams', function ($scope, JobService, $routeParams) {
+    component.controller("JobsController", ['$scope', 'job', function ($scope, job) {
     console.log('loaded JobsController');
-
-    JobService.listSpecificJob($routeParams.id).then(function (data) {
-        console.log('my data', data);
-        $scope.job = data;
-    });
+    $scope.job = job;
 }]);
 
 } (angular.module('jobs.controller', [])));

@@ -1,4 +1,24 @@
-<h2 class="title">Job Information - {{::jobName}} - {{::buildId}} <small class="options"><a target="_blank" href="/api/jenkins/fetch/{{jobName}}/{{buildId}}">Fetch &amp; Populate</a></small></h2>
+<h2 class="title">Job - <strong>{{::job.jobName}}</strong><small class="options"><a target="_blank" href="/api/jenkins/fetch/{{jobName}}/{{buildId}}">Fetch &amp; Populate</a></small></h2>
+
+<div class="grid">
+    <div class="row">
+        <div class="panel">
+            <div class="header">Status</div>
+            <div class="body">
+                <result-icon result="job.result"></result-icon>
+                {{job.result}}
+            </div>
+        </div>
+        <div class="panel">
+            <div class="header">Project</div>
+            <div class="body">{{job.project.toUpperCase() || "N/A"}}</div>
+        </div>
+        <div class="panel">
+            <div class="header">Build</div>
+            <div class="body">{{job.buildId}}</div>
+        </div>
+    </div>
+</div>
 
 <div ng-if="job.runInfo">
     <h2 class="title">Run Information</h2>
@@ -39,7 +59,7 @@
     </div>
 </div>
 
-<div class="section" ng-if="job.artifacts&& job.artifacts.length > 0">
+<div class="section" ng-if="job.artifacts && job.artifacts.length > 0">
     <h2 class="title">Commit Information</h2>
     <div>GIT Commit:
         <span class="info">{{::job.gitCommit}}</span>
@@ -50,7 +70,7 @@
 
 </div>
 
-<div class="section" ng-if="job.artifacts&& job.artifacts.length > 0">
+<div class="section" ng-if="job.artifacts && job.artifacts.length > 0">
     <h2 class="title">Build Artifacts</h2>
     <div ng-repeat="artifact in job.artifacts" class="artifact">
         <img class="ng-scope" ng-src="http://build.nowtv.bskyb.com/view/6.%20Iceberg/job/{{::jobName}}/{{::buildId}}/artifact/{{::artifact}}">

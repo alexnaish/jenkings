@@ -5,7 +5,11 @@
             .when('/job/:id', {
                 templateUrl: 'app/jobs/template.html',
                 controller: 'JobsController',
-                resolve: {}
+                resolve: {
+                    job: function (JobService, $route) {
+                        return JobService.listSpecificJob($route.current.params.id);
+                    }
+                }
             });
     });
 
