@@ -19,7 +19,7 @@
                         return response.data[0];
                     },
                     function (httpError) {
-                        throw httpError.status + " : " + httpError.data;
+                        throw httpError.status + " : " + httpError.data.error;
                     });
         }
     };
