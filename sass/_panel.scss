@@ -1,0 +1,25 @@
+.panel {
+
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	margin: 0 5px;
+	border: 1px solid lightgrey;
+    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+	background-color: #fff;
+
+	.header {
+		background: #f6f7f8;
+		padding: 10px;
+		font-weight: bolder;
+	}
+
+	.body {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-top: 1px solid #e5e5e5;
+		padding: 15px;
+	}
+
+}
