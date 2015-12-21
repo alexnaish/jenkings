@@ -22,16 +22,6 @@
                         function (httpError) {
                             throw httpError.status + " : " + httpError.data;
                         });
-            },
-            listSpecificBranchRuns: function (branch, jobName) {
-                return $http.get('/api/branches/' + branch + '/jobs/' + jobName)
-                    .then(
-                        function (response) {
-                            return response.data;
-                        },
-                        function (httpError) {
-                            throw httpError.status + " : " + httpError.data;
-                        });
             }
         };
 
