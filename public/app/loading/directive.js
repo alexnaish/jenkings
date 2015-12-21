@@ -13,6 +13,7 @@
     component.controller('LoadingController', function ($rootScope) {
 
         var instance = this;
+        instance.displayed = true;
 
         $rootScope.$on('$routeChangeStart', function (e, curr, prev) {
             if (curr.$$route && curr.$$route.resolve) {
