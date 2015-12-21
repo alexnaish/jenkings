@@ -1,22 +1,14 @@
 (function (component) {
-    component.controller("BranchController", ['$routeParams', 'BranchService', 'StatsService', '$scope', function ($routeParams, BranchService, StatsService, $scope) {
-        console.log('loaded JobsController');
-
+    component.controller("BranchController", ['$routeParams', 'StatsService', 'projects', 'jobs', '$scope', function ($routeParams, StatsService, projects, jobs, $scope) {
         $scope.trackingBranch = $routeParams.branchName || 'master';
         $scope.history = {};
         $scope.displayAsList = true;
+        $scope.projects = projects;
+        $scope.trackedJobs = jobs;
 
         if ($routeParams.desktopMode) {
             $scope.displayAsList = false;
         }
-
-        StatsService.getProjects($scope.trackingBranch).then(function(projects) {
-            $scope.projects = projects;
-        });
-
-        BranchService.listAllBranchRuns($scope.trackingBranch).then(function (data) {
-            $scope.trackedJobs = data;
-        });
 
         $scope.toggleDisplayMode = function () {
             $scope.displayAsList = !$scope.displayAsList;
