@@ -52,7 +52,7 @@
   &.visible {
     .circle {
       opacity: 1;
-      animation: bounce 500ms cubic-bezier(0.5, 1.25, 0.5, 1.25);
+      animation: bounce 250ms cubic-bezier(0.5, 1.25, 0.5, 1.25);
     }
   }
 }
