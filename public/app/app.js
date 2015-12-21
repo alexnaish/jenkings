@@ -3,7 +3,13 @@
         $routeProvider
             .when('/', {
                 redirectTo: '/latest'
-            });
+            })
+            .otherwise(
+                {
+                    templateUrl: 'app/error/template.html',
+                    controller: 'ErrorController'
+                }
+            );
 
         $locationProvider.html5Mode(false);
     }]);
@@ -12,6 +18,17 @@
         $compileProvider.debugInfoEnabled(false);
     }]);
 
+    component.run(function($rootScope, $location){
+
+        $rootScope.$on('$routeChangeError', function (e, curr, prev, error) {
+            console.error('app level error handler', error);
+            $location.path('/error').search(error);
+
+        });
+
+    });
+
+
 })(angular.module('Jenkings', [
-    'loading', 'config', 'sidebar', 'latest', 'branch', 'jobs', 'stats', 'history', 'dropdown-menu', 'ngAnimate', 'chart.js'
+    'loading', 'error', 'config', 'sidebar', 'latest', 'branch', 'jobs', 'stats', 'history', 'dropdown-menu', 'ngAnimate', 'chart.js'
 ]));
