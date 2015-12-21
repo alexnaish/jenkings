@@ -13,5 +13,5 @@
     }]);
 
 })(angular.module('Jenkings', [
-    'config', 'sidebar', 'latest', 'branch', 'jobs', 'stats', 'history', 'dropdown-menu', 'ngAnimate', 'chart.js'
+    'loading', 'config', 'sidebar', 'latest', 'branch', 'jobs', 'stats', 'history', 'dropdown-menu', 'ngAnimate', 'chart.js'
 ]));
