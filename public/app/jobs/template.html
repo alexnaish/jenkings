@@ -50,23 +50,34 @@
             </div>
         </div>
     </div>
-
-</div>
-<div class="section" ng-if="job.artifacts && job.artifacts.length > 0">
-    <h2 class="title">Commit Information</h2>
-    <div>GIT Commit:
-        <span class="info">{{::job.gitCommit}}</span>
+    <div class="row">
+        <div class="panel">
+            <div class="header">Commit Information</div>
+            <div class="body">
+                <span class="emphasis">{{::job.gitCommit || "N/A"}}</span>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="header">Commit Message</div>
+            <div class="body">
+                <ul>
+                    <li ng-repeat="commit in job.commitInfo">
+                        <span class="emphasis">{{commit}}{{$last ? '' : ', '}}</span>
+                    </li>
+                    <li ng-if="!job.commitInfo || job.commitInfo.length === 0">
+                        <span class="emphasis">No Commit Messages.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div ng-if="job.commitInfo && job.commitInfo.length > 0">GIT Messages:
-        <span class="info" ng-repeat="commit in job.commitInfo">{{commit}}{{$last ? '' : ', '}}</span>
+    <div class="row">
+        <div class="panel" ng-repeat="artifact in job.artifacts">
+            <div class="header">Build Artifact: {{::artifact}}</div>
+            <div class="body">
+                <img class="ng-scope" ng-src="http://build.nowtv.bskyb.com/view/6.%20Iceberg/job/{{::job.jobName}}/{{::job.buildId}}/artifact/{{::artifact}}">
+            </div>
+        </div>
     </div>
 
-</div>
-
-<div class="section" ng-if="job.artifacts && job.artifacts.length > 0">
-    <h2 class="title">Build Artifacts</h2>
-    <div ng-repeat="artifact in job.artifacts" class="artifact">
-        <img class="ng-scope" ng-src="http://build.nowtv.bskyb.com/view/6.%20Iceberg/job/{{::jobName}}/{{::buildId}}/artifact/{{::artifact}}">
-        <span class="caption">{{::artifact}}</span>
-    </div>
 </div>
