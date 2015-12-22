@@ -23,4 +23,11 @@ do
 	done
 done
 
+for shard in {1..6}
+do
+	selectedStatus=${status[$RANDOM % ${#status[@]} ]}
+	sleep 0.2
+	curl --data "jobName=protractor-shard&shard=$shard&project=e2e&buildId=1&result=$selectedStatus&branch=${2-$defaultBranch}&node=slave01&gitCommit=someSampleGitCommit" http://$1/api/jobs &
+done
+
 wait
