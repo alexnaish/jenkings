@@ -15,7 +15,7 @@ module.exports = {
     },
     ci: {
         domain: "http://build.nowtv.bskyb.com",
-        view: "6.%20Iceberg",
+        view: "6.1%20Iceberg%20Editorial",
         jobs: [
             "iceberg-macslave-frontend-unit",
             "iceberg-macslave-backend-unit",
