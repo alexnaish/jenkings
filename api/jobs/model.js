@@ -28,6 +28,9 @@ var jobSchema = mongoose.Schema({
     node: {
         type: String
     },
+    shard: {
+        type: Number
+    },
     gitCommit: {
         type: String
     },
@@ -43,7 +46,8 @@ var jobSchema = mongoose.Schema({
 jobSchema.index({
     jobName: 1,
     buildId: 1,
-    project: 1
+    project: 1,
+    shard: 1
 }, {
     unique: true
 });

@@ -1,4 +1,4 @@
-<h2 class="title">Job - <strong>{{::job.jobName}}</strong><small class="options"><a target="_blank" href="/api/jenkins/fetch/{{jobName}}/{{buildId}}">Fetch &amp; Populate</a></small></h2>
+<h2 class="title">Job - <strong>{{::job.jobName}}{{ (job.shard ? "-"+job.shard : "") }}</strong><small class="options"><a target="_blank" href="/api/jenkins/fetch/{{jobName}}/{{buildId}}">Fetch &amp; Populate</a></small></h2>
 
 <div class="grid">
     <div class="row">
