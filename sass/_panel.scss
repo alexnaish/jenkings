@@ -3,6 +3,7 @@
 	display: flex;
 	flex: 1;
 	flex-direction: column;
+	align-self: stretch;
 	margin: 0 5px 10px;
 	border: 1px solid lightgrey;
     border-color: #e5e6e9 #dfe0e4 #d0d1d5;
@@ -16,10 +17,18 @@
 
 	.body {
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		flex-grow: 1;
 		border-top: 1px solid #e5e5e5;
 		padding: 15px;
+		
+		.emphasis {
+			font-size: 26px;
+			font-weight: 400;
+		}
+		
 	}
 
 	.visualisation {

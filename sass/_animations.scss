@@ -1,0 +1,19 @@
+
+@keyframes bounce {
+  0%{
+    transform: translateY(150%);
+    opacity: 0;
+  }
+  100%{
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+@keyframes rotate {
+  0%{
+    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+  }
+  100%{
+    transform: translate3d(-50%, -50%, 0) rotate(720deg);
+  }
+}
