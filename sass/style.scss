@@ -9,10 +9,10 @@
 @import 'notification';
 @import 'artifacts';
 @import 'branch';
-
-@import 'panel';
-@import 'loader';
-@import 'error';
-@import 'result-icon';
-@import 'title-tooltip';
 @import 'animations';
+@import 'error';
+
+@import 'modules/panel';
+@import 'modules/loader';
+@import 'modules/result-icon';
+@import 'modules/title-tooltip';
