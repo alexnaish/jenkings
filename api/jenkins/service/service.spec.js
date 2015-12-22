@@ -22,23 +22,14 @@ describe('Jenkins Service', function () {
             queueStub = sinon.stub(QueueService, 'create');
             requestStub = sinon.stub(request, 'get');
 
-            findStub.withArgs({
-                jobName: 'missing',
-                buildId: 1
-            }).yields(null, null);
+            findStub.withArgs({_id: 'missing'}).yields(null, null);
 
-            findStub.withArgs({
-                jobName: 'test1',
-                buildId: 2
-            }).yields(null, {
+            findStub.withArgs({_id: 'found'}).yields(null, {
                 jobName: 'test1',
                 buildId: 2
             });
 
-            findStub.withArgs({
-                jobName: 'test2',
-                buildId: 3
-            }).yields(null, {
+            findStub.withArgs({_id: 'another'}).yields(null, {
                 jobName: 'test2',
                 buildId: 3
             });
@@ -55,7 +46,7 @@ describe('Jenkins Service', function () {
         });
 
         it('will return a 404 if no jobrun found in database', function (done) {
-            JenkinsService.fetchAndPopulateJobRun('missing', 1, function (statusCode, result) {
+            JenkinsService.fetchAndPopulateJobRun('missing', function (statusCode, result) {
                 expect(statusCode).to.be.equal(404);
                 expect(result).to.have.property('message');
                 expect(result.message).to.be.equal('No jobrun found in Jenkings.');
@@ -69,7 +60,7 @@ describe('Jenkins Service', function () {
                 statusCode: 404
             }, null);
 
-            JenkinsService.fetchAndPopulateJobRun('test1', 2, function (statusCode, result) {
+            JenkinsService.fetchAndPopulateJobRun('found', function (statusCode, result) {
                 expect(statusCode).to.be.equal(404);
                 expect(result).to.have.property('message');
                 expect(result.message).to.be.equal('Not found on CI. Maybe its dropped off?');
@@ -83,7 +74,7 @@ describe('Jenkins Service', function () {
                 statusCode: 200
             }, 'invalid json');
 
-            JenkinsService.fetchAndPopulateJobRun('test1', 2, function (statusCode, result) {
+            JenkinsService.fetchAndPopulateJobRun('found', function (statusCode, result) {
                 expect(statusCode).to.be.equal(500);
                 expect(result).to.have.property('message');
                 done();
@@ -103,7 +94,7 @@ describe('Jenkins Service', function () {
                 message: 'some error'
             });
 
-            JenkinsService.fetchAndPopulateJobRun('test2', 3, function (statusCode, result) {
+            JenkinsService.fetchAndPopulateJobRun('another', function (statusCode, result) {
                 expect(statusCode).to.be.equal(500);
                 expect(result).to.have.property('message');
                 done();
@@ -116,10 +107,7 @@ describe('Jenkins Service', function () {
                 statusCode: 200
             }, testData.createJenkinsApiResponse('unstable', 'test1', 123));
 
-            findStub.withArgs({
-                jobName: 'test1',
-                buildId: 2
-            }).onSecondCall().yields(null, {
+            findStub.withArgs({_id: 'found'}).onSecondCall().yields(null, {
                 _id: 'testidhere',
                 jobName: 'test1',
                 buildId: 2,
@@ -131,7 +119,7 @@ describe('Jenkins Service', function () {
                 n: 1
             });
 
-            JenkinsService.fetchAndPopulateJobRun('test1', 2, function (statusCode, result) {
+            JenkinsService.fetchAndPopulateJobRun('found', function (statusCode, result) {
                 expect(statusCode).to.be.equal(200);
                 expect(result).to.have.property('_id');
                 expect(result).to.have.property('result');
@@ -150,10 +138,7 @@ describe('Jenkins Service', function () {
                 result: 'SUCCESS'
             }));
 
-            findStub.withArgs({
-                jobName: 'test1',
-                buildId: 2
-            }).onSecondCall().yields(null, {
+            findStub.withArgs({_id: 'found'}).onSecondCall().yields(null, {
                 _id: 'testidhere',
                 jobName: 'test1',
                 buildId: 2,
@@ -165,7 +150,7 @@ describe('Jenkins Service', function () {
                 n: 1
             });
 
-            var result = JenkinsService.fetchAndPopulateJobRun('test1', 2);
+            JenkinsService.fetchAndPopulateJobRun('found');
 
             expect(queueStub.called).to.be.equal(true);
             expect(queueStub.firstCall.args[0]).to.be.equal('job-updated');
@@ -182,7 +167,7 @@ describe('Jenkins Service', function () {
                 message: 'some error'
             }, null);
 
-            var result = JenkinsService.fetchAndPopulateJobRun('test1', 2);
+            JenkinsService.fetchAndPopulateJobRun('found');
 
             expect(queueStub.called).to.not.be.equal(true);
 

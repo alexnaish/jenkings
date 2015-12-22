@@ -21,15 +21,14 @@ function renderResponse(statusCode, successful, response, callback) {
 
 module.exports = {
 
-    fetchAndPopulateJobRun: function (job, build, callback) {
+    fetchAndPopulateJobRun: function (id, callback) {
         var queryObject = {
-            jobName: job,
-            buildId: build
+            _id: id
         };
 
         JobRun.findOne(queryObject, function (err, result) {
             if (result) {
-                request.get(generateJenkinsJobApiUrl(job, build), function (error, response, body) {
+                request.get(generateJenkinsJobApiUrl(result.jobName, result.buildId), function (error, response, body) {
                     if (!error && response && response.statusCode === 200) {
                         try {
                             var bodyJson = JSON.parse(body);
@@ -75,9 +74,9 @@ module.exports = {
         });
     },
 
-    fetchAndReturnTestReport: function (job, build, callback) {
+    fetchAndReturnTestReport: function (id, callback) {
         callback(200, {
-            result: 'tadadadada'
+            result: 'tadadadada' + id
         });
     }
 };
