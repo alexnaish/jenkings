@@ -1,19 +1,29 @@
 var config = require('config'),
+    validation = require('../validation'),
+    express = require('express'),
     api = require('./api/');
 
 module.exports = {
 
     apply: function (app) {
-        app.route(config.app.apiPath + '/jobs')
+        
+        var router = express.Router();
+        
+        router.route('/jobs')
             .get(api.listAllJobs)
             .post(api.createNewJobRun);
 
-        app.route(config.app.apiPath + '/jobs/:name')
+        router.route('/jobs/:name')
             .get(api.getJobInformation);
 
-        app.route(config.app.apiPath + '/jobs/id/:id')
-            .get(api.getJobRunInformation);
-            // .delete(api.deleteJobRun);
+        router.route('/jobs/id/:id')
+            .get(
+                validation.validateObjectId, 
+                api.getJobRunInformation
+            );           
+            
+        app.use(config.app.apiPath, router);
+                    
     }
 
 };
