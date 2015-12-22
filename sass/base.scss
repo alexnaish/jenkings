@@ -1,27 +1,27 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700);
 @import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
 @import 'variables';
-//* {
-//    border: 1px solid red !important;
-//}
+
 html {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
+    font-weight: 300;
     line-height: 1.5;
     margin: 0;
     padding: 0;
     width: 100vw;
     height: 100vh;
     -webkit-font-smoothing: antialiased;
-    color: #CCC;
+    color: #BBB;
     body {
         overflow-x: hidden;
+        background-color: #e9eaed;
     }
 }
 
 a {
-    color: #CCC;
-    transition: all 0.3s ease;
+    color: #BBB;
+    transition: color 0.3s ease;
     text-decoration: none;
     &:hover {
         color: white;
@@ -42,6 +42,11 @@ a {
         font-size: 24px;
         padding-bottom: 10px;
         border-bottom: 1px solid rgb(211, 211, 211);
+
+        strong {
+            font-weight: 400;
+        }
+
         .options {
             float: right;
             font-size: 18px;

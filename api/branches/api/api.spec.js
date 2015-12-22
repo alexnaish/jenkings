@@ -13,36 +13,42 @@ describe('Branch API ', function () {
         jobName: 'test-run-1',
         buildId: '123',
         result: 'FAILURE',
+        project: 'test',
         branch: 'master',
         dateCreated: moment().subtract(2, 'days')
         }, {
         jobName: 'test-run-1',
         buildId: '124',
         result: 'SUCCESS',
+        project: 'test',
         branch: 'master',
         dateCreated: moment().subtract(1, 'days')
         }, {
         jobName: 'test-run-2',
         buildId: '99',
         result: 'SUCCESS',
+        project: 'test',
         branch: 'master',
         dateCreated: moment().subtract(12, 'hours')
         }, {
         jobName: 'test-run-1',
         buildId: '125',
         result: 'FAILURE',
+        project: 'test',
         branch: 'test-branch',
         dateCreated: moment().subtract(6, 'hours')
         }, {
         jobName: 'test-run-2',
         buildId: '100',
         result: 'SUCCESS',
+        project: 'test',
         branch: 'upgrade_pro',
         dateCreated: moment().subtract(2, 'days')
         }, {
         jobName: 'frontend-test',
         buildId: '1',
         result: 'FAILURE',
+        project: 'test',
         branch: '491_test',
         dateCreated: moment().subtract(1, 'hours')
         }];

@@ -14,11 +14,13 @@ describe('Jenkins API', function () {
         jobName: 'missing-on-jenkins',
         buildId: '123',
         result: 'SUCCESS',
+        project: 'test',
         branch: 'master'
         }, {
         jobName: 'found-on-jenkins',
         buildId: '124',
         result: 'FAILURE',
+        project: 'test',
         branch: 'test-branch'
         }];
 

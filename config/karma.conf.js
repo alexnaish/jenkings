@@ -3,19 +3,21 @@ module.exports = function (config) {
 
         basePath: '../',
         autoWatch: false,
-        frameworks: ['mocha'],
         browsers: ['PhantomJS'],
+        frameworks: ['jasmine'],
 
         files: [
       "http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js",
       "http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular.min.js",
       "http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-mocks.js",
-      'public/app/**/*.js'
+      'public/app/**/*.js',
+      'public/test/**/*.spec.js'
     ],
 
-        reporters: ["progress"],
+        reporters: ["spec"],
         colors: true,
         preprocessors: {},
+        singleRun: true,
 
         logLevel: config.LOG_INFO,
 

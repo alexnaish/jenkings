@@ -11,9 +11,9 @@ module.exports = {
         app.route(config.app.apiPath + '/jobs/:name')
             .get(api.getJobInformation);
 
-        app.route(config.app.apiPath + '/jobs/:name/:buildId')
-            .get(api.getJobRunInformation)
-            .delete(api.deleteJobRun);
+        app.route(config.app.apiPath + '/jobs/id/:id')
+            .get(api.getJobRunInformation);
+            // .delete(api.deleteJobRun);
     }
 
-}
+};

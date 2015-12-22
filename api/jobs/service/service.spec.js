@@ -90,7 +90,7 @@ describe('Job Service', function () {
                 jobName: 'missing'
             }, {}, function (statusCode, result) {
                 expect(statusCode).to.be.equal(404);
-                expect(result).to.have.length(0);
+                expect(result).to.have.property('error', 'Job not found.');
                 done();
             });
         });

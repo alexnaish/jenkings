@@ -7,7 +7,7 @@
                 <i class="fa fa-check" ng-class="{ 'fa-check': job.result === 'SUCCESS', 'fa-question': job.result === 'PENDING', 'fa-bolt': job.result === 'UNSTABLE', 'fa-times': job.result === 'FAILURE', 'fa-exclamation': job.result === 'ABORTED'}"></i>
             </div>
             <div class="body">
-                <p class="title"><a class="header" ng-href="/#/job/{{job.jobName}}/{{job.buildId}}">{{job.jobName}} ({{job.buildId}})</a>
+                <p class="title"><a class="header" ng-href="/#/job/{{job._id}}">{{job.jobName}} ({{job.buildId}})</a>
                     <small class="options">
                         <a target="_blank" href="http://build.nowtv.bskyb.com/view/6.%20Iceberg/job/{{job.jobName}}/{{job.buildId}}/api/json">Jenkins API</a> --------
                         <a target="_blank" href="/api/jenkins/fetch/{{job.jobName}}/{{job.buildId}}">Fetch &amp; Populate</a>
@@ -19,7 +19,10 @@
                         </li>
                         <li>Run On: <strong>{{job.node}}</strong>
                         </li>
-                        <li>Duration: <strong>{{job.duration / 1000}}</strong> seconds</li>
+                        <li>
+                            Started On: <strong>{{job.dateCreated | date:'medium'}}</strong>
+                        </li>
+                        <li>Duration: <span ng-bind-html="job.duration | duration"></span></li>
                         <li>Commit: <a href="//gitlab.nowtv.bskyb.com/iceberg/commit/{{job.gitCommit}}">{{job.gitCommit}}</a>
                         </li>
                         <li ng-if="job.culprits && job.culprits.length > 0">Culprits: <span ng-repeat="culprit in job.culprits"><strong>{{culprit.fullName}}{{$last ? '' : ', '}}</strong></span>

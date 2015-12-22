@@ -3,6 +3,26 @@
         <a ng-click="toggleDisplayMode()">Toggle Display Mode</a>
     </small>
 </h2>
+
+<div class="grid">
+    <div class="row">
+        <div class="cell project" ng-repeat="project in projects track by project">
+            <header class="project-header">{{project}}</header>
+            <ul class="project-jobs">
+                <li ng-repeat="job in trackedJobs | filter: { project: project }" class="job" ng-class="{'green': job.result === 'SUCCESS', 'amber': job.result === 'PENDING', 'red': job.result === 'UNSTABLE' || job.result === 'FAILURE', 'grey': job.result === 'ABORTED'}">
+                    <div class="icon">
+                        <i class="fa fa-check" ng-class="{ 'fa-check': job.result === 'SUCCESS', 'fa-cog fa-spin': job.result === 'PENDING', 'fa-times': job.result === 'UNSTABLE' || job.result === 'FAILURE', 'fa-exclamation': job.result === 'ABORTED'}"></i>
+                    </div>
+                    <div class="body">
+                        <a class="header" ng-href="/#/job/{{job.id}}">{{job.jobName}} ({{job.buildId}})</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
 <ul>
     <li class="fade" ng-repeat="job in trackedJobs | orderBy:'jobName'">
         <div class="notification" ng-class="{'desktop-mode': !displayAsList, 'green': job.result === 'SUCCESS', 'amber': job.result === 'PENDING', 'red': job.result === 'UNSTABLE' || job.result === 'FAILURE', 'grey': job.result === 'ABORTED'}">
@@ -11,13 +31,14 @@
             </div>
             <div class="body">
                 <p class="title">
-                    <a class="header" ng-href="/#/job/{{job.jobName}}/{{job.buildId}}">{{job.jobName}} ({{job.buildId}})</a>
+                    <a class="header" ng-href="/#/job/{{job.id}}">{{job.jobName}} ({{job.buildId}})</a>
                     <small ng-if="displayAsList" class="options">
                         <a target="_blank" href="http://build.nowtv.bskyb.com/view/6.%20Iceberg/job/{{job.jobName}}/{{job.buildId}}/api/json">Jenkins API</a>--------
                         <a target="_blank" href="/api/jenkins/fetch/{{job.jobName}}/{{job.buildId}}">Fetch &amp; Populate</a>
                     </small>
                     <ul ng-else="displayAsList" class="history">
-                        <li ng-repeat="run in history[job.jobName] | orderBy: 'dateCreated'" class="run" title="{{run.dateCreated | date:'dd/MM/yyyy h:mma'}}" ng-class="{'success': run.result === 'SUCCESS', 'fail': run.result === 'UNSTABLE' || run.result === 'FAILURE'}"></li> 
+                        <li ng-repeat="run in history[job.jobName] | orderBy: 'dateCreated'" class="run" title="{{run.dateCreated | date:'dd/MM/yyyy h:mma'}}"
+                        ng-class="{'success': run.result === 'SUCCESS', 'fail': run.result === 'UNSTABLE' || run.result === 'FAILURE'}"></li>
                     </ul>
                 </p>
                 <div ng-if="displayAsList">
@@ -25,9 +46,15 @@
                         <li>Run On:
                             <strong>{{job.node}}</strong>
                         </li>
-                        <li>Duration:
-                            <strong>{{job.duration / 1000}}</strong>seconds</li>
-                        <li>Commit:
+                        <li>
+                            Started On: <strong>{{job.dateCreated | date:'medium'}}</strong>
+                        </li>
+                        <li>
+                            Duration:
+                            <span ng-bind-html="job.duration | duration"></span>
+                        </li>
+                        <li>
+                            Commit:
                             <a href="//gitlab.nowtv.bskyb.com/iceberg/commit/{{job.gitCommit}}">{{job.gitCommit}}</a>
                         </li>
                         <li ng-if="job.culprits && job.culprits.length > 0">Culprits:

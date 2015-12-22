@@ -32,20 +32,20 @@ gulp.task('mocha', function () {
 });
 
 gulp.task('unit', function (done) {
-    karma.start({
-        configFile: __dirname + '/config/karma.conf.js'
-    }, function () {
-        done();
-    });
+    return karma.start({
+            configFile: __dirname + '/config/karma.conf.js'
+        }, function () {
+            done();
+        });
 });
 
 
 gulp.task('nodemon', function () {
     process.env.NODE_ENV = 'development';
     nodemon({
-            script: "./api/index.js",
-            ignore: ['./api/**/*.spec.js']
-        })
+        script: "./api/index.js",
+        ignore: ['./api/**/*.spec.js']
+    })
         .on('restart', function () {
             console.log('restarted!');
         });
@@ -53,7 +53,7 @@ gulp.task('nodemon', function () {
 
 gulp.task('sass', function () {
     gulp.src('./sass/style.scss')
-        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+        .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
         .pipe(gulp.dest('./public/css/'));
 });
 

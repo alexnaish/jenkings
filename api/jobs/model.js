@@ -21,6 +21,10 @@ var jobSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    project: {
+        type: String,
+        required: true
+    },
     node: {
         type: String
     },
@@ -38,7 +42,8 @@ var jobSchema = mongoose.Schema({
 
 jobSchema.index({
     jobName: 1,
-    buildId: 1
+    buildId: 1,
+    project: 1
 }, {
     unique: true
 });

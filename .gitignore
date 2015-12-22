@@ -29,3 +29,8 @@ node_modules
 *.iml
 *.ipr
 *.iws
+.idea
+*.iml
+
+#Ignore config file for VSCode
+jsconfig.json

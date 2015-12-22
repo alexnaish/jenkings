@@ -32,22 +32,26 @@ module.exports = {
     },
 
     getJobRunInformation: function (req, res, next) {
+        var objectIdRegex = /^[0-9a-fA-F]{24}$/;
+        if(!req.params.id || !req.params.id.match(objectIdRegex)) {
+            return res.status(400).json({error: 'Invalid ID.'});
+        }
+
         JobService.findSpecific({
-            jobName: req.params.name,
-            buildId: req.params.buildId
+            _id: req.params.id
         }, {}, function (statusCode, results) {
             res.status(statusCode).json(results);
         });
     },
 
-    deleteJobRun: function (req, res, next) {
-        JobService.delete({
-            jobName: req.params.name,
-            buildId: req.params.buildId
-        }, function (statusCode, response) {
-            res.status(statusCode).json(response);
-        });
-    }
+    // Uncomment if required - not used right now
+    // deleteJobRun: function (req, res, next) {
+    //     JobService.delete({
+    //         _id: req.params.id
+    //     }, function (statusCode, response) {
+    //         res.status(statusCode).json(response);
+    //     });
+    // }
 
 
 };

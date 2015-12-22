@@ -1,0 +1,56 @@
+.project {
+	margin: 0 5px;
+
+	.project-header {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid #cdcdcd;
+		background-color: #f6f7f8;
+		padding: 5px 0;
+		text-transform: uppercase;
+		font-size: 20px;
+	}
+
+}
+
+.project-jobs {
+	border: 1px solid lightgrey;
+	font-size: 15px;
+	padding: 0 5px;
+
+	.job {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-around;
+		border: 1px solid rgba(0,0,0,0.1);
+		color: #fff;
+		margin: 10px 0;
+
+		.icon {
+			display: flex;
+			flex-grow: 1;
+			width: 50px;
+			justify-content: center;
+			align-items: center;
+			align-self: stretch;
+			background-color: rgba(0,0,0,0.2);
+		}
+
+		.body {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-grow: 999;
+			padding: 10px;
+
+			a {
+				color: #fff;
+			}
+		}
+
+	}
+
+}

@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(morgan('dev', {
     skip: function (req, res) {
-        return req.url === '/favicon.ico'
+        return req.url === '/favicon.ico';
     }
 }));
 app.disable('x-powered-by');
@@ -36,7 +36,9 @@ app.get('/config', function (req, res, next) {
     res.json(config);
 });
 app.get('*', function (req, res, next) {
-    res.status(404).send('Jenkings Fallback 404');
+    res.status(404).json({
+        error: '404 Fallback'
+    });
     res.end();
 });
 
