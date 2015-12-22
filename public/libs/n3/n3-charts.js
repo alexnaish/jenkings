@@ -241,13 +241,6 @@ angular.module('ng3charts.utils', [])
         });
         return this;
       },
-      createLeftLineNoStackDrawer: function (scales, mode, tension) {
-        return d3.svg.line().x(function (d) {
-          return scales.xScale(d.x);
-        }).y(function (d) {
-          return scales.yScale(d.y);
-        }).interpolate(mode).tension(tension);
-      },
       createLeftRangeAreaDrawer: function(scales, mode, tension){
         return d3.svg.area().
         x(function(d){

@@ -10,7 +10,7 @@
                             return response.data;
                         },
                         function (httpError) {
-                            throw httpError.status + " : " + httpError.data;
+                            throw httpError;
                         });
             },
             listAllBranchRuns: function (branch) {
@@ -20,7 +20,10 @@
                             return response.data;
                         },
                         function (httpError) {
-                            throw httpError.status + " : " + httpError.data;
+                            throw {
+                                status: httpError.status,
+                                message: httpError.data.error
+                            };
                         });
             }
         };

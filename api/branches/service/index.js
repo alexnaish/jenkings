@@ -31,7 +31,8 @@ module.exports = {
                 $group: {
                     _id: {
                         jobName: '$jobName',
-                        project: '$project'
+                        project: '$project',
+                        shard: '$shard'
                     },
                     id: {
                         $first: '$_id'
@@ -41,6 +42,9 @@ module.exports = {
                     },
                     project: {
                         $first: '$project'
+                    },
+                    shard: {
+                        $first: '$shard'
                     },
                     dateCreated: {
                         $first: '$dateCreated'
@@ -71,6 +75,7 @@ module.exports = {
                     id: 1,
                     jobName: 1,
                     project: 1,
+                    shard: 1,
                     buildId: 1,
                     dateCreated: 1,
                     result: 1,

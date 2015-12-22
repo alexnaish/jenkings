@@ -6,7 +6,8 @@ var utils = require('../../../test/utils'),
     expect = require('chai').expect,
     request = require('supertest')(app),
     config = require('config'),
-    nock = require('nock');
+    nock = require('nock'),
+    _ = require('lodash');
 
 describe('Jenkins API', function () {
 
@@ -23,17 +24,22 @@ describe('Jenkins API', function () {
         project: 'test',
         branch: 'test-branch'
         }];
+        
+        var foundAsset, notFoundAsset;
 
     before(function (done) {
-        helpers.insertAssets(JobModel, assets, function () {
-
+        helpers.insertAssets(JobModel, assets, function (err, results) {
+            
+            foundAsset = _.find(results, { 'jobName': 'found-on-jenkins' });
+            notFoundAsset = _.find(results, { 'jobName': 'missing-on-jenkins' });
+            
             nock(config.ci.domain)
-                .get(helpers.generateJenkinsJobApiUrl('missing-on-jenkins', 123))
+                .get(helpers.generateJenkinsJobApiUrl(notFoundAsset.jobName, notFoundAsset.buildId))
                 .reply(404, 'Nothing here');
 
             nock(config.ci.domain)
-                .get(helpers.generateJenkinsJobApiUrl('found-on-jenkins', 124))
-                .reply(200, testData.createJenkinsApiResponse('UNSTABLE', 'found-on-jenkins', 124));
+                .get(helpers.generateJenkinsJobApiUrl(foundAsset.jobName, foundAsset.buildId))
+                .reply(200, testData.createJenkinsApiResponse('UNSTABLE', foundAsset.jobName, foundAsset.buildId));
 
             done();
         });
@@ -47,16 +53,16 @@ describe('Jenkins API', function () {
 
     it('should fetch details from jenkins if job exists in database and on jenkins', function (done) {
 
-        request.get('/api/jenkins/fetch/found-on-jenkins/124')
+        request.get('/api/jenkins/fetch/'+foundAsset._id)
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function (err, res) {
                 if (err) done(err);
                 expect(res.body.jobName).to.be.equal('found-on-jenkins');
                 expect(res.body.node).to.be.equal('testNode');
-                expect(res.body.duration).to.be.equal(155674);
                 expect(res.body.result).to.be.equal('UNSTABLE');
                 expect(res.body.culprits).to.have.length(1);
+                expect(res.body).to.have.property('duration');
                 expect(res.body).to.have.property('runInfo');
                 expect(res.body).to.have.property('commitInfo');
                 expect(res.body).to.have.property('artifacts');
@@ -66,7 +72,7 @@ describe('Jenkins API', function () {
 
     it('should return a 404 and an error message if the job is not found in jenkins', function (done) {
 
-        request.get('/api/jenkins/fetch/missing-on-jenkins/123')
+        request.get('/api/jenkins/fetch/'+notFoundAsset._id)
             .expect('Content-Type', /json/)
             .expect(404)
             .end(function (err, res) {
@@ -78,7 +84,7 @@ describe('Jenkins API', function () {
 
     it('should return a 200 and return the test report from jenkins if it exists', function (done) {
 
-        request.get('/api/jenkins/fetch/found-on-jenkins/123/testReport')
+        request.get('/api/jenkins/fetch/'+foundAsset._id+'/testReport')
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function (err, res) {

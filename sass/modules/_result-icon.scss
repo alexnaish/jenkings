@@ -1,0 +1,42 @@
+@import 'variables';
+
+.result-icon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 60px;
+	height: 60px;
+	background-color: $light-blue;
+    border-radius: 50%;
+    color: white;
+	transition: color 0.2s ease, background-color 0.2s ease, transform 0.3s ease;
+	border: 2px solid transparent;
+	
+	&.green:hover {
+		color: $light-green;
+		background-color: white;
+		border: 2px solid $dark-green;
+	}
+	
+	&.red:hover {
+		color: $light-red;
+		background-color: white;
+		border: 2px solid $dark-red;
+	}
+	
+	&.amber:hover {
+		color: $light-amber;
+		background-color: white;
+		border: 2px solid $dark-amber;
+	}
+	
+	&.grey:hover {
+		color: $light-grey;
+		background-color: white;
+		border: 2px solid $dark-grey;
+	}
+	
+	.icon {
+		font-size: 26px;
+	}
+}
