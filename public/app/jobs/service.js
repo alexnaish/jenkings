@@ -9,7 +9,7 @@
                         return response.data;
                     },
                     function (httpError) {
-                        throw httpError.status + " : " + httpError.data;
+                        throw httpError;
                     });
         },
         listSpecificJob: function (jobId) {
