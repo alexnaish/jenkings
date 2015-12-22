@@ -11,14 +11,13 @@
         <div class="panel">
             <div class="header">Project</div>
             <div class="body">
-                <span class="emphasis">{{job.project.toUpperCase() || "N/A"}}</span>
+                <span class="emphasis">{{job.project.toUpperCase()}}</span>
             </div>
         </div>
         <div class="panel">
             <div class="header">Build</div>
             <div class="body">
                 <span class="emphasis">{{job.buildId}}</span>
-                
             </div>
         </div>
     </div>
@@ -27,19 +26,19 @@
         <div class="panel">
             <div class="header">Total Tests</div>
             <div class="body">
-                {{::job.runInfo.totalCount || "N/A"}}
+                <span class="emphasis">{{::job.runInfo.totalCount || "N/A"}}</span>
             </div>
         </div>
         <div class="panel">
             <div class="header">Skipped Tests</div>
             <div class="body">
-                {{::job.runInfo.skipCount || "N/A"}}
+                <span class="emphasis">{{::job.runInfo.skipCount || "N/A"}}</span>
             </div>
         </div>
         <div class="panel">
             <div class="header">Failed Tests</div>
             <div class="body">
-                {{::job.runInfo.failCount || "N/A"}}
+                <span class="emphasis">{{::job.runInfo.failCount || "N/A"}}</span>
             </div>
         </div>
     </div>
