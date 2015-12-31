@@ -51,8 +51,11 @@ a {
             float: right;
             font-size: 18px;
             cursor: pointer;
-            a:hover {
-                color: $font-default;
+            a {
+                margin-left: 5px;
+                &:hover {
+                    color: $font-default;
+                }
             }
         }
     }

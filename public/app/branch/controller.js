@@ -2,16 +2,30 @@
     component.controller("BranchController", ['$routeParams', 'StatsService', 'projects', 'jobs', '$scope', function ($routeParams, StatsService, projects, jobs, $scope) {
         $scope.trackingBranch = $routeParams.branchName || 'master';
         $scope.history = {};
-        $scope.displayAsList = true;
+        $scope.displayMode = 'table';
         $scope.projects = projects;
         $scope.trackedJobs = jobs;
 
         if ($routeParams.desktopMode) {
-            $scope.displayAsList = false;
+            $scope.displayMode = 'desktop';
         }
 
-        $scope.toggleDisplayMode = function () {
-            $scope.displayAsList = !$scope.displayAsList;
+        $scope.setDisplayMode = function (value) {
+
+            switch (value) {
+                case 'desktop':
+                    $scope.displayMode = 'desktop';
+                    break;
+                case 'list':
+                    $scope.displayMode = 'list';
+                    break;
+                case 'table':
+                    $scope.displayMode = 'table';
+                    break;
+                default:
+                    $scope.displayMode = 'table';
+                    break;
+            }
         };
 
         function addOrReplace(array, key, data) {
