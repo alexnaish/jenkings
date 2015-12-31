@@ -9,7 +9,8 @@
             replace: true,
             scope: {
                 job: '=',
-                idKey: '@'
+                idKey: '@',
+                fetchHistory: '@'
             },
             templateUrl: 'app/notification/template.html'
         };
@@ -35,7 +36,7 @@
 
         var result = this.job.result.toLowerCase() || 'red';
 
-        if(!this.job.history) {
+        if(this.fetchHistory && !this.job.history) {
             StatsService.getHistoricalStats(this.job[this.idKey]).then(function(data){
                 this.job.history = data;
             }.bind(this));
