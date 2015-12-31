@@ -1,7 +1,7 @@
 <h2 class="title">The Latest Job Runs</h2>
 
 <div class="notification-list">
-        <notification class="fade" ng-repeat="job in jobruns | orderBy: 'dateCreated' track by $index | limitTo:20" job="job" id-key="_id"></notification>
+        <notification class="fade" ng-repeat="job in jobruns | orderBy: '-dateCreated' track by $index | limitTo:20" job="job" id-key="_id"></notification>
         <div class="fade" ng-if="jobruns.length == 0">
             <div>No results found...</div>
         </div>
