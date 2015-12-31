@@ -1,5 +1,5 @@
 .loader {
-  display: block;
+  display: none;
   height: 80px;
   width: 80px;
   position: fixed;
@@ -50,6 +50,7 @@
   }
 
   &.visible {
+    display: block;
     .circle {
       opacity: 1;
       animation: bounce 250ms cubic-bezier(0.5, 1.25, 0.5, 1.25);
