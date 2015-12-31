@@ -4,11 +4,11 @@
 	</div>
 	<div class="body">
 		<p class="title"><a class="header" ng-href="/#/job/{{::ctrl.job[ctrl.idKey]}}">{{::ctrl.job.jobName}}{{ (ctrl.job.shard ? "-"+ctrl.job.shard : "") }} ({{::ctrl.job.buildId}})</a>
-			<small ng-if="!ctrl.desktopMode" class="options hide-desktop-mode">
+			<small class="options hide-desktop-mode">
 				<a target="_blank" href="/api/jenkins/fetch/{{::ctrl.job[ctrl.idKey]}}">Fetch &amp; Populate</a>
             </small>
 		</p>
-		<div class="hide-desktop-mode" ng-if="!ctrl.desktopMode">
+		<div class="hide-desktop-mode">
 			<ul>
 				<li ng-if="::ctrl.job.branch">
 					Branch: <strong>{{::ctrl.job.branch}}</strong>
@@ -29,5 +29,12 @@
 				</li>
 			</ul>
 		</div>
+		<ul class="history">
+			<li ng-repeat="run in ctrl.job.history | orderBy: 'dateCreated'" class="run" title="run.dateCreated | date:" dd/MM/yyyy
+			'at' h:mma "" ng-class="{'success': run.result === 'SUCCESS', 'fail': run.result === 'UNSTABLE' || run.result === 'FAILURE'}"></li>
+			<li class="run green"></li>
+			<li class="run red"></li>
+			<li class="run grey"></li>
+		</ul>
 	</div>
 </div>
