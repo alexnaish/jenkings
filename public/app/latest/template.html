@@ -1,10 +1,8 @@
 <h2 class="title">The Latest Job Runs</h2>
 
-<ul>
-    <li class="fade" ng-repeat="job in jobruns | orderBy: 'dateCreated':true track by $index | limitTo:20">
-        <notification job="job"></notification>
-    </li>
-    <li class="fade" ng-if="jobruns.length == 0">
-        <div>No results found...</div>
-    </li>
-</ul>
+<div class="notification-list">
+        <notification class="fade" ng-repeat="job in jobruns | orderBy: 'dateCreated' track by $index | limitTo:20" job="job" id-key="_id"></notification>
+        <div class="fade" ng-if="jobruns.length == 0">
+            <div>No results found...</div>
+        </div>
+</div>
