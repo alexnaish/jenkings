@@ -31,7 +31,7 @@
 		</div>
 		<ul class="history">
 			<li ng-repeat="run in ctrl.job.history | orderBy: 'dateCreated'" class="run"
-					data-title="{{run.dateCreated | date: 'medium'}}" data-title-position="top" data-title-offset="200px"
+					data-title="{{run.dateCreated | date: 'medium'}}" data-title-position="top"
 					ng-class="{'green': run.result === 'SUCCESS', 'red': run.result === 'UNSTABLE' || run.result === 'FAILURE', 'grey': run.result === 'ABORTED'}">
 			</li>
 		</ul>
