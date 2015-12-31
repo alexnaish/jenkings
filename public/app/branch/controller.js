@@ -28,10 +28,10 @@
             }
         };
 
-        function addOrReplace(array, key, data) {
+        function addOrReplace(array, data) {
             var replaced = false;
             for (var i = 0; i < array.length; i++) {
-                if (array[i][key] === data[key]) {
+                if (array[i].jobName === data.jobName && array[i].project === data.project && array[i].shard === data.shard) {
                     replaced = true;
                     $scope.$apply(function () {
                         array[i] = data;
@@ -48,16 +48,13 @@
 
         socket.on('jenkings:new-job', function (job) {
             if (job.branch === $scope.trackingBranch) {
-                addOrReplace($scope.trackedJobs, 'jobName', job);
-                // StatsService.getHistoricalStats($scope.trackingBranch, job.jobName, 5).then(function (historicalData) {
-                //     $scope.history[job.jobName] = historicalData;
-                // });
+                addOrReplace($scope.trackedJobs, job);
             }
         });
 
         socket.on('jenkings:job-updated', function (data) {
             if (data.branch === $scope.trackingBranch) {
-                addOrReplace($scope.trackedJobs, 'jobName', data);
+                addOrReplace($scope.trackedJobs, data);
             }
         });
 
