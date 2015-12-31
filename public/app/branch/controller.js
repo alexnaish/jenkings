@@ -49,9 +49,9 @@
         socket.on('jenkings:new-job', function (job) {
             if (job.branch === $scope.trackingBranch) {
                 addOrReplace($scope.trackedJobs, 'jobName', job);
-                StatsService.getHistoricalStats($scope.trackingBranch, job.jobName, 5).then(function (historicalData) {
-                    $scope.history[job.jobName] = historicalData;
-                });
+                // StatsService.getHistoricalStats($scope.trackingBranch, job.jobName, 5).then(function (historicalData) {
+                //     $scope.history[job.jobName] = historicalData;
+                // });
             }
         });
 

@@ -30,11 +30,7 @@
 			</ul>
 		</div>
 		<ul class="history">
-			<li ng-repeat="run in ctrl.job.history | orderBy: 'dateCreated'" class="run" title="run.dateCreated | date:" dd/MM/yyyy
-			'at' h:mma "" ng-class="{'success': run.result === 'SUCCESS', 'fail': run.result === 'UNSTABLE' || run.result === 'FAILURE'}"></li>
-			<li class="run green"></li>
-			<li class="run red"></li>
-			<li class="run grey"></li>
+			<li ng-repeat="run in ctrl.job.history | orderBy: 'dateCreated'" class="run" data-title="{{run.dateCreated | date: 'medium'}}" data-title-position="top" ng-class="{'green': run.result === 'SUCCESS', 'red': run.result === 'UNSTABLE' || run.result === 'FAILURE', 'grey': run.result === 'ABORTED'}"></li>
 		</ul>
 	</div>
 </div>

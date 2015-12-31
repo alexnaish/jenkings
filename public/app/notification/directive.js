@@ -17,7 +17,6 @@
 
     component.controller('NotificationController', function (StatsService) {
 
-
         var colourMap = {
             success: 'green',
             failure: 'red',
@@ -37,9 +36,7 @@
         var result = this.job.result.toLowerCase() || 'red';
 
         if(!this.job.history) {
-
-            StatsService.getHistoricalStats().then(function(data){
-                console.log('data', data);
+            StatsService.getHistoricalStats(this.job[this.idKey]).then(function(data){
                 this.job.history = data;
             }.bind(this));
         }
