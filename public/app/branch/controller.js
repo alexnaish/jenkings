@@ -1,5 +1,5 @@
 (function (component) {
-    component.controller("BranchController", ['$routeParams', 'StatsService', 'projects', 'jobs', '$scope', function ($routeParams, StatsService, projects, jobs, $scope) {
+    component.controller("BranchController", ['$routeParams', 'StatsService', 'projects', 'jobs', '$scope', 'SocketIO', function ($routeParams, StatsService, projects, jobs, $scope, SocketIO) {
         $scope.trackingBranch = $routeParams.branchName || 'master';
         $scope.history = {};
         $scope.displayMode = 'table';
@@ -46,13 +46,15 @@
             }
         };
 
-        socket.on('jenkings:new-job', function (job) {
+        SocketIO.bindTo($scope);
+
+        SocketIO.on('jenkings:new-job', function (job) {
             if (job.branch === $scope.trackingBranch) {
                 addOrReplace($scope.trackedJobs, job);
             }
         });
 
-        socket.on('jenkings:job-updated', function (data) {
+        SocketIO.on('jenkings:job-updated', function (data) {
             if (data.branch === $scope.trackingBranch) {
                 addOrReplace($scope.trackedJobs, data);
             }
