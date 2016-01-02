@@ -1,6 +1,5 @@
 var utils = require('../../../test/utils'),
     helpers = require('../../../test/functions'),
-    testData = require('../../../test/data'),
     app = require('../../index'),
     JobModel = require('../model'),
     config = require('config'),
