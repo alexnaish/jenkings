@@ -2,7 +2,7 @@
     component.service("StatsService", ['$http', function ($http) {
         var service = {
             getHistoricalStats: function (id, limit) {
-                return $http.get('/api/stats/' + id, {
+                return $http.get('/api/stats/history/' + id, {
                                 params: { limit: limit }
                             }).then(
                         function (response) {

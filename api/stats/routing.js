@@ -15,7 +15,7 @@ module.exports = {
         router.route('/stats/projects/:branch')
             .get(api.listAllProjectsByBranch);
 
-        router.route('/stats/:id')
+        router.route('/stats/history/:id')
             .get(
                 validation.validateObjectId,
                 api.generateStats
