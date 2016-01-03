@@ -2,7 +2,8 @@ Jenkins User Friendly Dashboard
 =======
 
 [![Build Status](https://travis-ci.org/alexnaish/jenkings.svg?branch=master)](https://travis-ci.org/alexnaish/jenkings)
-
+[![Code Climate](https://codeclimate.com/github/alexnaish/jenkings/badges/gpa.svg)](https://codeclimate.com/github/alexnaish/jenkings)
+[![Test Coverage](https://codeclimate.com/github/alexnaish/jenkings/badges/coverage.svg)](https://codeclimate.com/github/alexnaish/jenkings/coverage)
 
 An interface to quickly see just how your CI builds are doing.
 
