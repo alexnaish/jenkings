@@ -8,7 +8,7 @@ var gulp = require('gulp'),
 
 gulp.task('mocha', function () {
     process.env.NODE_ENV = 'development';
-    gulp.src(['./api/**/*.js', '!./api/**/*.spec.js', '!./api/index.js'])
+    gulp.src(['./api/**/*.js', '!./api/**/*.spec.js', '!./api/index.js', '!./api/lib/*.js'])
         .pipe(istanbul()) // Covering files
         .pipe(istanbul.hookRequire()) // Force `require` to return covered files
         .on('finish', function () {
@@ -18,7 +18,7 @@ gulp.task('mocha', function () {
                     reporter: 'spec'
                 }))
                 .pipe(istanbul.writeReports({
-                    reporters: ['html', 'text', 'text-summary']
+                    reporters: ['html', 'text', 'text-summary', 'lcov']
                 }))
                 .pipe(istanbul.enforceThresholds({
                     thresholds: {
