@@ -1,18 +1,27 @@
 var config = require('config'),
+    validation = require('../validation'),
+    express = require('express'),
     api = require('./api/');
 
 module.exports = {
 
     apply: function (app) {
 
-        app.route(config.app.apiPath + '/stats/jobNames')
+        var router = express.Router();
+
+        router.route('/stats/jobNames')
             .get(api.listAllJobNames);
 
-        app.route(config.app.apiPath + '/stats/projects/:branch')
+        router.route('/stats/projects/:branch')
             .get(api.listAllProjectsByBranch);
 
-        app.route(config.app.apiPath + '/stats/:branch/:job')
-            .get(api.generateStats);
+        router.route('/stats/history/:id')
+            .get(
+                validation.validateObjectId,
+                api.generateStats
+            );
+
+        app.use(config.app.apiPath, router);
 
     }
 

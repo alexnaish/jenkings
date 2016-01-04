@@ -4,7 +4,7 @@
     <title>Jenkings Dashboard</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular.min.js"></script>
+    <script src="/libs/angular.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-animate.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-sanitize.min.js"></script>
@@ -32,9 +32,6 @@
                         <a href="/#/branch/master"><i class="fa fa-code-fork icon"></i> Branch Tracker</a>
                     </li>
                     <li>
-                        <a href="/#/stats/master"><i class="fa fa-flask icon"></i> Stats</a>
-                    </li>
-                    <li>
                         <a href="/#/history"> <i class="fa fa-file-text icon"></i> History</a>
                     </li>
                     <li>
@@ -53,6 +50,7 @@
 <script src="/app/dropdown-menu/directive.js"></script>
 <script src="/app/loading/directive.js"></script>
 <script src="/app/result-icon/directive.js"></script>
+<script src="/app/notification/directive.js"></script>
 <script src="/app/error/controller.js"></script>
 <script src="/app/config/index.js"></script>
 <script src="/app/config/service.js"></script>
@@ -70,20 +68,16 @@
 <script src="/app/branch/config.js"></script>
 <script src="/app/stats/index.js"></script>
 <script src="/app/stats/service.js"></script>
-<script src="/app/stats/controller.js"></script>
-<script src="/app/stats/config.js"></script>
 <script src="/app/history/index.js"></script>
 <script src="/app/history/config.js"></script>
 <script src="/app/history/controller.js"></script>
 <script src="/app/history/service.js"></script>
 <script src="/app/sidebar/controller.js"></script>
+<script src="/app/socketio/index.js"></script>
+<script src="/app/socketio/service.js"></script>
 <script src="/app/app.js"></script>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.min.js"></script>
-<script src="/libs/n3/n3-charts.js"></script>
-
-<script>
-    var socket = io.connect('http://labs.nowtv.bskyb.com:1338');
-</script>
+<script src="/libs/n3-charts.js"></script>
 
 </html>

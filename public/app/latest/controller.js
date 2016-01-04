@@ -1,22 +1,20 @@
 (function (component) {
 
-    component.controller("LatestController", ['$scope', 'jobs', function ($scope, jobs) {
+    component.controller("LatestController", ['$scope', 'jobs', 'SocketIO', function ($scope, jobs, SocketIO) {
         $scope.jobruns = jobs.slice(0, 20);
 
-        socket.on('jenkings:new-job', function (data) {
+        SocketIO.bindTo($scope);
+
+        SocketIO.on('jenkings:new-job', function (data) {
             console.log('new job received', data.jobName, data.buildId, data.result);
-            $scope.$apply(function () {
-                $scope.jobruns.push(data);
-            });
+            $scope.jobruns.push(data);
         });
 
-        socket.on('jenkings:job-updated', function (data) {
+        SocketIO.on('jenkings:job-updated', function (data) {
             console.log('job update received', data.jobName, data.buildId, data.result);
             for (var i = 0; i < $scope.jobruns.length; i++) {
                 if ($scope.jobruns[i].jobName === data.jobName && $scope.jobruns[i].buildId === data.buildId) {
-                    $scope.$apply(function () {
-                        $scope.jobruns[i] = data;
-                    });
+                    $scope.jobruns[i] = data;
                     return;
                 }
             }

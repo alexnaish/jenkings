@@ -1,12 +1,12 @@
 @import 'variables';
 
 [data-title]{
-	
+
 	position: relative;
 	&:after {
 		opacity: 0;
 	}
-	
+
 	&:hover:after {
 		opacity: 1;
 		color: $font-default;
@@ -16,8 +16,15 @@
 		padding: 10px;
 		content: attr(data-title);
 		position: absolute;
+		z-index: 9999;
 		left: 80%;
         top: -50%;
 		animation: bounce 250ms cubic-bezier(0.5, 1.25, 0.5, 1.25);
 	}
+
+	&[data-title-position="top"]:hover:after {
+		top: -45px;
+		left: -80px;
+	}
+
 }

@@ -1,0 +1,39 @@
+<div class="notification" ng-class="ctrl.colour">
+	<div class="icon">
+		<i class="fa" ng-class="ctrl.icon"></i>
+	</div>
+	<div class="body">
+		<p class="title"><a class="header" ng-href="/#/job/{{::ctrl.job[ctrl.idKey]}}">{{::ctrl.job.jobName}}{{ (ctrl.job.shard ? "-"+ctrl.job.shard : "") }} ({{::ctrl.job.buildId}})</a>
+			<small class="options hide-desktop-mode">
+				<a target="_blank" href="/api/jenkins/fetch/{{::ctrl.job[ctrl.idKey]}}">Fetch &amp; Populate</a>
+            </small>
+		</p>
+		<div class="hide-desktop-mode">
+			<ul>
+				<li ng-if="::ctrl.job.branch">
+					Branch: <strong>{{::ctrl.job.branch}}</strong>
+				</li>
+				<li ng-if="::ctrl.job.project">
+					Project: <strong>{{::ctrl.job.project}}</strong>
+				</li>
+				<li>
+					Run On: <strong>{{::ctrl.job.node}}</strong>
+				</li>
+				<li>
+					Started On: <strong>{{::ctrl.job.dateCreated | date:'medium'}}</strong>
+				</li>
+				<li>Duration: <strong ng-bind="ctrl.job.duration | duration"></strong></li>
+				<li>Commit: <a href="//gitlab.nowtv.bskyb.com/iceberg/commit/{{::ctrl.job.gitCommit}}">{{::ctrl.job.gitCommit}}</a>
+				</li>
+				<li ng-if="ctrl.job.culprits && ctrl.job.culprits.length > 0">Culprits: <span ng-repeat="culprit in ctrl.job.culprits"><strong>{{culprit.fullName}}{{$last ? '' : ', '}}</strong></span>
+				</li>
+			</ul>
+		</div>
+		<ul class="history">
+			<li ng-repeat="run in ctrl.job.history | orderBy: 'dateCreated'" class="run"
+					data-title="{{run.dateCreated | date: 'medium'}}" data-title-position="top"
+					ng-class="{'green': run.result === 'SUCCESS', 'red': run.result === 'UNSTABLE' || run.result === 'FAILURE', 'grey': run.result === 'ABORTED'}">
+			</li>
+		</ul>
+	</div>
+</div>

@@ -60,12 +60,12 @@
         <div class="panel">
             <div class="header">Commit Message</div>
             <div class="body">
-                <ul>
+                <ul class="list">
                     <li ng-repeat="commit in job.commitInfo">
-                        <span class="emphasis">{{commit}}{{$last ? '' : ', '}}</span>
+                        {{commit}}
                     </li>
                     <li ng-if="!job.commitInfo || job.commitInfo.length === 0">
-                        <span class="emphasis">No Commit Messages.</span>
+                        No Commit Messages.
                     </li>
                 </ul>
             </div>

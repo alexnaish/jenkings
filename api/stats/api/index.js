@@ -4,8 +4,8 @@ var StatsService = require('../service/'),
 module.exports = {
 
     generateStats: function (req, res, next) {
-        var limit = req.query.limit;
-        StatsService.generateHistorical(req.params.branch, req.params.job, limit, function (statusCode, results) {
+        var limit = req.query.limit || 5;
+        StatsService.generateHistorical(req.params.id, limit, function (statusCode, results) {
             res.status(statusCode).json(results);
         });
     },

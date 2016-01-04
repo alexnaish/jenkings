@@ -1,6 +1,5 @@
 var utils = require('../../../test/utils'),
     helpers = require('../../../test/functions'),
-    testData = require('../../../test/data'),
     app = require('../../index'),
     JobModel = require('../model'),
     config = require('config'),
@@ -200,8 +199,11 @@ describe('JobRun API', function () {
 
 
                     expect(queueStub.secondCall.args[0]).to.be.equal('pending-job');
-                    expect(queueStub.secondCall.args[1][0]).to.be.equal('test');
-                    expect(queueStub.secondCall.args[1][1]).to.be.equal('2');
+
+                    var queueFunctionArg = queueStub.secondCall.args[1][0].toString();
+                    var objectIdRegex = /^[0-9a-fA-F]{24}$/;
+                    //force the regex result to a boolean...
+                    expect(!!queueFunctionArg.match(objectIdRegex)).to.be.equal(true);
 
                     expect(res.body).to.be.have.property('_id');
                     expect(res.body).to.be.have.property('jobName');

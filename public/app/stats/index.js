@@ -1,5 +1,3 @@
 angular.module('stats', [
-    'stats.controller',
-    'stats.service',
-    'stats.config'
+    'stats.service'
 ]);
