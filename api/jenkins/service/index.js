@@ -1,13 +1,9 @@
 var config = require('config'),
     request = require('request'),
     _ = require('lodash'),
-    JobRun = require('../../jobs/model'),
     QueueService = require('../../queue/service'),
+    JobRun = require('../../jobs/model'),
     JobService = require('../../jobs/service');
-
-function generateJenkinsJobApiUrl(jobName, buildId) {
-    return config.ci.domain + '/view/' + config.ci.view + '/job/' + jobName + '/' + buildId + '/api/json';
-};
 
 function renderResponse(statusCode, successful, response, callback) {
     if (callback === undefined) {
@@ -26,9 +22,10 @@ module.exports = {
             _id: id
         };
 
-        JobRun.findOne(queryObject, function (err, result) {
-            if (result) {
-                request.get(generateJenkinsJobApiUrl(result.jobName, result.buildId), function (error, response, body) {
+        JobService.findSpecific(queryObject, {}, function (status, results) {
+            if (status === 200) {
+                var result = results[0];
+                request.get(JobService.buildUrl(result), function (error, response, body) {
                     if (!error && response && response.statusCode === 200) {
                         try {
                             var bodyJson = JSON.parse(body);

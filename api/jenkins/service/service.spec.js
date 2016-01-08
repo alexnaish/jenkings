@@ -11,39 +11,24 @@ describe('Jenkins Service', function () {
 
     describe('fetchAndPopulateJobRun', function () {
 
-        var findStub,
-            updateStub,
+        var updateStub,
             queueStub,
-            requestStub;
+            requestStub,
+            sandbox;
 
         beforeEach(function (done) {
-            findStub = sinon.stub(JobRun, 'findOne');
-            updateStub = sinon.stub(JobService, 'update');
-            queueStub = sinon.stub(QueueService, 'create');
-            requestStub = sinon.stub(request, 'get');
-
-            findStub.withArgs({_id: 'missing'}).yields(null, null);
-
-            findStub.withArgs({_id: 'found'}).yields(null, {
-                jobName: 'test1',
-                buildId: 2
-            });
-
-            findStub.withArgs({_id: 'another'}).yields(null, {
-                jobName: 'test2',
-                buildId: 3
-            });
+            sandbox = sinon.sandbox.create();
+            updateStub = sandbox.stub(JobService, 'update');
+            queueStub = sandbox.stub(QueueService, 'create');
+            requestStub = sandbox.stub(request, 'get');
 
             done();
         });
 
-        afterEach(function (done) {
-            JobRun.findOne.restore();
-            JobService.update.restore();
-            request.get.restore();
-            QueueService.create.restore();
-            done();
+        afterEach(function () {
+            sandbox.restore();
         });
+
 
         it('will return a 404 if no jobrun found in database', function (done) {
             JenkinsService.fetchAndPopulateJobRun('missing', function (statusCode, result) {
@@ -55,7 +40,15 @@ describe('Jenkins Service', function () {
         });
 
         it('will return a 404 if query is not found in jenkins', function (done) {
-
+            
+            sandbox.stub(JobService, 'findSpecific').yields(200, [{
+                buildId: 123,
+                jobName: 'test',
+                location: {
+                    urlTemplate: 'test'
+                }
+            }]);
+            
             requestStub.yields(null, {
                 statusCode: 404
             }, null);
@@ -70,6 +63,14 @@ describe('Jenkins Service', function () {
 
         it('will return a 500 if jenkins returns invalid json', function (done) {
 
+            sandbox.stub(JobService, 'findSpecific').yields(200, [{
+                buildId: 123,
+                jobName: 'test',
+                location: {
+                    urlTemplate: 'test'
+                }
+            }]);
+
             requestStub.yields(null, {
                 statusCode: 200
             }, 'invalid json');
@@ -82,6 +83,14 @@ describe('Jenkins Service', function () {
         });
 
         it('will return a 500 if JobService update returns an error', function (done) {
+
+            sandbox.stub(JobService, 'findSpecific').yields(200, [{
+                buildId: 123,
+                jobName: 'test',
+                location: {
+                    urlTemplate: 'test'
+                }
+            }]);
 
             requestStub.yields(null, {
                 statusCode: 200
@@ -103,11 +112,19 @@ describe('Jenkins Service', function () {
 
         it('will return a 200 if results are found and there are no errors', function (done) {
 
+            sandbox.stub(JobService, 'findSpecific').yields(200, [{
+                buildId: 123,
+                jobName: 'test',
+                location: {
+                    urlTemplate: 'test'
+                }
+            }]);
+
             requestStub.yields(null, {
                 statusCode: 200
             }, testData.createJenkinsApiResponse('unstable', 'test1', 123));
 
-            findStub.withArgs({_id: 'found'}).onSecondCall().yields(null, {
+            sandbox.stub(JobRun, 'findOne').yields(null, {
                 _id: 'testidhere',
                 jobName: 'test1',
                 buildId: 2,
@@ -130,7 +147,15 @@ describe('Jenkins Service', function () {
         });
 
         it('will create a job-update queue event if no callback is specified', function () {
-
+            
+            sandbox.stub(JobService, 'findSpecific').yields(200, [{
+                buildId: 123,
+                jobName: 'test',
+                location: {
+                    urlTemplate: 'test'
+                }
+            }]);
+            
             requestStub.yields(null, {
                 statusCode: 200
             }, JSON.stringify({
@@ -138,7 +163,7 @@ describe('Jenkins Service', function () {
                 result: 'SUCCESS'
             }));
 
-            findStub.withArgs({_id: 'found'}).onSecondCall().yields(null, {
+            sandbox.stub(JobRun, 'findOne').yields(null, {
                 _id: 'testidhere',
                 jobName: 'test1',
                 buildId: 2,
@@ -160,7 +185,15 @@ describe('Jenkins Service', function () {
 
         it('will not create a job-update queue event if status is not successful even if no callback is specified', function () {
 
-            findStub.withArgs({
+            sandbox.stub(JobService, 'findSpecific').yields(200, [{
+                buildId: 123,
+                jobName: 'test',
+                location: {
+                    urlTemplate: 'test'
+                }
+            }]);
+
+            sandbox.stub(JobRun, 'findOne').withArgs({
                 jobName: 'test1',
                 buildId: 2
             }).yields({

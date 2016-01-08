@@ -1,23 +1,27 @@
 var config = require('config'),
     validation = require('../validation'),
+    express = require('express'),
     api = require('./api/');
 
 module.exports = {
 
     apply: function (app) {
 
-        app.route(config.app.apiPath + '/jenkins/fetch/:id')
+        var router = express.Router();
+
+        router.route('/jenkins/fetch/:id')
             .get(
                 validation.validateObjectId,
                 api.fetchJobRunInfo
                 );
 
-        app.route(config.app.apiPath + '/jenkins/fetch/:id/testReport')
+        router.route('/jenkins/fetch/:id/testReport')
             .get(
                 validation.validateObjectId,
                 api.fetchJobRunTestReport
                 );
 
+        app.use(config.app.apiPath, router);
     }
 
 }

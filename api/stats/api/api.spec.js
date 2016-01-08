@@ -1,4 +1,5 @@
 var expect = require('chai').expect,
+    LocationModel = require('../../location/model'),
     JobModel = require('../../jobs/model'),
     helpers = require('../../../test/functions'),
     app = require('../../index'),
@@ -44,6 +45,21 @@ describe('Stats API', function () {
 
     var insertedAssets;
 
+    var location = { name: 'test-jenkins', urlTemplate: 'http://jenkins.com/{jobName}/{buildId}' };
+
+    before(function (done) {
+        helpers.insertAssets(LocationModel, location, function(err, results){
+            var insertedLocation = results[0];
+            assets.map(function(asset){
+                asset.location = insertedLocation._id;
+                return asset;
+            });
+            
+            done();
+            
+        });
+    });
+
     before(function (done) {
         helpers.insertAssets(JobModel, assets, function (error, insertedDocuments) {
             insertedAssets = insertedDocuments;
@@ -53,6 +69,12 @@ describe('Stats API', function () {
 
     after(function (done) {
         helpers.removeAssets(JobModel, {}, function () {
+            done();
+        });
+    });
+    
+    after(function (done) {
+        helpers.removeAssets(LocationModel, {}, function () {
             done();
         });
     });

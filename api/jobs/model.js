@@ -1,9 +1,15 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 var jobSchema = mongoose.Schema({
     jobName: {
         type: String,
         required: true
+    },
+    location: {
+        type: Schema.Types.ObjectId,
+        required: true, 
+        ref: 'Location'   
     },
     buildId: {
         type: String,

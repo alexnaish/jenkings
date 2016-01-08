@@ -6,7 +6,7 @@ module.exports = {
     find: function (query, sortObject, callback) {
         JobRun.find(query, null, {
             sort: sortObject
-        }, function (err, results) {
+        }).populate('location').exec(function (err, results) {
             if (err) {
                 callback(500, err);
             } else {
@@ -17,16 +17,14 @@ module.exports = {
     findSpecific: function (query, sortObject, callback) {
         JobRun.find(query, null, {
             sort: sortObject
-        }, function (err, results) {
+        }).populate('location').exec(function (err, results) {
             if (err) {
-                callback(500, err);
-            } else {
-                if (results && results.length === 0) {
-                    callback(404, { error: 'Job not found.' });
-                } else {
-                    callback(200, results);
-                }
+                return callback(500, err);
             }
+            if (results && results.length === 0) {
+                return callback(404, { error: 'Job not found.' });
+            }
+            callback(200, results);
         });
     },
     create: function (payload, callback) {
@@ -34,6 +32,8 @@ module.exports = {
             payload.project = payload.project.toLowerCase();
         }
         new JobRun(payload).save(function (err, result) {
+            console.log('payload', payload);
+            console.log('result', result);
             if (err) {
                 callback(403, {
                     name: err.name,
@@ -70,6 +70,11 @@ module.exports = {
             } else {
                 callback(204, {});
             }
+        });
+    },
+    buildUrl: function (job) {
+        return job.location.urlTemplate.replace(/\{([a-z]*)\}/gi, function (_, param) {
+            return job[param];
         });
     }
 };

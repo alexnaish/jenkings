@@ -2,6 +2,7 @@ var utils = require('../../../test/utils'),
     helpers = require('../../../test/functions'),
     app = require('../../index'),
     JobModel = require('../../jobs/model'),
+    LocationModel = require('../../location/model'),
     moment = require('moment'),
     _ = require('lodash'),
     expect = require('chai').expect,
@@ -56,6 +57,20 @@ describe('Branch API ', function () {
     var branchCount = 4,
         distinctJobsOnMaster = 2;
 
+    var location = { name: 'test-jenkins', urlTemplate: 'http://jenkins.com/{jobName}/{buildId}' };
+
+    before(function (done) {
+        helpers.insertAssets(LocationModel, location, function(err, results){
+            var insertedLocation = results[0];
+            assets.map(function(asset){
+                asset.location = insertedLocation._id;
+                return asset;
+            });
+            
+            done();
+            
+        });
+    });
 
     before(function (done) {
         helpers.insertAssets(JobModel, assets, function () {
@@ -65,6 +80,12 @@ describe('Branch API ', function () {
 
     after(function (done) {
         helpers.removeAssets(JobModel, {}, function () {
+            done();
+        });
+    });
+    
+    after(function (done) {
+        helpers.removeAssets(LocationModel, {}, function () {
             done();
         });
     });

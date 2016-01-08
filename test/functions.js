@@ -1,10 +1,11 @@
-var async = require('async'),
+var JobService = require('../api/jobs/service'),
+    async = require('async'),
     config = require('config');
 
 module.exports = {
 
-    generateJenkinsJobApiUrl: function generateJenkinsJobApiPath(jobName, buildId) {
-        return '/view/' + config.ci.view + '/job/' + jobName + '/' + buildId + '/api/json';
+    generateJenkinsJobApiUrl: function generateJenkinsJobApiPath(job) {
+        return JobService.buildUrl(job);
     },
 
     insertAssets: function (model, dataArray, finalCallback) {
@@ -17,8 +18,12 @@ module.exports = {
         //Calculate function calls required
         dataArray.forEach(function (item) {
             asyncTasks.push(function (callback) {
-                new model(item).save(function(error, insertedDocument){
-                    callback(error, insertedDocument);
+                new model(item).save(function(error, insertedDocument){      
+                    if(error) {
+                        // console.log('Errored item:', item);
+                        throw error;
+                    }          
+                    callback(error, insertedDocument.toObject());
                 });
             });
         });

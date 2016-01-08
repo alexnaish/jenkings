@@ -10,34 +10,63 @@ describe('Job Service', function () {
 
         var findStub;
 
-        before(function () {
+        before(function (done) {
             findStub = sinon.stub(JobRun, 'find');
 
             findStub.withArgs({
                 jobName: 'missing'
-            }).yields(null, []);
+            }).returns({
+                populate: function () {
+                    return {
+                        exec: sinon.stub().yields(null, [])
+                    };
+                }
+            });
 
-            findStub.withArgs({}).yields(null, [{
-                jobName: 'test1'
-                }, {
-                jobName: 'test2'
-                }, {
-                jobName: 'test3'
-                }]);
+            findStub.withArgs({}).returns({
+                populate: function () {
+                    return {
+                        exec: sinon.stub().yields(null, [
+                            {
+                                jobName: 'test1'
+                            },
+                            {
+                                jobName: 'test2'
+                            },
+                            {
+                                jobName: 'test3'
+                            }
+                        ])
+                    };
+                }
+            });
 
             findStub.withArgs({
                 jobName: 'test1'
-            }).yields(null, [{
-                jobName: 'test1'
-            }]);
+            }).returns({
+                populate: function () {
+                    return {
+                        exec: sinon.stub().yields(null, [{
+                            jobName: 'test1'
+                        }])
+                    };
+                }
+            });
 
             findStub.withArgs({
                 jobName: 'db.drop'
-            }).yields({
-                name: 'MongooseError?',
-                message: 'some message'
-            }, null);
-
+            }).returns({
+                populate: function () {
+                    return {
+                        exec: sinon.stub().yields({
+                            name: 'MongooseError?',
+                            message: 'some message'
+                        }, null)
+                    };
+                }
+            });
+            
+            done();
         });
 
         after(function (done) {
@@ -78,6 +107,7 @@ describe('Job Service', function () {
             JobService.findSpecific({
                 jobName: 'db.drop'
             }, {}, function (statusCode, result) {
+                console.log('in the cb')
                 expect(statusCode).to.be.equal(500);
                 expect(result).to.have.property('name');
                 expect(result).to.have.property('message');
@@ -253,7 +283,35 @@ describe('Job Service', function () {
             });
         });
 
+    });
 
+    describe('buildUrl', function () {
+
+        it('should build the correct url for jenkins', function () {
+
+            var job = {
+                location: {
+                    urlTemplate: 'http://jenkins.com/view/myproject/job/{jobName}/{buildId}/api/json'
+                },
+                jobName: 'e2e',
+                buildId: '123',
+            };
+
+            expect(JobService.buildUrl(job)).to.equal('http://jenkins.com/view/myproject/job/e2e/123/api/json');
+        });
+
+        it('should build the correct url for circle', function () {
+
+            var job = {
+                location: {
+                    urlTemplate: 'https://circleci.com/api/v1/project/sky-uk/{jobName}/{buildId}'
+                },
+                jobName: 'e2e',
+                buildId: '123',
+            };
+
+            expect(JobService.buildUrl(job)).to.equal('https://circleci.com/api/v1/project/sky-uk/e2e/123');
+        });
     });
 
 });

@@ -1,6 +1,7 @@
 var utils = require('../../../test/utils'),
     helpers = require('../../../test/functions'),
     app = require('../../index'),
+    LocationModel = require('../../location/model'),
     JobModel = require('../model'),
     config = require('config'),
     nock = require('nock'),
@@ -42,6 +43,22 @@ describe('JobRun API', function () {
 
     var queueStub;
 
+    var location = { name: 'test-jenkins', urlTemplate: 'http://jenkins.com/{jobName}/{buildId}' };
+
+    before(function (done) {
+        helpers.insertAssets(LocationModel, location, function(err, results){
+            var insertedLocation = results[0];
+          
+            assets.map(function(asset){
+                asset.location = insertedLocation._id;
+                return asset;
+            });
+            
+            done();
+            
+        });
+    });
+
     before(function (done) {
         helpers.insertAssets(JobModel, assets, function (error, insertedDocuments) {
             insertedAssets = insertedDocuments;
@@ -61,6 +78,12 @@ describe('JobRun API', function () {
 
     after(function (done) {
         helpers.removeAssets(JobModel, {}, function () {
+            done();
+        });
+    });
+    
+    after(function (done) {
+        helpers.removeAssets(LocationModel, {}, function () {
             done();
         });
     });
@@ -89,7 +112,7 @@ describe('JobRun API', function () {
                 });
         });
 
-        it('/jobs/id/:buildId should return a 200 and list one specific run', function (done) {
+        it('/jobs/id/:id should return a 200 and list one specific run', function (done) {
             var testObject = insertedAssets[0];
             request.get('/api/jobs/id/'+testObject._id)
                 .expect('Content-Type', /json/)
@@ -154,7 +177,8 @@ describe('JobRun API', function () {
                 buildId: 1,
                 branch: 'test',
                 result: 'FAILURE',
-                project: 'test'
+                project: 'test',
+                location: '123456123456123456123456'
             };
 
             request.post('/api/jobs')
@@ -183,7 +207,8 @@ describe('JobRun API', function () {
                 buildId: 2,
                 branch: 'test',
                 result: 'PENDING',
-                project: 'test'
+                project: 'test',
+                location: '123456123456123456123456'
             };
 
             request.post('/api/jobs')
