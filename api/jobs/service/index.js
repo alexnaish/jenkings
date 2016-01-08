@@ -22,7 +22,7 @@ module.exports = {
                 callback(500, err);
             } else {
                 if (results && results.length === 0) {
-                    callback(404, {error: 'Job not found.'});
+                    callback(404, { error: 'Job not found.' });
                 } else {
                     callback(200, results);
                 }
@@ -30,6 +30,9 @@ module.exports = {
         });
     },
     create: function (payload, callback) {
+        if (payload.project) {
+            payload.project = payload.project.toLowerCase();
+        }
         new JobRun(payload).save(function (err, result) {
             if (err) {
                 callback(403, {
