@@ -8,7 +8,8 @@
 		flex-flow: row wrap;
 
 		.notification {
-			flex: 1 0 300px;
+			flex: 1 0 25%;
+            min-width: 400px;
 			height: 140px;
 
 			.body {
