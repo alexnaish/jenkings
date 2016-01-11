@@ -13,19 +13,18 @@
     </div>
     <div class="group">
         <label for="name">Name</label>
-        <input placeholder="Name" name="name" type="text" ng-model="location.name" required>
-        <div class="red fade" ng-messages="locationForm.name.$error">
-            <div ng-message="required">Please enter a value.</div>
-            <div ng-message="minlength">Your field is too short</div>
-            <div ng-message="maxlength">Your field is too long</div>
+        <input placeholder="Name" name="name" type="text" ng-model="location.name" ng-minlength="3" required>
+        <div class="error red" ng-messages="locationForm.name.$error" ng-if="locationForm.name.$invalid">
+            <div ng-message="required">Please enter a name.</div>
+            <div ng-message="minlength">The name is too short.</div>
         </div>
     </div>
     <div class="group">
         <label for="urlTemplate">URL Template</label>
         <input placeholder="URL Template" name="urlTemplate" type="text" ng-model="location.urlTemplate" required ng-minlength="10">
-        <div class="red fade" ng-messages="locationForm.urlTemplate.$error">
+        <div class="error red" ng-messages="locationForm.urlTemplate.$error" ng-if="locationForm.urlTemplate.$invalid">
             <div ng-message="required">Please enter a template.</div>
-            <div ng-message="minlength">The URL template is too short</div>
+            <div ng-message="minlength">The URL template is too short.</div>
         </div>
     </div>
     <div class="group end">
