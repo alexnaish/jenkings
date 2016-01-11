@@ -1,0 +1,23 @@
+<h2 class="title"> Location List <small class="options"><a href="#">Create New Location</a></small></h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Location Key</th>
+            <th>Name</th>
+            <th>Date Created</th>
+            <th>URL Template</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="location in locations track by location._id">
+            <td class="emphasis">{{::location._id}}</td>
+            <td>{{::location.name}}</td>
+            <td>{{::location.dateCreated | date:'medium'}}</td>
+            <td>{{::location.urlTemplate}}</td>
+            <td><a class="btn amber" ng-href="/#/locations/{{location._id}}"><i class="fa fa-pencil"></i> Edit</a></td>
+        </tr>
+    </tbody>
+
+</table>

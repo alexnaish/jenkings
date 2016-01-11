@@ -32,8 +32,6 @@ module.exports = {
             payload.project = payload.project.toLowerCase();
         }
         new JobRun(payload).save(function (err, result) {
-            console.log('payload', payload);
-            console.log('result', result);
             if (err) {
                 callback(403, {
                     name: err.name,

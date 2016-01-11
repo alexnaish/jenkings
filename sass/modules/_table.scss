@@ -1,0 +1,43 @@
+$font-color: #666;
+
+.table {
+    
+    width: 100%;
+    margin: 10px 0;
+    color: $font-color;
+    text-align: left;
+    
+    a {
+        color: white;
+    }
+    
+    thead {
+        font-weight: bold;
+        
+        tr {
+             background: #f6f7f8;
+        }
+    }
+    
+    tbody {
+        tr:nth-child(even) {
+            background-color: #f7f7f7;
+        }
+        
+        .emphasis {
+            font-weight: 400;
+        }
+    }
+    
+    tr {
+        background-color: white;        
+    }
+    
+    th, td {
+        padding: 10px;
+        line-height: $line-height;
+        border: 1px solid lightgrey;
+        border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+    } 
+    
+}

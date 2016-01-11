@@ -5,6 +5,10 @@ var locationSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    dateCreated: {
+        type: Date,
+        default: Date.now
+    },
     urlTemplate: {
         type: String,
         required: true 
