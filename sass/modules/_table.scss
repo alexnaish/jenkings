@@ -7,10 +7,6 @@ $font-color: #666;
     color: $font-color;
     text-align: left;
     
-    a {
-        color: white;
-    }
-    
     thead {
         font-weight: bold;
         
@@ -24,13 +20,17 @@ $font-color: #666;
             background-color: #f7f7f7;
         }
         
+        tr:hover {
+            background-color: #ededed;
+        }
+        
         .emphasis {
             font-weight: 400;
         }
     }
     
     tr {
-        background-color: white;        
+        background-color: white;
     }
     
     th, td {
@@ -39,5 +39,10 @@ $font-color: #666;
         border: 1px solid lightgrey;
         border-color: #e5e6e9 #dfe0e4 #d0d1d5;
     } 
+    
+    .options {
+        color: white;
+        width: 80px;
+    }
     
 }

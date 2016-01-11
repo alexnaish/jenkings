@@ -16,7 +16,9 @@
             <td>{{::location.name}}</td>
             <td>{{::location.dateCreated | date:'medium'}}</td>
             <td>{{::location.urlTemplate}}</td>
-            <td><a class="btn amber" ng-href="/#/locations/{{location._id}}"><i class="fa fa-pencil"></i> Edit</a></td>
+            <td class="options">
+                <a class="btn amber options" ng-href="/#/locations/{{location._id}}"><i class="fa fa-pencil"></i> Edit</a>
+            </td>
         </tr>
     </tbody>
 
