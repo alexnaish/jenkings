@@ -95,7 +95,7 @@ describe('JobRun API', function () {
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .end(function (err, res) {
-                    if (err) done(err);
+                    if (err) return done(err);
                     expect(res.body).to.be.length(assets.length);
                     done();
                 });
@@ -106,7 +106,7 @@ describe('JobRun API', function () {
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .end(function (err, res) {
-                    if (err) done(err);
+                    if (err) return done(err);
                     expect(res.body).to.be.length(2);
                     done();
                 });
@@ -118,7 +118,7 @@ describe('JobRun API', function () {
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .end(function (err, res) {
-                    if (err) done(err);
+                    if (err) return done(err);
                     expect(res.body).to.be.length(1);
                     expect(res.body[0].jobName).to.be.equal(testObject.jobName);
                     expect(res.body[0].buildId).to.be.equal(testObject.buildId);
@@ -133,7 +133,7 @@ describe('JobRun API', function () {
                 .expect('Content-Type', /json/)
                 .expect(400)
                 .end(function (err, res) {
-                    if (err) done(err);
+                    if (err) return done(err);
                     expect(res.body.error).to.contain('Invalid ID');
                     done();
                 });
@@ -144,7 +144,7 @@ describe('JobRun API', function () {
                 .expect('Content-Type', /json/)
                 .expect(404)
                 .end(function (err, res) {
-                    if (err) done(err);
+                    if (err) return done(err);
                     expect(res.body.error).to.contain('Job not found');
                     done();
                 });

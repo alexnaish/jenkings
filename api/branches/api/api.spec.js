@@ -97,7 +97,7 @@ describe('Branch API ', function () {
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .end(function (err, res) {
-                    if (err) done(err);
+                    if (err) return done(err);
                     expect(res.body).to.be.length(branchCount);
                     expect(res.body).to.contain('master');
                     expect(res.body).to.contain('test-branch');
@@ -112,7 +112,7 @@ describe('Branch API ', function () {
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .end(function (err, res) {
-                    if (err) done(err);
+                    if (err) return done(err);
                     expect(res.body).to.be.length(distinctJobsOnMaster);
 
                     var jobs = _.pluck(res.body, 'jobName');
@@ -143,7 +143,7 @@ describe('Branch API ', function () {
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .end(function (err, res) {
-                    if (err) done(err);
+                    if (err) return done(err);
                     expect(res.body).to.be.length(2);
                     expect(res.body[0].branch).to.contain('master');
                     expect(res.body[0].buildId).to.contain('124');

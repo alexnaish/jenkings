@@ -85,7 +85,7 @@ describe('Jenkins API', function () {
                 
                 console.log('res', res.body);
                 
-                if (err) done(err);
+                if (err) return done(err);
                 expect(res.body.jobName).to.be.equal('found-on-jenkins');
                 expect(res.body.node).to.be.equal('testNode');
                 expect(res.body.result).to.be.equal('UNSTABLE');
