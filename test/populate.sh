@@ -9,7 +9,17 @@ defaultBranch="master"
 projectNames=("ui" "api")
 jobNames=("unit-tests" "integration-tests")
 status=("FAILURE" "SUCCESS" "ABORTED")
-location=abc123abc123abc123abc123
+
+# insert a dummy location to use within the test data
+res=`curl --data "name=myTestLocation&urlTemplate=http%3A%2F%2Ftest.jenkings.com%2F%7BjobName%7D%2F%7BbuildId%7D" http://$1/api/locations`
+
+IFS=','
+array=( $res )
+location=${array[3]#*:}
+location=${location//\"}
+echo "LocationID: $location"
+echo "====================="
+
 
 for project in "${projectNames[@]}"
 do
