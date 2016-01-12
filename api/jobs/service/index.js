@@ -1,4 +1,5 @@
 var JobRun = require('../model'),
+    config = require('config'),
     QueueService = require('../../queue/service/');
 
 module.exports = {
@@ -71,8 +72,17 @@ module.exports = {
         });
     },
     buildUrl: function (job) {
-        return job.location.urlTemplate.replace(/\{([a-z]*)\}/gi, function (_, param) {
+
+        var locationTemplate;
+        
+        if (job && job.location) {
+            locationTemplate = job.location.urlTemplate;
+        } else {
+            locationTemplate = config.ci.defaultLocationTemplate;
+        }
+        return locationTemplate.replace(/\{([a-z]*)\}/gi, function (_, param) {
             return job[param];
         });
+
     }
 };

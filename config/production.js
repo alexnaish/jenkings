@@ -3,7 +3,6 @@ module.exports = {
         apiPath: '/api'
     },
     ci: {
-        domain: "http://build.nowtv.bskyb.com",
-        view: "6.%20Iceberg"
+        defaultLocation: "http://build.nowtv.bskyb.com/view/6.%20Iceberg/job/{jobName}/{buildId}/api/json"
     }
 };
