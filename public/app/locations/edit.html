@@ -1,4 +1,4 @@
-<h2 class="title"> Editing Location: <strong>{{::location.name}}</strong></h2>
+<h2 class="title"> {{::action}} Location: <strong>{{location.name}}</strong></h2>
 
 <form class="form" ng-submit="submit()" name="locationForm" novalidate>
 
@@ -6,7 +6,7 @@
         {{alert}}
     </div>
 
-    <div class="group">
+    <div class="group" ng-if="location._id">
         <label>ID</label>
         <input name="id" type="text" value="{{::location._id}}" disabled>
 
@@ -14,7 +14,7 @@
     <div class="group">
         <label for="name">Name</label>
         <input placeholder="Name" name="name" type="text" ng-model="location.name" ng-minlength="3" required>
-        <div class="error red" ng-messages="locationForm.name.$error" ng-if="locationForm.name.$invalid">
+        <div class="error red" ng-messages="locationForm.name.$error" ng-if="locationForm.name.$invalid && locationForm.name.$dirty">
             <div ng-message="required">Please enter a name.</div>
             <div ng-message="minlength">The name is too short.</div>
         </div>
@@ -22,7 +22,7 @@
     <div class="group">
         <label for="urlTemplate">URL Template</label>
         <input placeholder="URL Template" name="urlTemplate" type="text" ng-model="location.urlTemplate" required ng-minlength="10">
-        <div class="error red" ng-messages="locationForm.urlTemplate.$error" ng-if="locationForm.urlTemplate.$invalid">
+        <div class="error red" ng-messages="locationForm.urlTemplate.$error" ng-if="locationForm.urlTemplate.$invalid  && locationForm.urlTemplate.$dirty">
             <div ng-message="required">Please enter a template.</div>
             <div ng-message="minlength">The URL template is too short.</div>
         </div>

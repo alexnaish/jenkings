@@ -11,6 +11,10 @@
                     }
                 }
             })
+            .when('/locations/new', {
+                templateUrl: 'app/locations/edit.html',
+                controller: 'NewLocationController'
+            })
             .when('/locations/:id', {
                 templateUrl: 'app/locations/edit.html',
                 controller: 'LocationController',
