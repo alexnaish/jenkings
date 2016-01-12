@@ -66,6 +66,19 @@ module.exports = {
 
             res.status(status).json(body);
         });
+    },
+    
+    deleteLocation: function (req, res) {
+        LocationService.delete(req.params.id, function (err, result) {
+            var status = 204, body = result;
+            if (err) {
+                status = 500;
+                body = {
+                    error: err.message || 'Something blew up.'
+                };
+            }
+            res.status(status).json(body);
+        });
     }
 
 };

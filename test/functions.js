@@ -22,8 +22,11 @@ module.exports = {
                     if(error) {
                         // console.log('Errored item:', item);
                         throw error;
-                    }          
-                    callback(error, insertedDocument.toObject());
+                    }
+                    
+                    var doc = insertedDocument.toObject();
+                    doc._id = doc._id.toString();
+                    callback(error, doc);
                 });
             });
         });

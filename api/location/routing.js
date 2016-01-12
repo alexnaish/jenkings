@@ -14,8 +14,10 @@ module.exports = {
             .post(api.createLocation);
         
         router.route('/locations/:id')
-            .get(validation.validateObjectId, api.findLocation)
-            .put(validation.validateObjectId, api.updateLocation);
+            .all(validation.validateObjectId)
+            .get(api.findLocation)
+            .put(api.updateLocation)
+            .delete(api.deleteLocation);
             
         app.use(config.app.apiPath, router);
                     

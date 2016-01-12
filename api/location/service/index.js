@@ -2,6 +2,14 @@ var LocationModel = require('../model');
 
 module.exports = {
 
+    find: function (query, callback) {
+        LocationModel.find(query, callback);
+    },
+
+    findOne: function (query, callback) {
+        LocationModel.findOne(query, callback);
+    },
+
     create: function (payload, callback) {
         new LocationModel(payload).save(callback);
     },
@@ -37,12 +45,8 @@ module.exports = {
         });
     },
 
-    find: function (query, callback) {
-        LocationModel.find(query, callback);
-    },
-
-    findOne: function (query, callback) {
-        LocationModel.findOne(query, callback);
+    delete: function (id, callback) {
+        LocationModel.remove({_id: id}, callback);
     }
 
 };
