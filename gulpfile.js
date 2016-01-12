@@ -43,8 +43,8 @@ gulp.task('unit', function (done) {
 gulp.task('nodemon', function () {
     process.env.NODE_ENV = 'development';
     nodemon({
-        script: "./api/index.js",
-        ignore: ['./api/**/*.spec.js']
+        script: "./api/server.js",
+        ignore: ['./api/**/*.spec.js', './public/*']
     })
         .on('restart', function () {
             console.log('restarted!');

@@ -1,14 +1,10 @@
 var config = require('config'),
     express = require('express'),
     app = express(),
-    server = require('http').createServer(app),
-    io = require('socket.io')(server),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     morgan = require('morgan'),
-    router = require('./router'),
-    scheduling = require('./scheduling'),
-    port = process.env.PORT || 1337;
+    router = require('./router');
 
 module.exports = app;
 
@@ -40,15 +36,4 @@ app.get('*', function (req, res, next) {
         error: '404 Fallback'
     });
     res.end();
-});
-
-scheduling.start(io);
-
-console.log('my env:', process.env.NODE_ENV);
-server.listen(port, function (error) {
-    if (error) {
-        console.error('Unable to bind to port: ', port, error);
-    } else {
-        console.log('listening on port: ', port);
-    }
 });
