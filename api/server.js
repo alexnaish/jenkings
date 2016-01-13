@@ -1,9 +1,9 @@
-const app = require('./index.js');
-const port = process.env.PORT || 1337;
-const scheduling = require('./scheduling');
-const socketio = require('socket.io');
-const sticky = require('sticky-session');
-const cluster = require('cluster');
+var app = require('./index.js');
+var port = process.env.PORT || 1337;
+var scheduling = require('./scheduling');
+var socketio = require('socket.io');
+var sticky = require('sticky-session');
+var cluster = require('cluster');
 
 var server = app.listen(function () {
     if(cluster.isWorker){

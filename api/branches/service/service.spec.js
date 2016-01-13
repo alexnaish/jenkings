@@ -110,7 +110,7 @@ describe('Branch Service', function () {
                 message: 'some message'
             }, null);
 
-            BranchService.find('test', function (statusCode, result) {
+            BranchService.find('test', function (statusCode) {
                 expect(statusCode).to.be.equal(500);
                 JobRun.find.restore();
                 done();

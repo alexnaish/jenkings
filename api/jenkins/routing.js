@@ -24,4 +24,4 @@ module.exports = {
         app.use(config.app.apiPath, router);
     }
 
-}
+};

@@ -1,12 +1,10 @@
-var utils = require('../../../test/utils'),
-    helpers = require('../../../test/functions'),
+var helpers = require('../../../test/functions'),
     testData = require('../../../test/data'),
     app = require('../../index'),
     JobModel = require('../../jobs/model'),
     LocationModel = require('../../location/model'),
     expect = require('chai').expect,
     request = require('supertest')(app),
-    config = require('config'),
     nock = require('nock'),
     _ = require('lodash');
 
@@ -52,7 +50,7 @@ describe('Jenkins API', function () {
             results.map(function(job) {
                 job.location = location; //fix so nocked out URLs can generate the correct URL
                 return job; 
-            })
+            });
             
             foundAsset = _.find(results, { 'jobName': 'found-on-jenkins' });
             notFoundAsset = _.find(results, { 'jobName': 'missing-on-jenkins' });
@@ -115,9 +113,9 @@ describe('Jenkins API', function () {
         request.get('/api/jenkins/fetch/' + foundAsset._id + '/testReport')
             .expect('Content-Type', /json/)
             .expect(200)
-            .end(function (err, res) {
+            .end(function (err) {
                 if (err) return done(err);
-                //                expect(res.body.message).to.be.contain('Not found on CI.');
+                // expect(res.body.message).to.be.contain('Not found on CI.');
                 done();
             });
     });

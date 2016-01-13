@@ -87,7 +87,7 @@ module.exports = {
             }
 
 
-    ], function (err, result) {
+        ], function (err, result) {
             if (err) {
                 callback(500, err);
             } else {

@@ -100,8 +100,7 @@ describe('Stats API', function () {
                 if (err) return done(err);
 
                 var expected = _.uniq(_.pluck(_.where(assets, {branch: 'master'}), 'project'));
-                console.log('expected', expected);
-                console.log('res.body', res.body);
+
                 expect(res.body.length).to.equal(expected.length);
                 expect(res.body).to.include.members(expected);
 

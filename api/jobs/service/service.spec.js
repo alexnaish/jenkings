@@ -1,7 +1,6 @@
 var sinon = require('sinon'),
     JobService = require('../service/'),
     JobRun = require('../model'),
-    QueueService = require('../../queue/service/'),
     expect = require('chai').expect;
 
 describe('Job Service', function () {
@@ -107,7 +106,6 @@ describe('Job Service', function () {
             JobService.findSpecific({
                 jobName: 'db.drop'
             }, {}, function (statusCode, result) {
-                console.log('in the cb')
                 expect(statusCode).to.be.equal(500);
                 expect(result).to.have.property('name');
                 expect(result).to.have.property('message');
@@ -144,7 +142,7 @@ describe('Job Service', function () {
             payload = {
                 _id: 'testId',
                 node: 'test',
-                duration: 1111,
+                duration: 1111
             },
             toObjectSpy = sinon.stub().returns(payload);
 
@@ -277,7 +275,7 @@ describe('Job Service', function () {
             JobService.delete({
                 jobName: 'plz',
                 buildId: 1
-            }, function (statusCode, result) {
+            }, function (statusCode) {
                 expect(statusCode).to.be.equal(500);
                 done();
             });
@@ -294,7 +292,7 @@ describe('Job Service', function () {
                     urlTemplate: 'http://jenkins.com/view/myproject/job/{jobName}/{buildId}/api/json'
                 },
                 jobName: 'e2e',
-                buildId: '123',
+                buildId: '123'
             };
 
             expect(JobService.buildUrl(job)).to.equal('http://jenkins.com/view/myproject/job/e2e/123/api/json');
@@ -307,7 +305,7 @@ describe('Job Service', function () {
                     urlTemplate: 'https://circleci.com/api/v1/project/sky-uk/{jobName}/{buildId}'
                 },
                 jobName: 'e2e',
-                buildId: '123',
+                buildId: '123'
             };
 
             expect(JobService.buildUrl(job)).to.equal('https://circleci.com/api/v1/project/sky-uk/e2e/123');

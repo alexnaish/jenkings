@@ -36,9 +36,7 @@ describe('Locations API', function () {
     });
 
     after(function (done) {
-        helpers.removeAssets(LocationModel, {}, function (err, results) {
-            done();
-        });
+        helpers.removeAssets(LocationModel, {}, done);
     });
 
     beforeEach(function () {
@@ -232,7 +230,7 @@ describe('Locations API', function () {
             request.delete('/api/locations/' + insertedAssets[0]._id)
                 .expect('Content-Type', /json/)
                 .expect(204)
-                .end(function(err, res) {
+                .end(function() {
                     done();
                 });
         });

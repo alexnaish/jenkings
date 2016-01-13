@@ -6,7 +6,7 @@ var QueueService = require('./'),
 
 describe('QueueService', function () {
 
-    var saveStub, findStub, updateStub, consoleStub, finaliseStub;
+    var saveStub, findStub, consoleStub;
 
     beforeEach(function () {
         saveStub = sinon.stub(QueueModel.prototype, 'save');

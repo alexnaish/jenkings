@@ -22,7 +22,7 @@ module.exports = {
             if (err) {
                 return callback({
                     status: 500,
-                    message: err.message || "Find step of Update blew up."
+                    message: err.message || 'Find step of Update blew up.'
                 });
             }
             if (!result) {
@@ -37,7 +37,7 @@ module.exports = {
                 if (err) {
                     return callback({
                         status: 500,
-                        message: err.message || "Update step blew up."
+                        message: err.message || 'Update step blew up.'
                     });
                 }
                 callback(null, payload);

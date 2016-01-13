@@ -1,11 +1,10 @@
-var config = require('config'),
-    request = require('request'),
+var request = require('request'),
     _ = require('lodash'),
     QueueService = require('../../queue/service'),
     JobRun = require('../../jobs/model'),
     JobService = require('../../jobs/service');
 
-function renderResponse(statusCode, successful, response, callback) {
+function renderResponse (statusCode, successful, response, callback) {
     if (callback === undefined) {
         if (successful) {
             QueueService.create('job-updated', ['jenkings:job-updated', response]);
@@ -13,7 +12,7 @@ function renderResponse(statusCode, successful, response, callback) {
     } else {
         callback(statusCode, response);
     }
-};
+}
 
 module.exports = {
 

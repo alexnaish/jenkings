@@ -63,7 +63,7 @@ module.exports = {
         });
     },
     delete: function (query, callback) {
-        JobRun.remove(query, function (err, response) {
+        JobRun.remove(query, function (err) {
             if (err) {
                 callback(500, err);
             } else {
