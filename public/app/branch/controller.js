@@ -1,5 +1,5 @@
 (function (component) {
-    component.controller("BranchController", ['$routeParams', 'StatsService', 'projects', 'jobs', '$scope', 'SocketIO', function ($routeParams, StatsService, projects, jobs, $scope, SocketIO) {
+    component.controller('BranchController', ['$routeParams', 'StatsService', 'projects', 'jobs', '$scope', 'SocketIO', function ($routeParams, StatsService, projects, jobs, $scope, SocketIO) {
         $scope.trackingBranch = $routeParams.branchName || 'master';
         $scope.history = {};
         $scope.displayMode = 'table';
@@ -13,18 +13,18 @@
         $scope.setDisplayMode = function (value) {
 
             switch (value) {
-                case 'desktop':
-                    $scope.displayMode = 'desktop';
-                    break;
-                case 'list':
-                    $scope.displayMode = 'list';
-                    break;
-                case 'table':
-                    $scope.displayMode = 'table';
-                    break;
-                default:
-                    $scope.displayMode = 'table';
-                    break;
+            case 'desktop':
+                $scope.displayMode = 'desktop';
+                break;
+            case 'list':
+                $scope.displayMode = 'list';
+                break;
+            case 'table':
+                $scope.displayMode = 'table';
+                break;
+            default:
+                $scope.displayMode = 'table';
+                break;
             }
         };
 
@@ -44,7 +44,7 @@
                     array.push(data);
                 });
             }
-        };
+        }
 
         SocketIO.bindTo($scope);
 

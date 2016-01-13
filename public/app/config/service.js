@@ -1,5 +1,5 @@
 (function (component) {
-    component.service("ConfigService", ['$http', function ($http) {
+    component.service('ConfigService', ['$http', function ($http) {
 
         var service = {
             retrieveConfig: function () {
@@ -9,7 +9,7 @@
                             return response.data;
                         },
                         function (httpError) {
-                            throw httpError.status + " : " + httpError.data;
+                            throw httpError.status + ' : ' + httpError.data;
                         });
             }
         };

@@ -1,4 +1,4 @@
 angular.module('latest', [
-  'latest.controller',
-  'latest.config'
+    'latest.controller',
+    'latest.config'
 ]);

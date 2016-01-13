@@ -1,3 +1,3 @@
 angular.module('config', [
-    'config.service',
+    'config.service'
 ]);

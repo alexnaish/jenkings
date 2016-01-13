@@ -1,5 +1,5 @@
 angular.module('locations', [
-  'locations.config',
-  'locations.controller',
-  'locations.service'
+    'locations.config',
+    'locations.controller',
+    'locations.service'
 ]);

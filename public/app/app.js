@@ -4,12 +4,10 @@
             .when('/', {
                 redirectTo: '/latest'
             })
-            .otherwise(
-                {
-                    templateUrl: 'app/error/template.html',
-                    controller: 'ErrorController'
-                }
-            );
+            .otherwise({
+                templateUrl: 'app/error/template.html',
+                controller: 'ErrorController'
+            });
 
         $locationProvider.html5Mode(false);
     }]);

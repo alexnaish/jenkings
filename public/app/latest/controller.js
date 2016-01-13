@@ -1,6 +1,6 @@
 (function (component) {
 
-    component.controller("LatestController", ['$scope', 'jobs', 'SocketIO', function ($scope, jobs, SocketIO) {
+    component.controller('LatestController', ['$scope', 'jobs', 'SocketIO', function ($scope, jobs, SocketIO) {
         $scope.jobruns = jobs.slice(0, 20);
 
         SocketIO.bindTo($scope);

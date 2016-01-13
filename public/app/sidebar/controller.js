@@ -1,5 +1,5 @@
 (function (component) {
-    component.controller("SidebarController", ['$scope', 'BranchService', function ($scope, BranchService) {
+    component.controller('SidebarController', ['$scope', 'BranchService', function ($scope, BranchService) {
         console.log('loaded SidebarController');
 
         $scope.branchSwitcher = {

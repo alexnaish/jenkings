@@ -1,0 +1,5 @@
+env:
+  browser: true
+globals:
+  angular: false
+  io: false

@@ -15,14 +15,14 @@
         var instance = this;
         instance.displayed = true;
 
-        $rootScope.$on('$routeChangeStart', function (e, current, prev) {
+        $rootScope.$on('$routeChangeStart', function () {
             instance.displayed = true;
         });
-        $rootScope.$on('$routeChangeSuccess', function (e, curr, prev) {
+        $rootScope.$on('$routeChangeSuccess', function () {
             instance.displayed = false;
         });
 
-        $rootScope.$on('$routeChangeError', function (e, curr, prev, error) {
+        $rootScope.$on('$routeChangeError', function () {
             instance.displayed = false;
         });
     });

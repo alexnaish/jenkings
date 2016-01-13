@@ -1,6 +1,6 @@
 (function (component) {
 
-    component.controller("JobsController", ['$scope', 'job', function ($scope, job) {
+    component.controller('JobsController', ['$scope', 'job', function ($scope, job) {
         $scope.job = job;
 
         $scope.data = [
@@ -20,7 +20,7 @@
                 { id: 'pass-count', y: 'passCount', label: 'Passes', axis: 'y', color: '69af76', type: 'column' },
                 { id: 'fail-count', y: 'failCount', label: 'Failures', axis: 'y', color: 'de7171', type: 'column' }
             ],
-            stacks: [{ axis: "y", series: ['pass-count', 'fail-count'] }],
+            stacks: [{ axis: 'y', series: ['pass-count', 'fail-count'] }],
             transition: { ease: 'sin', duration: 750, delay: 50 },
             drawLegend: false,
             tooltip: {

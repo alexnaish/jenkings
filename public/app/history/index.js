@@ -1,5 +1,5 @@
 angular.module('history', [
-  'history.config',
-  'history.controller',
-  'history.service'
+    'history.config',
+    'history.controller',
+    'history.service'
 ]);

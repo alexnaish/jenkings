@@ -1,5 +1,5 @@
 (function (component) {
-    component.service("HistoryService", ['$http', function ($http) {
+    component.service('HistoryService', ['$http', function ($http) {
 
         var service = {
             fetchJobNames: function () {
@@ -9,7 +9,7 @@
                             return response.data;
                         },
                         function (httpError) {
-                            throw httpError.status + " : " + httpError.data;
+                            throw httpError.status + ' : ' + httpError.data;
                         });
             },
             listBuildsByName: function (jobName) {
@@ -19,7 +19,7 @@
                             return response.data;
                         },
                         function (httpError) {
-                            throw httpError.status + " : " + httpError.data;
+                            throw httpError.status + ' : ' + httpError.data;
                         });
             }
         };

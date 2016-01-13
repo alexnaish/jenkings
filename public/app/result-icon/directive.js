@@ -13,7 +13,7 @@
         };
     });
 
-    component.controller('ResultIconController', ['$scope', function ($scope) {
+    component.controller('ResultIconController', ['$scope', function () {
 
         var colourMap = {
             success: 'green',

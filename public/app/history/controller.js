@@ -1,5 +1,5 @@
 (function (component) {
-    component.controller("HistoryController", ['$scope', 'HistoryService', '$routeParams', 'config', function ($scope, HistoryService, $routeParams, config) {
+    component.controller('HistoryController', ['$scope', 'HistoryService', function ($scope, HistoryService) {
         console.log('loaded HistoryController');
 
         $scope.builds = [];
@@ -9,10 +9,10 @@
         });
         
         $scope.generateStats = function () {
-            HistoryService.listBuildsByName($scope.chosenJob).then(function (builds) {
+            HistoryService.listBuildsByName($scope.chosenJob).then(function () {
                 $scope.chartGenerated = true;
                 $scope.builds = [300, 500, 100];
-                $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+                $scope.labels = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
             });
         };
     }]);

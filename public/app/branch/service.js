@@ -1,9 +1,9 @@
 (function (component) {
 
-    component.service("BranchService", ['$http', function ($http) {
+    component.service('BranchService', ['$http', function ($http) {
 
         var service = {
-            listBranches: function (branch) {
+            listBranches: function () {
                 return $http.get('/api/branches')
                     .then(
                         function (response) {

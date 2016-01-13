@@ -1,5 +1,5 @@
 (function (component) {
-    component.service("LocationService", ['$http', function ($http) {
+    component.service('LocationService', ['$http', function ($http) {
 
         var service = {
             listAllLocations: function () {

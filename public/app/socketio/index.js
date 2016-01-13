@@ -1,4 +1,4 @@
 angular.module('socketio', [
-  'socketio.service',
-  'config'
+    'socketio.service',
+    'config'
 ]);
