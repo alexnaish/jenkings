@@ -53,6 +53,19 @@
                                 message: httpError.data.error
                             };
                         });
+            },
+            delete: function (data) {
+                return $http.delete('/api/locations/' + data._id)
+                    .then(
+                        function (response) {
+                            return response.data;
+                        },
+                        function (httpError) {
+                            throw {
+                                status: httpError.status,
+                                message: httpError.data.error
+                            };
+                        });
             }
         };
 

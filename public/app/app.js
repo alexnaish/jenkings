@@ -26,5 +26,5 @@
     });
 
 })(angular.module('Jenkings', [
-    'loading', 'error', 'config', 'sidebar', 'latest', 'branch', 'locations', 'jobs', 'stats', 'history', 'dropdown-menu', 'result-icon', 'notification', 'ngAnimate', 'socketio', 'ng3-charts', 'ngMessages'
+    'loading', 'error', 'config', 'sidebar', 'latest', 'branch', 'locations', 'jobs', 'stats', 'history', 'dropdown-menu', 'result-icon', 'notification', 'ngAnimate', 'socketio', 'ng3-charts', 'ngMessages', 'oitozero.ngSweetAlert'
 ]));

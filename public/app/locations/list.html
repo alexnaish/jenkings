@@ -18,6 +18,7 @@
             <td>{{::location.urlTemplate}}</td>
             <td class="options">
                 <a class="btn amber options" ng-href="/#/locations/{{location._id}}"><i class="fa fa-pencil"></i> Edit</a>
+                <a class="btn red options" ng-click="delete(location)"><i class="fa fa-trash"></i> Delete</a>
             </td>
         </tr>
     </tbody>
