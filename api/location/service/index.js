@@ -33,7 +33,7 @@ module.exports = {
             }
 
             delete payload._id;
-            LocationModel.update(query, payload, function () {
+            LocationModel.update(query, payload, function (err) {
                 if (err) {
                     return callback({
                         status: 500,

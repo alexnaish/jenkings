@@ -1,12 +1,16 @@
+'use strict';
+
 var helpers = require('../../../test/functions'),
     app = require('../../index'),
     LocationModel = require('../../location/model'),
     expect = require('chai').expect,
-    request = require('supertest')(app);
+    request = require('supertest')(app),
+    sinon = require('sinon');
 
 describe('Locations API', function () {
+    let sandbox;
 
-    var assets = [
+    const assets = [
         {
             name: 'test-location-1',
             urlTemplate: 'test.com/123/{buildId}'
@@ -21,7 +25,7 @@ describe('Locations API', function () {
         }
     ];
 
-    var insertedAssets;
+    let insertedAssets;
 
     before(function (done) {
         helpers.insertAssets(LocationModel, assets, function (err, results) {
@@ -35,6 +39,10 @@ describe('Locations API', function () {
             done();
         });
     });
+
+    beforeEach( () => sandbox = sinon.sandbox.create() );
+
+    afterEach( () => sandbox.restore() );
 
     describe('FIND', function () {
 
@@ -54,7 +62,7 @@ describe('Locations API', function () {
         });
         
         it('/api/locations/:id should return the location object matching that id', function (done) {
-            var testAsset = insertedAssets[0];
+            const testAsset = insertedAssets[0];
             request.get('/api/locations/'+testAsset._id)
                 .expect('Content-Type', /json/)
                 .expect(200)
@@ -99,10 +107,10 @@ describe('Locations API', function () {
     
     describe('UPDATE', function () {
        
-       it('/api/locations/:id should return a 200 if the location was successfully updated and should return the payload', function (done) {
+        it('/api/locations/:id should return a 200 if the location was successfully updated and should return the payload', function (done) {
             
-            var testAsset = insertedAssets[0];
-            var newName = 'SomeTestingName';
+            const testAsset = insertedAssets[0];
+            const newName = 'SomeTestingName';
             
             testAsset.name = newName; 
             
@@ -120,8 +128,33 @@ describe('Locations API', function () {
                     done();
                 });
         });
+
+        it('/api/locations/:id should return a 400 if the id is invalid', function (done) {
+            request.put('/api/locations/someKindOfInvalidId')
+                .expect('Content-Type', /json/)
+                .expect(400)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    expect(res.body).to.have.property('error');
+                    done();
+                });
+        });
+
+
+        it('/api/locations/:id should return a 500 if there is an error', function (done) {
+            sandbox.stub(LocationModel, 'update').yields(true);
+
+            request.put(`/api/locations/${insertedAssets[0]._id}`)
+                .send({})
+                .expect('Content-Type', /json/)
+                .expect(500)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    expect(res.body).to.have.property('error');
+                    done();
+                });
+        });
         
     });
-
 
 });
