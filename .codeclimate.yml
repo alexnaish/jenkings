@@ -4,6 +4,9 @@ languages:
   JavaScript: true
   PHP: false
   Python: false
+engines:
+  eslint:
+    enabled: true
 exclude_paths:
  - "**/*.spec.js"
  - "test/**/*"

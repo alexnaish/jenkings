@@ -5,7 +5,8 @@
   "main": "api/index.js",
   "scripts": {
     "start": "node api/index.js",
-    "test": "gulp test"
+    "test": "gulp test",
+    "lint": "eslint eslint public/app api"
   },
   "author": "Alex Naish",
   "dependencies": {
