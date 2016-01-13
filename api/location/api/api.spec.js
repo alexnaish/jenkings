@@ -9,9 +9,9 @@ var helpers = require('../../../test/functions'),
     sinon = require('sinon');
 
 describe('Locations API', function () {
-    let sandbox;
+    var sandbox;
 
-    const assets = [
+    var assets = [
         {
             name: 'test-location-1',
             urlTemplate: 'test.com/123/{buildId}'
@@ -26,7 +26,7 @@ describe('Locations API', function () {
         }
     ];
 
-    let insertedAssets;
+    var insertedAssets;
 
     before(function (done) {
         helpers.insertAssets(LocationModel, assets, function (err, results) {
@@ -41,9 +41,13 @@ describe('Locations API', function () {
         });
     });
 
-    beforeEach( () => sandbox = sinon.sandbox.create() );
+    beforeEach(function () {
+        sandbox = sinon.sandbox.create();
+    });
 
-    afterEach( () => sandbox.restore() );
+    afterEach(function () {
+        sandbox.restore();
+    });
 
     describe('FIND ALL', function () {
 
@@ -79,7 +83,7 @@ describe('Locations API', function () {
     describe('FIND ONE', function () {
 
         it('/api/locations/:id should return the location object matching that id', function (done) {
-            const testAsset = insertedAssets[0];
+            var testAsset = insertedAssets[0];
             request.get('/api/locations/'+testAsset._id)
                 .expect('Content-Type', /json/)
                 .expect(200)
@@ -119,7 +123,7 @@ describe('Locations API', function () {
         it('/api/locations/:id should return a 500 if there is an error', function (done) {
             sandbox.stub(LocationService, 'findOne').yields(true);
 
-            request.get(`/api/locations/${insertedAssets[0]._id}`)
+            request.get('/api/locations/' + insertedAssets[0]._id)
                 .expect('Content-Type', /json/)
                 .expect(500)
                 .end(function (err, res) {
@@ -135,7 +139,7 @@ describe('Locations API', function () {
 
         it('/api/locations should return a 201 if the location was successfully created and should return the payload', function (done) {
 
-            const testAsset = {
+            var testAsset = {
                 name: 'new-location-1',
                 urlTemplate: 'new.com/123/{buildId}'
             };
@@ -174,8 +178,8 @@ describe('Locations API', function () {
 
         it('/api/locations/:id should return a 200 if the location was successfully updated and should return the payload', function (done) {
 
-            const testAsset = insertedAssets[0];
-            const newName = 'SomeTestingName';
+            var testAsset = insertedAssets[0];
+            var newName = 'SomeTestingName';
 
             testAsset.name = newName;
 
@@ -209,7 +213,7 @@ describe('Locations API', function () {
         it('/api/locations/:id should return a 500 if there is an error', function (done) {
             sandbox.stub(LocationService, 'update').yields(true);
 
-            request.put(`/api/locations/${insertedAssets[0]._id}`)
+            request.put('/api/locations/' + insertedAssets[0]._id)
                 .send({})
                 .expect('Content-Type', /json/)
                 .expect(500)
@@ -225,8 +229,7 @@ describe('Locations API', function () {
     describe('DELETE', function () {
 
         it('/api/locations/:id should return a 204 if the location was successfully deleted', function (done) {
-            console.log(`/api/locations/${insertedAssets[0]._id}`);
-            request.delete(`/api/locations/${insertedAssets[0]._id}`)
+            request.delete('/api/locations/' + insertedAssets[0]._id)
                 .expect('Content-Type', /json/)
                 .expect(204)
                 .end(function(err, res) {
@@ -249,7 +252,7 @@ describe('Locations API', function () {
         it('/api/locations/:id should return a 500 if there is an error', function (done) {
             sandbox.stub(LocationService, 'delete').yields(true);
 
-            request.delete(`/api/locations/${insertedAssets[0]._id}`)
+            request.delete('/api/locations/' + insertedAssets[0]._id)
                 .expect('Content-Type', /json/)
                 .expect(500)
                 .end(function (err, res) {
