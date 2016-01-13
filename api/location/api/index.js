@@ -44,7 +44,7 @@ module.exports = {
         LocationService.create(req.body, function (err, result) {
             var status = 201, body = result;
             if (err) {
-                status = 500;
+                status = 400;
                 body = {
                     error: err.message || 'Something blew up.'
                 };
@@ -69,14 +69,16 @@ module.exports = {
     },
     
     deleteLocation: function (req, res) {
-        LocationService.delete(req.params.id, function (err, result) {
-            var status = 204, body = result;
+        LocationService.delete(req.params.id, function (err) {
+            var status = 204, body = {};
+
             if (err) {
                 status = 500;
                 body = {
                     error: err.message || 'Something blew up.'
                 };
             }
+
             res.status(status).json(body);
         });
     }

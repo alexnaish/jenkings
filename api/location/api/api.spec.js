@@ -3,6 +3,7 @@
 var helpers = require('../../../test/functions'),
     app = require('../../index'),
     LocationModel = require('../../location/model'),
+    LocationService = require('../../location/service'),
     expect = require('chai').expect,
     request = require('supertest')(app),
     sinon = require('sinon');
@@ -100,31 +101,66 @@ describe('Locations API', function () {
         });
         
     });
-    
+
     describe('CREATE', function(){
-        
+
+        it('/api/locations should return a 201 if the location was successfully created and should return the payload', function (done) {
+
+            const testAsset = {
+                name: 'new-location-1',
+                urlTemplate: 'new.com/123/{buildId}'
+            };
+
+            request.post('/api/locations')
+                .send(testAsset)
+                .expect('Content-Type', /json/)
+                .expect(201)
+                .end(function (err, res) {
+                    if (err) return done(err);
+
+                    expect(res.body).to.have.property('_id');
+                    expect(res.body).to.have.property('dateCreated');
+                    expect(res.body).to.have.property('name', testAsset.name);
+                    expect(res.body).to.have.property('urlTemplate', testAsset.urlTemplate);
+
+                    done();
+                });
+        });
+
+        it('/api/locations/:id should return a 400 if the location is invalid', function (done) {
+            request.post('/api/locations')
+                .send({})
+                .expect('Content-Type', /json/)
+                .expect(400)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    expect(res.body).to.have.property('error');
+                    done();
+                });
+        });
+
     });
-    
+
     describe('UPDATE', function () {
-       
+
         it('/api/locations/:id should return a 200 if the location was successfully updated and should return the payload', function (done) {
-            
+
             const testAsset = insertedAssets[0];
             const newName = 'SomeTestingName';
-            
-            testAsset.name = newName; 
-            
+
+            testAsset.name = newName;
+
             request.put('/api/locations/'+testAsset._id)
                 .send(testAsset)
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .end(function (err, res) {
                     if (err) return done(err);
-                    
+
                     expect(res.body).to.have.property('name', newName);
                     expect(res.body).to.have.property('urlTemplate', testAsset.urlTemplate);
-                    
-                                        
+
+
                     done();
                 });
         });
@@ -142,7 +178,7 @@ describe('Locations API', function () {
 
 
         it('/api/locations/:id should return a 500 if there is an error', function (done) {
-            sandbox.stub(LocationModel, 'update').yields(true);
+            sandbox.stub(LocationService, 'update').yields(true);
 
             request.put(`/api/locations/${insertedAssets[0]._id}`)
                 .send({})
@@ -154,7 +190,46 @@ describe('Locations API', function () {
                     done();
                 });
         });
-        
+
+    });
+
+    describe('DELETE', function () {
+
+        it('/api/locations/:id should return a 204 if the location was successfully deleted', function (done) {
+            console.log(`/api/locations/${insertedAssets[0]._id}`);
+            request.delete(`/api/locations/${insertedAssets[0]._id}`)
+                .expect('Content-Type', /json/)
+                .expect(204)
+                .end(function(err, res) {
+                    done();
+                });
+        });
+
+        it('/api/locations/:id should return a 400 if the id is invalid', function (done) {
+            request.delete('/api/locations/someKindOfInvalidId')
+                .expect('Content-Type', /json/)
+                .expect(400)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    expect(res.body).to.have.property('error');
+                    done();
+                });
+        });
+
+
+        it('/api/locations/:id should return a 500 if there is an error', function (done) {
+            sandbox.stub(LocationService, 'delete').yields(true);
+
+            request.delete(`/api/locations/${insertedAssets[0]._id}`)
+                .expect('Content-Type', /json/)
+                .expect(500)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    expect(res.body).to.have.property('error');
+                    done();
+                });
+        });
+
     });
 
 });
