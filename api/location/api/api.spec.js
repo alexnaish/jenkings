@@ -4,7 +4,7 @@ var helpers = require('../../../test/functions'),
     expect = require('chai').expect,
     request = require('supertest')(app);
 
-describe.only('Locations API', function () {
+describe('Locations API', function () {
 
     var assets = [
         {

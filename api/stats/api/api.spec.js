@@ -25,7 +25,7 @@ describe('Stats API', function () {
             branch: 'master'
         }, {
             jobName: 'test-run-1',
-            buildId: '124',
+            buildId: '125',
             project: 'test2',
             result: 'FAILURE',
             branch: 'test-branch'
