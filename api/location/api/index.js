@@ -23,13 +23,13 @@ module.exports = {
 
         LocationService.findOne(query, function (err, result) {
             var status = 200, body = result;
+
             if (err) {
                 status = 500;
                 body = {
                     error: err.message || 'Something blew up.'
                 };
-            }
-            if (!result) {
+            } else if (!result) {
                 status = 404;
                 body = {
                     error: 'No location found'

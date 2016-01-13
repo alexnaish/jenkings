@@ -45,7 +45,7 @@ describe('Locations API', function () {
 
     afterEach( () => sandbox.restore() );
 
-    describe('FIND', function () {
+    describe('FIND ALL', function () {
 
         it('/api/locations should return an array containing all locations stored', function (done) {
             request.get('/api/locations')
@@ -61,7 +61,23 @@ describe('Locations API', function () {
                     done();
                 });
         });
-        
+
+        it('/api/locations should return a 500 if there is an error', function (done) {
+            sandbox.stub(LocationService, 'find').yields(true);
+
+            request.get('/api/locations')
+                .expect('Content-Type', /json/)
+                .expect(500)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    expect(res.body).to.have.property('error');
+                    done();
+                });
+        });
+    });
+
+    describe('FIND ONE', function () {
+
         it('/api/locations/:id should return the location object matching that id', function (done) {
             const testAsset = insertedAssets[0];
             request.get('/api/locations/'+testAsset._id)
@@ -96,6 +112,19 @@ describe('Locations API', function () {
                 .end(function (err, res) {
                     if (err) return done(err);
                     expect(res.body).to.have.property('error');                    
+                    done();
+                });
+        });
+
+        it('/api/locations/:id should return a 500 if there is an error', function (done) {
+            sandbox.stub(LocationService, 'findOne').yields(true);
+
+            request.get(`/api/locations/${insertedAssets[0]._id}`)
+                .expect('Content-Type', /json/)
+                .expect(500)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    expect(res.body).to.have.property('error');
                     done();
                 });
         });
