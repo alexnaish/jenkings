@@ -23,7 +23,12 @@ module.exports = {
                     "failCount": 11,
                     "skipCount": 0,
                     "totalCount": 53,
-                    "urlName": "testReport"
+                    "urlName": "testReport",
+                    buildsByBranchName: {
+                      'origin/master': {},
+                      'origin/release_1.0.0': {},
+                      'origin/NTI-850-APIPermissions': {}
+                  }
             },
                 {},
                 {}

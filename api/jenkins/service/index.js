@@ -34,7 +34,8 @@ module.exports = {
                             delete payload.builtOn;
                             payload.artifacts = _.pluck(payload.artifacts, 'relativePath');
                             if (payload.actions && payload.actions.length && payload.actions.length > 7) {
-                                payload.runInfo = payload.actions[7];
+                                //Fixes issue where buildsByBranchName contains a branch with a "." - Mongo doesn't allow keys with $ or . in them...
+                                payload.runInfo = JSON.parse(JSON.stringify(payload.actions[7]).replace(/\./g, '_'));
                             } else {
                                 payload.runInfo = {};
                             }

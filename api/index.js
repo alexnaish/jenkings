@@ -10,8 +10,15 @@ module.exports = app;
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
+db.on('connected', function () {
+  console.log('database connection connected');
+});
 db.once('open', function () {
     console.log('database connection established');
+});
+// When the connection is disconnected
+db.on('disconnected', function () {
+  console.log('database connection disconnected');
 });
 mongoose.connect('mongodb://' + config.mongo.user + ':' + config.mongo.pass + '@' + config.mongo.host + '/' + config.mongo.db);
 

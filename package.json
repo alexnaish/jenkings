@@ -2,11 +2,11 @@
   "name": "jenkings",
   "version": "0.0.0",
   "description": "NowTV Jenkins Branch Monitor",
-  "main": "api/index.js",
+  "main": "api/server.js",
   "scripts": {
-    "start": "node api/index.js",
+    "start": "node api/server.js",
     "test": "gulp test",
-    "lint": "eslint eslint public/app api"
+    "lint": "eslint public/app/**/*.js api/**/*.js"
   },
   "author": "Alex Naish",
   "dependencies": {
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "chai": "^2.3.0",
+    "eslint": "^2.2.0",
     "gulp": "^3.8.11",
     "gulp-istanbul": "~0.9.0",
     "gulp-mocha": "^2.1.0",
