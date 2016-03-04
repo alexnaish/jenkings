@@ -42,12 +42,12 @@
             });
         }
 
-        $scope.$watch('ctrl.job.status', function(v) {
-      	   console.log('inside my watch', v);
-           setColourAndIcon(v);
+        $scope.$watch('ctrl.job.status', function(newValue) {
+      	   console.log('inside my watch', newValue);
+           setColourAndIcon(newValue);
         });
 
-        setColourAndIcon(result);
+        setColourAndIcon(vm.job.status);
 
         function setColourAndIcon(jobStatus) {
           jobStatus = jobStatus.toLowerCase()
