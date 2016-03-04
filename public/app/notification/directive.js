@@ -42,9 +42,11 @@
             });
         }
 
-        $scope.$watch('ctrl.job.result', function(newValue) {
-      	   console.log('inside my watch', newValue);
-           setColourAndIcon(newValue);
+        $scope.$watch('ctrl.job.result', function(newValue, oldValue) {
+           console.log('inside my watch', newValue, oldValue);
+           if(newValue && newValue !== oldValue){
+              setColourAndIcon(newValue);
+           }
         });
 
         setColourAndIcon(vm.job.result);
