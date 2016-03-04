@@ -16,7 +16,6 @@
             console.log('job update received', data.jobName, data.buildId, data.result);
             for (var i = 0; i < $scope.jobruns.length; i++) {
                 if ($scope.jobruns[i].jobName === data.jobName && $scope.jobruns[i].buildId === data.buildId) {
-                  console.log('found a match!', $scope.jobruns[i].jobName, $scope.jobruns[i].buildId);
                     $scope.jobruns[i] = data;
                     return;
                 }
