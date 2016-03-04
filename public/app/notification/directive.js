@@ -54,6 +54,6 @@
           vm.colour = colourMap[jobStatus] || 'red';
           vm.icon = iconMap[jobStatus] || 'fa-times';
         }
-    });
+    }]);
 
 })(angular.module('notification', []));
