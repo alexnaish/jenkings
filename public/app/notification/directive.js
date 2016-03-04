@@ -16,7 +16,7 @@
         };
     });
 
-    component.controller('NotificationController', function (StatsService) {
+    component.controller('NotificationController', ['StatsService', '$scope', function (StatsService, $scope) {
         // Me === :(
         var vm = this;
 
