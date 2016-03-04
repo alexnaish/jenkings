@@ -17,6 +17,8 @@
     });
 
     component.controller('NotificationController', function (StatsService) {
+        // Me === :(
+        var vm = this;
 
         var colourMap = {
             success: 'green',
@@ -34,16 +36,24 @@
             aborted: 'fa-exclamation'
         };
 
-        var result = this.job.result.toLowerCase() || 'red';
-
-        if(this.fetchHistory && !this.job.history) {
-            StatsService.getHistoricalStats(this.job[this.idKey]).then(function(data){
-                this.job.history = data;
-            }.bind(this));
+        if(vm.fetchHistory && !vm.job.history) {
+            StatsService.getHistoricalStats(vm.job[this.idKey]).then(function(data){
+                vm.job.history = data;
+            });
         }
 
-        this.colour = colourMap[result];
-        this.icon = iconMap[result] || 'fa-times';
+        $scope.$watch('ctrl.job.status', function(v) {
+      	   console.log('inside my watch', v);
+           setColourAndIcon(v);
+        });
+
+        setColourAndIcon(result);
+
+        function setColourAndIcon(jobStatus) {
+          jobStatus = jobStatus.toLowerCase()
+          vm.colour = colourMap[jobStatus] || 'red';
+          vm.icon = iconMap[jobStatus] || 'fa-times';
+        }
     });
 
 })(angular.module('notification', []));
