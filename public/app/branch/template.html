@@ -26,7 +26,7 @@
 
 
 <div class="notification-list" ng-if="displayMode === 'desktop' || displayMode === 'list'" ng-class="{'desktop-mode': displayMode === 'desktop'}">
-        <notification ng-repeat="job in trackedJobs | orderBy:'jobName' track by job.id" job="job" id-key="id" fetch-history="true"></notification>
+    <notification ng-repeat="job in trackedJobs | orderBy:'jobName' track by job.id" job="job" id-key="id" fetch-history="true"></notification>
     <div class="fade" ng-if="trackedJobs.length == 0">
         <div>No results found...</div>
     </div>
