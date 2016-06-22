@@ -16,6 +16,7 @@
                     </div>
                     <div class="body">
                         <a class="header" ng-href="/#/job/{{job.id}}">{{job.jobName}}{{ (job.shard ? "-"+job.shard : "") }}  ({{job.buildId}})</a>
+                        <job-history job="job" id-key="id"></job-history>
                     </div>
                 </li>
             </ul>
