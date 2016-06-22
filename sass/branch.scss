@@ -28,7 +28,7 @@
 		border: 1px solid rgba(0,0,0,0.1);
 		color: #fff;
 		margin: 10px 0;
-		height: 60px;
+		height: 80px;
 
 		.icon {
 			display: flex;
@@ -42,7 +42,7 @@
 
 		.body {
 			display: flex;
-			justify-content: center;
+			flex-direction: column;
 			align-items: center;
 			flex-grow: 999;
 			padding: 10px;
