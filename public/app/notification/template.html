@@ -29,11 +29,6 @@
 				</li>
 			</ul>
 		</div>
-		<ul class="history">
-			<li ng-repeat="run in ctrl.job.history | orderBy: 'dateCreated'" class="run"
-					data-title="{{run.dateCreated | date: 'medium'}}" data-title-position="top"
-					ng-class="{'green': run.result === 'SUCCESS', 'red': run.result === 'UNSTABLE' || run.result === 'FAILURE', 'grey': run.result === 'ABORTED'}">
-			</li>
-		</ul>
+		<job-history job="ctrl.job" id-key="{{ ctrl.idKey }}"></job-history>
 	</div>
 </div>

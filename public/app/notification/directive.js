@@ -9,8 +9,7 @@
             replace: true,
             scope: {
                 job: '=',
-                idKey: '@',
-                fetchHistory: '@'
+                idKey: '@'
             },
             templateUrl: 'app/notification/template.html'
         };
@@ -35,12 +34,6 @@
             pending: 'fa-cog fa-spin',
             aborted: 'fa-exclamation'
         };
-
-        if(vm.fetchHistory && !vm.job.history) {
-            StatsService.getHistoricalStats(vm.job[this.idKey]).then(function(data){
-                vm.job.history = data;
-            });
-        }
 
         $scope.$watch('ctrl.job.result', function(newValue, oldValue) {
            console.log('inside my watch', newValue, oldValue);
